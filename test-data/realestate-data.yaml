@@ -1,0 +1,147 @@
+users:
+  - uid: e18020b7-3e7b-4729-9cca-601f85689d48
+    accounts:
+      - account_id: 64600b92-a4c5-4be5-8ec5-00046b67bf65
+        account_type: realestate
+        currency: USD
+        value: 850000
+        market_value: 850000
+        purchase_value: 850000
+        purchase_date: '2019-01-01'
+        name: Condominium Florida
+        description: 2 apartment
+        units: 1
+        occupancy: 1.0
+        monthly_income: 1230
+        monthly_income_currency: USD
+        property_type: single_family
+        net_income: 410
+        image: 64600b92-a4c5-4be5-8ec5-00046b67bf65.jpg
+        loan_id: c71c9184-cfce-4049-a514-f454c291199a
+        property_info:
+          year_built: 1977
+          sqft_lot: 5662
+          sqft: 1320
+          beds: 2.0
+          baths: 3
+        address:
+          neighborhood: Shhonat Haim
+          county: Queens County
+        expenses:
+          management: 500
+          property_tax: 120
+          mortgages: 200
+          total: 820
+
+      - account_id: bbb6f095-2adc-4435-87f5-573929f113d7
+        account_type: realestate
+        currency: USD
+        value: 1350000
+        market_value: 1350000
+        purchase_value: 1000000
+        purchase_date: '2012-05-09'
+        name: Office Spece NJ
+        description: 2 floors complex
+        units: 2
+        occupancy: 1.0
+        monthly_income: 8750
+        monthly_income_currency: USD
+        net_income: 5930
+        property_type: business
+        image: bbb6f095-2adc-4435-87f5-573929f113d7.jpg
+        expenses:
+          admin: 500
+          property_tax: 120
+          mortgages: 2200
+          total: 2820
+
+      - account_id: c71c9184-cfce-4049-a514-f454c291199a
+        account_holder: Bill Gates
+        account_mask: xxxx2334
+        account_subtype: mortgage
+        account_type: loan
+        available_credit: 200
+        available_credit_currency: USD
+        cash: 0
+        created_at: 1579686067
+        currency: USD
+        current_weight: 0.5
+        due_date: '2012-01-25'
+        interest:
+          rate_type: fixed
+        rate: 0.023
+        term: P10Y
+        last_payment: 10000
+        last_payment_date: '2013-01-25'
+        last_update_at: 1579766949
+        loan_frequency: monthly
+        loan_original_amount: 250000
+        loan_origination_date: '2013-01-22'
+        loan_principal_balance: 150000
+        loan_recurring_payment: 200
+        minimum_amount_due: 200
+        name: Some mortgage
+        value: 150000
+
+    holdings:
+      - holding_id: 4a906d4b-8c88-46ea-bbe7-5e5bca08bd0d
+        account_id: 64600b92-a4c5-4be5-8ec5-00046b67bf65
+        name: Condominium Florida 1
+        tenant: Shaoli
+        monthly_rent: 1230
+        monthly_rent_currency: USD
+        lease_start: '2019-01-12'
+        lease_end: '2020-01-09'
+        holding_status: active
+      - holding_id: 0ff64f87-9ec7-4e44-9f1b-8e2d7c9b7d16
+        account_id: 64600b92-a4c5-4be5-8ec5-00046b67bf65
+        name: Condominium Florida 2
+        tenant: Yaffa
+        monthly_rent: 1230
+        monthly_rent_currency: USD
+        lease_start: '2019-05-09'
+        lease_end: '2020-05-09'
+        holding_status: active
+      - holding_id: af0a649c-a4e7-4e12-a18e-6b47030a170c
+        account_id: 64600b92-a4c5-4be5-8ec5-00046b67bf65
+        name: Condominium Florida 2
+        tenant: Shaoli
+        monthly_rent: 1230
+        monthly_rent_currency: USD
+        lease_start: '2012-05-09'
+        lease_end: '2012-05-09'
+        holding_status: expired
+
+
+#      - account_id: 4606cdfe-aa52-4fda-826e-29d13aab8963
+#        account_type: crypto
+#        currency: USD
+#        name: 'my private wallet'
+#        description: Bitcoin (BTC)
+#        symbol: BTC
+#        account_subtype: online_wallet
+#        transactions:
+#            - transaction_id: 091bb231-3725-4b62-9fa8-d341cd3038fe
+#              quantity: 1.2
+#              purchase_date: 2017-06-12
+#              cost: 2656.77
+#              type: buy
+#            - transaction_id: ab919b90-b5ec-448b-8294-e80add8501e6
+#              quantity: 0.002
+#              cost: 9076.475397
+#              purchase_date: 2019-06-18
+#              type: buy
+#
+#      - account_id: ae44b9c3-7b79-4e73-a404-4eea8536618a
+#        account_type: crypto
+#        currency: USD
+#        name: 'coinbase'
+#        description: Bitcoin (BTC)
+#        symbol: BTC
+#        account_subtype: exchange
+#        transactions:
+#          - transaction_id: 18243940-6195-4f46-8cc0-82213fbec711
+#            quantity: 0.0007
+#            cost: 7311.842628
+#            purchase_date: 2020-01-05
+#            type: buy

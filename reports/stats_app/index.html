@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filter active users</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+
+    <style>
+        .wrapper {
+            padding: 5rem;
+            /*height: 100vh;*/
+            /*width: 100vw;*/
+        }
+        .b-table .table-wrapper.has-sticky-header {
+            height: 800px;
+        }
+
+        .has-bottom-margin {
+            margin-bottom: 5rem!important;
+        }
+    </style>
+
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+
+<script src="https://unpkg.com/vue"></script>
+<!-- Full bundle -->
+<script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+<script>
+    // const fullData = import('./users_stats.json')
+    let app = null
+
+    document.addEventListener('DOMContentLoaded', function () {
+        app = new Vue(
+          {
+              el: '#app',
+
+              template: `<div class="wrapper">
+                            <b-field class="has-bottom-margin" grouped group-multiline>
+                              <b-field label="Minimum Assets">
+                                  <b-numberinput v-model="minAssets" :min="0" controls-position="compact"></b-numberinput>
+                              </b-field>
+                              <b-field label="Minimum Sessions">
+                                  <b-numberinput v-model="minSessions" :min="0" controls-position="compact"></b-numberinput>
+                              </b-field>
+                              <b-field label="Minimum Asset Types">
+                                  <b-numberinput v-model="minAssetTypes" :min="0" controls-position="compact"></b-numberinput>
+                              </b-field>
+                              <b-field label="Minimum Linked Accounts">
+                                  <b-numberinput v-model="minLinked" :min="0" controls-position="compact"></b-numberinput>
+                              </b-field>
+                              <b-field label="Last Session (Days)">
+                                  <b-numberinput v-model="lastSessionDays" :min="0" controls-position="compact"></b-numberinput>
+                              </b-field>
+                              <b-field label="Age on Last Session (Days)">
+                                  <b-numberinput v-model="ageOnLastSessionDays" :min="0" controls-position="compact"></b-numberinput>
+                              </b-field>
+<!--                              <b-field label="Age From Session">-->
+<!--                                  <b-switch v-model="ageFromSession">-->
+<!--                                      {{ ageFromSession }}-->
+<!--                                  </b-switch>-->
+<!--                              </b-field>-->
+                            </b-field>
+
+                            <div class="has-bottom-margin">
+                                <h1 style="font-size: xx-large">Total users: <strong>{{ filteredData.length }}/{{allUsers.length}}</strong></h1>
+                                Date for: {{reportDate}},
+                            </div>
+
+                            <b-table :data="filteredData" :columns="columns"
+                            sticky-header sortable></b-table>
+                        </div>`,
+
+              data() {
+                  return {
+                      allUsers: +++ALL_USERS+++,
+                      columns: [{"field": "uid", "label": "UID", "sortable": true}, {"field": "name", "label": "Name", "sortable": true}, {"field": "created_at", "label": "Join Date", "sortable": true}, {"field": "user_age", "label": "User Age", "sortable": true}, {"field": "last_update", "label": "Last Account Update", "sortable": true}, {"field": "last_update_age", "label": "Last Account Update Age", "sortable": true}, {"field": "total_active_accounts", "label": "Total Active Accounts", "sortable": true}, {"field": "total_deleted_accounts", "label": "Total Deleted Accounts", "sortable": true}, {"field": "total_closed_accounts", "label": "Total Closed Accounts", "sortable": true}, {"field": "linked_accounts", "label": "Total Linked Accounts", "sortable": true}, {"field": "total_transactions", "label": "Total Events", "sortable": true}, {"field": "total_asset_types", "label": "Total Assets Types", "sortable": true}, {"field": "total_liability_types", "label": "Total Liability Types", "sortable": true}, {"field": "total_account_types", "label": "Total Account Types", "sortable": true}, {"field": "avg_accounts_age", "label": "Avg. Account Age", "sortable": true},
+                          {"field": "total_sessions", "label": "Total Sessions", "sortable": true}, {"field": "last_session", "label": "Last Session", "sortable": true}, {"field": "last_session_age", "label": "Last Session Age", "sortable": true}, {"field": "avg_time_between_sessions", "label": "Avg. Time Between Sessions", "sortable": true},
+                          {"field": "utm_campaign", "label": "utm_campaign", "sortable": true},
+                          {"field": "utm_medium", "label": "utm_medium", "sortable": true},
+                          {"field": "utm_source", "label": "utm_source", "sortable": true},
+                          {"field": "utm_term", "label": "utm_term", "sortable": true},
+                          {"field": "pains", "label": "Join Pains"},
+                          {"field": "assets", "label": "Join Assets"},
+                          ],
+                      reportDate: dayjs('+++REPORT_DATE+++ 12:00', 'YYYY-MM-DD H:M'),
+
+                      minAssets: 4,
+                      minSessions: 0,
+                      minAssetTypes: 2,
+                      minLinked: 0,
+                      lastSessionDays: 30,
+                      ageOnLastSessionDays: 30,
+                      ageFromSession: false,
+                  }
+              },
+
+              computed: {
+                  filteredData() {
+                      return this.allUsers.filter((user) => {
+                          if (user.total_active_accounts < this.minAssets || (!user.total_active_accounts && this.minAssets > 0)){
+                              return false
+                          }
+                          if (user.total_sessions < this.minSessions || (!user.total_sessions && this.minSessions > 0)){
+                              return false
+                          }
+                          if (user.total_account_types < this.minAssetTypes || (!user.total_account_types && this.minAssetTypes > 0)){
+                              return false
+                          }
+                          if (user.linked_accounts < this.minLinked || (!user.linked_accounts && this.minLinked > 0)){
+                              return false
+                          }
+
+                          if (this.lastSessionDays > 0) {
+                              const lastSessionAge = parseInt(user.last_session_age)
+                              if (isNaN(lastSessionAge)) return false
+                              if (lastSessionAge > parseInt(this.lastSessionDays)) return false
+                              // const lastSession = dayjs(user.last_session, 'YYYY-MM-DD')
+                              // if (!lastSession.isValid()) return false
+                              // if (parseInt((this.reportDate - lastSession)/1000/60/60/24) > this.lastSessionDays) return false
+                          }
+
+                          if (this.ageOnLastSessionDays > 0) {
+                              if (isNaN(parseInt(user.user_age)) || isNaN(parseInt(user.last_session_age))) return false
+                              // if (parseInt(user.last_session_age) === 0) return false
+                              if (parseInt(user.user_age) - parseInt(user.last_session_age) < this.ageOnLastSessionDays) return false
+
+                              // if (this.ageFromSession) {
+                              //
+                              // } else {
+                              //     if (isNaN(parseInt(user.user_age)) || isNaN(parseInt(user.last_session_age))) return false
+                              //     if (parseInt(user.last_session_age) === 0) return false
+                              //     if (parseInt(user.user_age) - parseInt(user.last_session_age) < this.ageOnLastSessionDays) return false
+                              // }
+
+                              // let relativeDate = this.reportDate
+                              // if (this.ageFromSession) {
+                              //     relativeDate = dayjs(user.last_session, 'YYYY-MM-DD')
+                              // }
+                              //
+                              // const daysDiff =  (parseInt((relativeDate - dayjs(user.user_age, 'YYYY-MM-DD'))/1000/60/60/24)
+                          }
+
+                          return true
+                      })
+                  }
+              },
+
+              // mounted() {
+              //     fetch("users_stats.json")
+              //     .then(response => response.json())
+              //     .then((json) => {
+              //         this.allUsers = json
+              //     });
+              // }
+          })
+    })
+</script></body>
+</html>

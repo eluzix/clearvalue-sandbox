@@ -1,0 +1,45 @@
+.DS_Store
+node_modules
+/dist
+
+# local env files
+.env.development.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+package-lock.json
+
+# Local Netlify folder
+.netlify
+
+.run
+*.p8
+*.pem
+*.spki
+rsa-*
+
+*.json
+*.jl
+*.csv
+*.png
+*.gif
+
+spiders/
+notebooks/
+.ipynb_checkpoints/
+eluzix/
+dynamodb/
+users-data/

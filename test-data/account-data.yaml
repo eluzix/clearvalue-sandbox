@@ -1,0 +1,17 @@
+users:
+  - uid: e18020b7-3e7b-4729-9cca-601f85689d48
+    accounts:
+      - account_id: 0d8a0bb4-139b-4b86-a6a0-4f93d98d6606
+        account_type: angel
+        currency: USD
+        value: 250000
+        name: Clear Value ltd
+        description: A simple way to control your wealth
+
+      - account_id: 00d013bd-0d38-45be-a244-127cf2bba277
+        account_type: other
+        account_subtype: other
+        currency: USD
+        value: 182000
+        name: Clear Value ltd
+        description: A simple way to control your wealth

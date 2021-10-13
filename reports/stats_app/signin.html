@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in - Filter active users</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+
+    <style>
+        .wrapper {
+            width: 20rem;
+            margin: 7rem auto;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aws-amplify/3.3.14/aws-amplify.min.js" integrity="sha512-uhZkXk1oEsMVoUgoUpkKbujqkVLofj8Vnv5hiQ0J7HjTx7vINt6J7AAovzsax7KRXN7JE9EOYNKqn+JdNBtj2g=="
+        crossorigin="anonymous"></script><!-- Full bundle -->
+<script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+<script>
+    let app = null
+    const Auth = aws_amplify.Auth
+
+    document.addEventListener('DOMContentLoaded', function () {
+        app = new Vue(
+          {
+              el: '#app',
+
+              template: `
+                  <div class="wrapper">
+                  <b-field label="Username">
+                      <b-input v-model="username" size="is-medium"></b-input>
+                  </b-field>
+                  <b-field label="Password">
+                      <b-input type="password"
+                               v-model="password"
+                               size="is-medium"
+                               password-reveal>
+                      </b-input>
+                  </b-field>
+                  <b-button size="is-medium" v-bind:class="{'is-loading': isLoading}" @click="login">Login</b-button>
+                  </div>
+              `,
+
+              data() {
+                  return {
+                      username: null,
+                      password: null,
+                      isLoading: false
+                  }
+              },
+
+              mounted() {
+                  Auth.configure(
+                    {
+                        Auth: {
+                            region: 'us-east-1',
+                            userPoolId: 'us-east-1_26EiaaRne',
+                            userPoolWebClientId: '42j89a9a2re050iqlv8cn1k3p3',
+                            oauth: {
+                                domain: 'https://clearvalue-prod.auth.us-east-1.amazoncognito.com',
+                                scope: ['email', 'profile', 'openid'],
+                                redirectSignIn: 'https://oae48i3rf2.execute-api.us-east-1.amazonaws.com/dev/users-stats',
+                                redirectSignOut: 'https://oae48i3rf2.execute-api.us-east-1.amazonaws.com/dev/users-stats',
+                                responseType: 'code'
+                            },
+                        },
+                    })
+
+
+              },
+
+              methods: {
+                  async login() {
+                      try {
+                          this.isLoading = true;
+
+                          const user = await Auth.signIn(this.username, this.password)
+                          console.log(user)
+                          const token = user.signInUserSession.accessToken.jwtToken
+                          window.location.href=window.location.origin + window.location.pathname + '?t=' + token
+                      } catch (e) {
+                          console.log(e)
+                          this.$buefy.toast.open({
+                                                     duration: 10000,
+                                                     message: `Error login: ${e.message ? e.message : e}`,
+                                                     type: 'is-danger'
+                                                 })
+                      } finally {
+                          this.isLoading = false
+                      }
+                  },
+              },
+          })
+    })
+</script>
+</body>
+</html>

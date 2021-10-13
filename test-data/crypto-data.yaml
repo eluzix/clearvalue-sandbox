@@ -1,0 +1,34 @@
+users:
+  - uid: e18020b7-3e7b-4729-9cca-601f85689d48
+    accounts:
+      - account_id: 487d6a10-eb65-41cf-8802-997cc690920a
+        account_type: crypto
+        currency: USD
+        name: 'coinbase'
+        description: Ethereum
+        symbol: ETH
+        account_subtype: online_wallet
+        quantity: 17.9
+
+      - account_id: e192dadb-b05c-4505-afd2-fa2a0078ff56
+        account_type: crypto
+        currency: USD
+        name: 'coinbase'
+        description: Monero
+        symbol: XMR
+        account_subtype: online_wallet
+        quantity: 32.9
+
+#      - account_id: ae44b9c3-7b79-4e73-a404-4eea8536618a
+#        account_type: crypto
+#        currency: USD
+#        name: 'coinbase'
+#        description: Bitcoin (BTC)
+#        symbol: BTC
+#        account_subtype: exchange
+#        transactions:
+#          - transaction_id: 18243940-6195-4f46-8cc0-82213fbec711
+#            quantity: 0.0007
+#            cost: 7311.842628
+#            purchase_date: 2020-01-05
+#            type: buy
