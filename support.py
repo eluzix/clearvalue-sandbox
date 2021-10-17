@@ -117,7 +117,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = 'a06ebe24-fdc8-47cd-b4e3-bf170e96ca6d'
+    uid = '4184eb1a-810f-4a6c-a3cd-861e736e1930'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -144,20 +144,21 @@ if __name__ == '__main__':
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
         # if account['providerId'] == '9565':
-        # if account['id'] == 11452205:
-        if account['providerName'] == 'Ally Bank':
+        # if account['id'] == 14108440:
+        if account['providerName'] == 'E*TRADE':
         # if account['accountName'] == 'Auto Used Fixed':
         #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
             pprint.pprint(account)
     # # #         print(yodlee.normalize_account(account))
     # # # #     if account['name'].startswith('CAITLIN R KLEIN CAPITAL MGMT'):
     # # # #         print(account)
-    # print('------------ holdings ------------')
-    # holdings = data.get('holdings')
+
+    print('------------ holdings ------------')
+    holdings = data.get('holdings')
     # # total = 0
-    # for h in holdings:
-        # if h.get('accountId') == 10925296:
-        #     pprint.pprint(h)
+    for h in holdings:
+        if h.get('providerAccountId') == 12676761:
+            pprint.pprint(h)
     #         ht = h.get('quantity', 0) * h.get('price', {}).get('amount', 0)
     #         total += ht
     #         # print(f"{h.get('symbol')} == {ht}")
@@ -169,5 +170,6 @@ if __name__ == '__main__':
     # transactions.sort(key=lambda t: t.get('transactionDate', ''))
     # # total = 0
     # for t in transactions:
-    #     # if t.get('accountId') == 13324886:
-    #     pprint.pprint(t['amount']['amount'])
+    #     if t.get('accountId') == 14108440:
+    #         print(t)
+    # #     pprint.pprint(t['amount']['amount'])

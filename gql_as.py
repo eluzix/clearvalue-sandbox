@@ -3,7 +3,7 @@ import pprint
 import boto3
 
 from clearvalue import app_config
-from utils import local_queries
+from utils.local_queries import securities_holdings_data
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
 
     # prod user
-    uid = '41735628-a600-4c43-97bd-8ded54b6c5f9'
+    uid = '4184eb1a-810f-4a6c-a3cd-861e736e1930'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -68,18 +68,18 @@ if __name__ == '__main__':
     #                                                                        'endDate': '2021-03-23'
     #                                                                        })
 
-    ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
-                                                      'startDate': '2021-05-15',
-                                                      'endDate': '2021-06-16'
-                                                      })
-    # ret = local_queries.securities_account_info(uid, 'ebf573f3-537f-47ab-94c0-13b1219971b8', tf={'timeFrame': '30days',
+    # ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
+    #                                                   'startDate': '2021-05-15',
+    #                                                   'endDate': '2021-06-16'
+    #                                                   })
+    # ret = local_queries.securities_account_info(uid, 'bf1fb12e-9028-4f50-8f89-cecb487da4f6', tf={'timeFrame': '30days',
     #                                                                                              'startDate': '2021-07-01',
     #                                                                                              'endDate': '2021-07-31'
     #                                                                                              })
-    # ret = securities_holdings_data('e93c7c4a-9f04-4ce6-96d6-e33612f9f418', tf={'timeFrame': '30days',
-    #                                                                            'startDate': '2016-04-01',
-    #                                                                            'endDate': '2021-03-23'
-    #                                                                            })
+    ret = securities_holdings_data(uid, 'bf1fb12e-9028-4f50-8f89-cecb487da4f6', tf={'timeFrame': '30days',
+                                                                                    'startDate': '2016-04-01',
+                                                                                    'endDate': '2021-03-23'
+                                                                                    })
     # ret = home_info(uid)
 
     # ret = crypto_type_data(uid)
@@ -97,6 +97,7 @@ if __name__ == '__main__':
 
     # ret = cash_type_info(uid, asset_type='cash')
     # for ac in ret['cashTypeInfo']['accounts']:
+    #     print(ac)
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account']['accountMask'], '--', ac['account']['linkStatus'])
     # ret = account_info_query(uid, '0c11959d-3aca-44d4-9d5c-98c15791ea32')
     # ret = account_transactions_query(uid, '0c11959d-3aca-44d4-9d5c-98c15791ea32', tf={'timeFrame': 'custom',

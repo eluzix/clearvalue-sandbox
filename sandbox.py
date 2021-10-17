@@ -32,22 +32,25 @@ def w():
 
 
 if __name__ == '__main__':
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
-
-    uid = 'd67d6dda-4e91-4f5b-a9a5-d33ca5db606c'
-    account_id = 'e9327161-80e5-47c7-a469-9aba4f8584d2'
-
-    table = app_config.resource_name('accounts')
-    sd = datetime.datetime(2021, 7, 31, tzinfo=pytz.utc)
-    ed = datetime.datetime(2021, 8, 9, tzinfo=pytz.utc)
-    start_value = 309857.36
-    end_value = 311723.20191
-    daily_diff = round((end_value-start_value)/9, 2)
-    last_value = start_value
-    while sd <= ed:
-        rd_str = utils.date_to_str(sd)
-        print(f'For {rd_str} value = {last_value}')
-        ddb.update_with_fields(table, DBKeys.hash_sort(account_id, DBKeys.account_time_point(rd_str)), {'value': last_value}, ['value'])
-        last_value += daily_diff
-        sd = sd + datetime.timedelta(days=1)
+    for g,e in zip(utils.grouper([1,2,3,4,5,6,7], 3), utils.grouper(['a', 'b', 'c', 'd', 'e'], 3)):
+        print(g)
+        print(e)
+    # boto3.setup_default_session(profile_name='clearvalue-sls')
+    # app_config.set_stage('prod')
+    #
+    # uid = 'd67d6dda-4e91-4f5b-a9a5-d33ca5db606c'
+    # account_id = 'e9327161-80e5-47c7-a469-9aba4f8584d2'
+    #
+    # table = app_config.resource_name('accounts')
+    # sd = datetime.datetime(2021, 7, 31, tzinfo=pytz.utc)
+    # ed = datetime.datetime(2021, 8, 9, tzinfo=pytz.utc)
+    # start_value = 309857.36
+    # end_value = 311723.20191
+    # daily_diff = round((end_value-start_value)/9, 2)
+    # last_value = start_value
+    # while sd <= ed:
+    #     rd_str = utils.date_to_str(sd)
+    #     print(f'For {rd_str} value = {last_value}')
+    #     ddb.update_with_fields(table, DBKeys.hash_sort(account_id, DBKeys.account_time_point(rd_str)), {'value': last_value}, ['value'])
+    #     last_value += daily_diff
+    #     sd = sd + datetime.timedelta(days=1)
