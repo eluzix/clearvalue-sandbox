@@ -107,7 +107,21 @@ def update_user_account(uid, account_id, item, fields):
                                   item, fields)
 
 # ----------------------------
+def yodlee_transaction_history(uid):
+    # data = lambda_utils.invoke({'uid': uid, 'action': 'tr-history', 'from_date': '2021-09-01'}, 'yodlee.prod_sandbox')
+    # with open('/Users/uzix/Downloads/tr_his.json', 'w') as f:
+    #     f.write(data)
+
+    with open('/Users/uzix/Downloads/tr_his.json', 'r') as f:
+        data = json.load(f)
+        
+    for tr in data:
+        print(tr)
+
 def yodlee_support(uid):
+    # data = lambda_utils.invoke({'uid': uid, 'action': 'history', 'account_id': 12147902, 'from_date': '2021-01-01', 'to_date': '2021-05-01'}, 'yodlee.prod_sandbox')
+
+
     # data = lambda_utils.invoke({'uid': uid, 'norm': False}, 'yodlee.prod_sandbox')
     # with open('/Users/uzix/Downloads/chas.json', 'w') as f:
     #     f.write(data)
@@ -124,7 +138,7 @@ def yodlee_support(uid):
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
         # if account['providerId'] == '9565':
-        if account['id'] == 14158839:
+        if account['id'] == 14108440:
             # if account['providerName'] == 'E*TRADE':
             # if account['accountName'] == 'Auto Used Fixed':
             #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
@@ -145,13 +159,13 @@ def yodlee_support(uid):
     #         print(yodlee._normalize_holding(h))
     # print(f'** done, total value {total} **')
 
-    # print('------------ transactions ------------')
-    # transactions = data.get('transactions')
-    # transactions.sort(key=lambda t: t.get('transactionDate', ''))
-    # # total = 0
-    # for t in transactions:
-    #     if t.get('accountId') == 14108440:
-    #         print(t)
+    print('------------ transactions ------------')
+    transactions = data.get('transactions')
+    transactions.sort(key=lambda t: t.get('transactionDate', ''))
+    # total = 0
+    for t in transactions:
+        if t.get('accountId') == 14108440:
+            print(t)
     # #     pprint.pprint(t['amount']['amount'])
 
 # ----------------------------
@@ -173,7 +187,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '8370938b-af29-4a95-aafd-563ea250dd48'
+    uid = '7a6be97d-263f-43c5-9074-c224aa29fed1'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -181,14 +195,12 @@ if __name__ == '__main__':
     # eluzix
     # uid = '2bb40134-1a88-4491-bedf-496401a429f0'
 
-    # data = lambda_utils.invoke({'uid': uid, 'action': 'history', 'account_id': 12147902, 'from_date': '2021-01-01', 'to_date': '2021-05-01'}, 'yodlee.prod_sandbox')
-    # data = lambda_utils.invoke({'uid': uid, 'action': 'tr-history', 'from_date': '2020-12-01'}, 'yodlee.prod_sandbox')
-
     # print(update_user_account(uid, '23a55638-1548-4f48-b98d-fecf994fbdf4', {
     #     'account_type': 'sp',
     #     'original_account_type': 'cash'
     # }, ['account_type', 'original_account_type']))
 
-    yodlee_support(uid)
+    # yodlee_support(uid)
+    yodlee_transaction_history(uid)
 
 
