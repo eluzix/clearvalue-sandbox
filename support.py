@@ -101,33 +101,13 @@ def delete_hash_key(hkey):
     print(f'All done in {tp2-tp1}')
 
 
-if __name__ == '__main__':
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
+def update_user_account(uid, account_id, item, fields):
+    return ddb.update_with_fields(app_config.resource_name('accounts'),
+                                  DBKeys.user_account(uid, account_id),
+                                  item, fields)
 
-    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
-    # app_config.set_stage('staging')
-
-    # account_id = '4de0a50c-823f-41db-89ca-5bf77b43699e'
-    # debug_account(uid, account_id, show_value=True)
-    #
-    # deactivate_user_account('2e9efa58-e9d9-4348-aa34-6de239337ad4')
-
-    # account_id = '532f0b9a-25d0-4282-b735-a94678ddf330'
-    # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
-
-    # production user
-    uid = '4184eb1a-810f-4a6c-a3cd-861e736e1930'
-
-    # demo account
-    # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
-
-    # eluzix
-    # uid = '2bb40134-1a88-4491-bedf-496401a429f0'
-
-    # data = lambda_utils.invoke({'uid': uid, 'action': 'history', 'account_id': 12147902, 'from_date': '2021-01-01', 'to_date': '2021-05-01'}, 'yodlee.prod_sandbox')
-    # data = lambda_utils.invoke({'uid': uid, 'action': 'tr-history', 'from_date': '2020-12-01'}, 'yodlee.prod_sandbox')
-
+# ----------------------------
+def yodlee_support(uid):
     # data = lambda_utils.invoke({'uid': uid, 'norm': False}, 'yodlee.prod_sandbox')
     # with open('/Users/uzix/Downloads/chas.json', 'w') as f:
     #     f.write(data)
@@ -144,21 +124,21 @@ if __name__ == '__main__':
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
         # if account['providerId'] == '9565':
-        # if account['id'] == 14108440:
-        if account['providerName'] == 'E*TRADE':
-        # if account['accountName'] == 'Auto Used Fixed':
-        #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
+        if account['id'] == 14158839:
+            # if account['providerName'] == 'E*TRADE':
+            # if account['accountName'] == 'Auto Used Fixed':
+            #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
             pprint.pprint(account)
     # # #         print(yodlee.normalize_account(account))
     # # # #     if account['name'].startswith('CAITLIN R KLEIN CAPITAL MGMT'):
     # # # #         print(account)
 
-    print('------------ holdings ------------')
-    holdings = data.get('holdings')
-    # # total = 0
-    for h in holdings:
-        if h.get('providerAccountId') == 12676761:
-            pprint.pprint(h)
+    # print('------------ holdings ------------')
+    # holdings = data.get('holdings')
+    # # # # total = 0
+    # for h in holdings:
+    #     if h.get('providerAccountId') == 12696423:
+    #         pprint.pprint(h)
     #         ht = h.get('quantity', 0) * h.get('price', {}).get('amount', 0)
     #         total += ht
     #         # print(f"{h.get('symbol')} == {ht}")
@@ -173,3 +153,42 @@ if __name__ == '__main__':
     #     if t.get('accountId') == 14108440:
     #         print(t)
     # #     pprint.pprint(t['amount']['amount'])
+
+# ----------------------------
+
+
+if __name__ == '__main__':
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
+
+    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    # app_config.set_stage('staging')
+
+    # account_id = '4de0a50c-823f-41db-89ca-5bf77b43699e'
+    # debug_account(uid, account_id, show_value=True)
+    #
+    # deactivate_user_account('2e9efa58-e9d9-4348-aa34-6de239337ad4')
+
+    # account_id = '532f0b9a-25d0-4282-b735-a94678ddf330'
+    # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
+
+    # production user
+    uid = '8370938b-af29-4a95-aafd-563ea250dd48'
+
+    # demo account
+    # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
+
+    # eluzix
+    # uid = '2bb40134-1a88-4491-bedf-496401a429f0'
+
+    # data = lambda_utils.invoke({'uid': uid, 'action': 'history', 'account_id': 12147902, 'from_date': '2021-01-01', 'to_date': '2021-05-01'}, 'yodlee.prod_sandbox')
+    # data = lambda_utils.invoke({'uid': uid, 'action': 'tr-history', 'from_date': '2020-12-01'}, 'yodlee.prod_sandbox')
+
+    # print(update_user_account(uid, '23a55638-1548-4f48-b98d-fecf994fbdf4', {
+    #     'account_type': 'sp',
+    #     'original_account_type': 'cash'
+    # }, ['account_type', 'original_account_type']))
+
+    yodlee_support(uid)
+
+
