@@ -1,11 +1,9 @@
 import json
 import random
 
-import boto3
-
 from clearvalue import app_config
-from clearvalue.lib.providers import yodlee
-from clearvalue.lib.store import loaders
+from cvcore.providers import yodlee
+from cvcore.store import loaders
 from cvutils.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 

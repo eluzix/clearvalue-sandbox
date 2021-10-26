@@ -1,8 +1,8 @@
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.store import loaders
-from clearvalue.model.cv_types import AccountTypes, AccountStatus
+from cvcore.store import loaders
+from cvcore.model.cv_types import AccountTypes, AccountStatus
 from cvutils import cognito_utils
 from cvutils.dynamodb import ddb
 

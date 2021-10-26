@@ -4,8 +4,9 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.store import loaders, DBKeys
-from clearvalue.model.cv_types import AccountStatus, AccountTypes
+from cvutils.store.keys import DBKeys
+from cvcore.store import loaders
+from cvcore.model.cv_types import AccountStatus, AccountTypes
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')

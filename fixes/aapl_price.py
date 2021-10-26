@@ -2,8 +2,8 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib.store import loaders
-from clearvalue.model.cv_types import AccountTypes
+from cvcore.store import loaders
+from cvcore.model.cv_types import AccountTypes
 from cvutils import cognito_utils
 from utils.users_utils import calc_user_daily
 

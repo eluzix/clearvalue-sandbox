@@ -9,7 +9,7 @@ import requests
 import cvutils as utils
 from clearvalue import app_config
 
-from clearvalue.lib.providers import coingecko
+from cvcore.providers import coingecko
 from clearvalue.lib.search import elastic
 from cvutils.store.keys import DBKeys
 

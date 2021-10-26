@@ -5,8 +5,9 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib.store import loaders, DBKeys
-from clearvalue.model.cv_types import DataProvider
+from cvutils.store.keys import DBKeys
+from cvcore.store import loaders
+from cvcore.model.cv_types import DataProvider
 from cvutils import lambda_utils
 from cvutils.dynamodb import ddb
 

@@ -10,7 +10,7 @@ import boto3
 import cvutils as utils
 from clearvalue import app_config
 from clearvalue.lib.search import elastic
-from clearvalue.lib.store import loaders
+from cvcore.store import loaders
 from clearvalue.analytics import query_cursor
 from cvutils import cognito_utils
 

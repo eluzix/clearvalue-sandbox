@@ -1,9 +1,7 @@
-import json
-
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.store import loaders, DBKeys
+from cvcore.store import loaders
 
 # def generate_token(uid):
 #     yodlee_id = loaders.load_yodlee_id(uid)

@@ -9,7 +9,7 @@ import boto3
 import requests
 
 from clearvalue import app_config
-from clearvalue.lib.providers import worldtradingdata
+from cvcore.providers import worldtradingdata
 from cvutils.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 

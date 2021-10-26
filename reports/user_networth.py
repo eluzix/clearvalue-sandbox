@@ -6,8 +6,9 @@ import boto3
 import cvutils as utils
 from clearvalue import app_config
 from clearvalue.graphql import filter_inactive_accounts
-from clearvalue.lib.store import loaders, DBKeys
-from clearvalue.model.cv_types import AccountStatus, AccountTypes
+from cvutils.store.keys import DBKeys
+from cvcore.store import loaders
+from cvcore.model.cv_types import AccountStatus, AccountTypes
 from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':

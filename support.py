@@ -8,7 +8,8 @@ from clearvalue import app_config
 from clearvalue.graphql import data_loaders
 from clearvalue.graphql.schema import Context, api_schema
 from clearvalue.lib import lambda_utils
-from clearvalue.lib.store import loaders, DBKeys
+from cvutils.store.keys import DBKeys
+from cvcore.store import loaders
 from cvtests import DummyRequest
 from cvutils.dynamodb import ddb
 
