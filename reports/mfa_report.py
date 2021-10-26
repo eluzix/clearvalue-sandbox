@@ -2,7 +2,7 @@ import boto3
 
 from clearvalue import app_config
 from clearvalue.analytics import is_internal_user
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ import isodate
 import cvutils as utils
 from clearvalue import app_config
 from cvcore import currency_utils
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvcore.model.interest import amortization_table
 from cvutils.dynamodb import ddb
 

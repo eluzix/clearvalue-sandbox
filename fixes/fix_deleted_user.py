@@ -1,7 +1,7 @@
 import time
 
 from clearvalue import app_config
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':

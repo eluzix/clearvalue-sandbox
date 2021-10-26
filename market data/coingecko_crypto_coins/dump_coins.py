@@ -11,7 +11,7 @@ from clearvalue import app_config
 
 from cvcore.providers import coingecko
 from clearvalue.lib.search import elastic
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 
 
 def dump_all():

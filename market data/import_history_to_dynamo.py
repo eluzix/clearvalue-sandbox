@@ -1,7 +1,7 @@
 import csv
 import time
 
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 
 

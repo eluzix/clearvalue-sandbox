@@ -4,9 +4,9 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.analytics import get_active_config, query_cursor, is_user_active, is_internal_user
+from clearvalue.analytics import query_cursor, is_user_active, is_internal_user
 from clearvalue.lib.search import elastic
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 
 

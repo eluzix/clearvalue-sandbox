@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 import cvutils as utils
 from clearvalue import app_config
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 
 

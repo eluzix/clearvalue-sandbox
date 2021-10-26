@@ -5,7 +5,7 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 from cvcore.model.cv_types import DataProvider
 from cvutils import lambda_utils

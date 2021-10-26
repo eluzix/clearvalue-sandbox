@@ -7,7 +7,7 @@ from cvutils import boto3_client
 
 from clearvalue import app_config
 from cvcore.providers import iexcloud
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 from cvcore.model.cv_types import AccountTypes
 from cvutils.dynamodb import ddb

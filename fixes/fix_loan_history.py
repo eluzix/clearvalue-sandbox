@@ -8,7 +8,7 @@ import cvutils as utils
 from clearvalue import app_config
 from clearvalue.graphql.schema.loans import _rebuild_loan_dates
 from cvcore.store import loaders
-from cvutils.store.keys import DBKeys
+from cvcore.store.keys import DBKeys
 from cvcore.model import interest
 from cvcore.model.cv_types import AccountTypes
 from cvutils import cognito_utils
