@@ -6,7 +6,7 @@ import boto3
 
 from clearvalue import app_config
 from clearvalue.analytics import iter_active_users, is_user_active, ACTIVE_GROUPS
-from clearvalue.lib import TerminalColors
+from cvutils import TerminalColors
 
 
 def report():

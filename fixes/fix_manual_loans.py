@@ -2,9 +2,9 @@ import boto3
 
 from clearvalue import app_config
 from clearvalue.lib.calcs import run_account_calcs
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
 from clearvalue.model.cv_types import AccountTypes
+from cvutils.dynamodb import ddb
 
 
 def check_user_loans(uid):

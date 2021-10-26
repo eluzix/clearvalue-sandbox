@@ -3,12 +3,12 @@ import time
 
 import boto3
 
+import cvutils as utils
 from clearvalue import app_config
 from clearvalue.graphql import filter_inactive_accounts
-from clearvalue.lib import utils
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
 from clearvalue.model.cv_types import AccountStatus, AccountTypes
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
 

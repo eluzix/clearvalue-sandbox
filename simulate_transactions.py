@@ -4,9 +4,10 @@ import random
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.providers import yodlee
-from clearvalue.lib.store import DBKeys, loaders
+from clearvalue.lib.store import loaders
+from cvutils.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     # boto3.setup_default_session(profile_name='clearvalue-stage-sls')

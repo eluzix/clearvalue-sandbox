@@ -3,9 +3,9 @@ import csv
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib import cognito_utils
 from clearvalue.lib.store import loaders
 from clearvalue.model.cv_types import AccountStatus
+from cvutils import cognito_utils
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')

@@ -5,13 +5,15 @@ import time
 import boto3
 import isodate
 
+import cvutils as utils
 from clearvalue import app_config
 from clearvalue.graphql.schema.loans import _rebuild_loan_dates
-from clearvalue.lib import utils, cognito_utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys, loaders
+from clearvalue.lib.store import loaders
+from cvutils.store.keys import DBKeys
 from clearvalue.model import interest
 from clearvalue.model.cv_types import AccountTypes
+from cvutils import cognito_utils
+from cvutils.dynamodb import ddb
 
 
 def _loan_history(uid, account_id):

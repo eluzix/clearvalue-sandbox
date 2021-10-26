@@ -2,8 +2,8 @@ import boto3
 import requests
 
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvutils.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')

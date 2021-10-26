@@ -8,11 +8,9 @@ from clearvalue import app_config
 from clearvalue.graphql import data_loaders
 from clearvalue.graphql.schema import Context, api_schema
 from clearvalue.lib import lambda_utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.providers import yodlee
-from clearvalue.lib.providers.yodlee import _normalize_account
 from clearvalue.lib.store import loaders, DBKeys
 from cvtests import DummyRequest
+from cvutils.dynamodb import ddb
 
 
 def trace_accounts(uid, account_type=None, show_holdings=False, filter_symbol=None, load_active_only=True):
@@ -98,13 +96,14 @@ def delete_hash_key(hkey):
         ddb.batch_delete_items(table_name, batch)
 
     tp2 = time.time()
-    print(f'All done in {tp2-tp1}')
+    print(f'All done in {tp2 - tp1}')
 
 
 def update_user_account(uid, account_id, item, fields):
     return ddb.update_with_fields(app_config.resource_name('accounts'),
                                   DBKeys.user_account(uid, account_id),
                                   item, fields)
+
 
 # ----------------------------
 def yodlee_transaction_history(uid):
@@ -114,13 +113,13 @@ def yodlee_transaction_history(uid):
 
     with open('/Users/uzix/Downloads/tr_his.json', 'r') as f:
         data = json.load(f)
-        
+
     for tr in data:
         print(tr)
 
+
 def yodlee_support(uid):
     # data = lambda_utils.invoke({'uid': uid, 'action': 'history', 'account_id': 12147902, 'from_date': '2021-01-01', 'to_date': '2021-05-01'}, 'yodlee.prod_sandbox')
-
 
     # data = lambda_utils.invoke({'uid': uid, 'norm': False}, 'yodlee.prod_sandbox')
     # with open('/Users/uzix/Downloads/chas.json', 'w') as f:
@@ -168,6 +167,7 @@ def yodlee_support(uid):
             print(t)
     # #     pprint.pprint(t['amount']['amount'])
 
+
 # ----------------------------
 
 
@@ -202,5 +202,3 @@ if __name__ == '__main__':
 
     # yodlee_support(uid)
     yodlee_transaction_history(uid)
-
-

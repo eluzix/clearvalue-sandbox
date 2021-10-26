@@ -3,12 +3,12 @@ import time
 
 import boto3
 
+import cvutils as utils
 from clearvalue import app_config
 from clearvalue.analytics import segment_for_aum, is_internal_user, is_user_active, get_active_config
-from clearvalue.lib import utils
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
 from clearvalue.model.cv_types import AccountTypes
+from cvutils.dynamodb import ddb
 
 
 def user_db_stats(uid, for_date=None):

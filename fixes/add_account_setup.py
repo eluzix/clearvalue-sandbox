@@ -3,11 +3,12 @@ import time
 
 import boto3
 
+import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib import lambda_utils, utils
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
-from clearvalue.model.cv_types import AccountTypes, DataProvider
+from clearvalue.model.cv_types import DataProvider
+from cvutils import lambda_utils
+from cvutils.dynamodb import ddb
 
 
 def fix_user(user):

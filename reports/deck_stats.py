@@ -7,11 +7,12 @@ import statistics
 
 import boto3
 
+import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib import cognito_utils, utils
 from clearvalue.lib.search import elastic
 from clearvalue.lib.store import loaders
 from clearvalue.analytics import query_cursor
+from cvutils import cognito_utils
 
 _IGNORED_USERS = {'0abbd698-5258-4499-882a-4980dccf11c7', '0cc776bd-3d82-4b21-8c7a-7f278be28206', '0d598d67-dd2f-46f6-8b5b-06e725f00199', '0f02cee3-7ba9-4af1-a127-d82d43d0a4bd',
                   '2c735335-d41e-4816-8cab-354266f917dc', '2fdd3491-524e-4f56-9eeb-e41fa2e802d4', '35cc142c-3656-4329-88f2-1a66f944231b', '379b90ee-db97-4462-9285-063abc0f33ce',

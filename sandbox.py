@@ -1,12 +1,8 @@
 import datetime
 
-import boto3
 import pytz
 
-from clearvalue import app_config
-from clearvalue.lib import utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+import cvutils as utils
 
 
 def day_of_interest(dt: datetime.datetime, day_of_interest: int) -> int:
@@ -32,7 +28,7 @@ def w():
 
 
 if __name__ == '__main__':
-    for g,e in zip(utils.grouper([1,2,3,4,5,6,7], 3), utils.grouper(['a', 'b', 'c', 'd', 'e'], 3)):
+    for g, e in zip(utils.grouper([1, 2, 3, 4, 5, 6, 7], 3), utils.grouper(['a', 'b', 'c', 'd', 'e'], 3)):
         print(g)
         print(e)
     # boto3.setup_default_session(profile_name='clearvalue-sls')

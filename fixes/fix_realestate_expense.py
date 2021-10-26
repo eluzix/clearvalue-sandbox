@@ -2,10 +2,9 @@ import boto3
 
 from clearvalue import app_config
 from clearvalue.graphql.schema import loans
-from clearvalue.lib import cognito_utils
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
 from clearvalue.model.cv_types import AccountTypes
+from cvutils.dynamodb import ddb
 
 
 def fix_user_accounts(uid):

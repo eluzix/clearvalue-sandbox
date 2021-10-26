@@ -1,9 +1,9 @@
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib import cognito_utils
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
+from cvutils import cognito_utils
+from cvutils.dynamodb import ddb
 
 
 def accounts():

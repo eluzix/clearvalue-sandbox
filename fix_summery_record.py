@@ -1,9 +1,9 @@
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib import boto3_client, cognito_utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvutils.store.keys import DBKeys
+from cvutils import boto3_client, cognito_utils
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     dev_profile = boto3.session.Session(profile_name='clearvalue-stage-sls')

@@ -1,9 +1,9 @@
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
 from clearvalue.lib.store import loaders, DBKeys
 from clearvalue.model.cv_types import AccountTypes, TransactionType
+from cvutils.dynamodb import ddb
 
 
 def fix_user(uid):

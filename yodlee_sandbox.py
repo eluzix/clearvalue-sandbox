@@ -1,14 +1,9 @@
 import json
-from random import choice
 
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib import lambda_utils, utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.providers import yodlee
 from clearvalue.lib.store import loaders, DBKeys
-
 
 # def generate_token(uid):
 #     yodlee_id = loaders.load_yodlee_id(uid)
@@ -40,7 +35,7 @@ if __name__ == '__main__':
 
     # with open('sandbox.json', 'r') as f:
     #     holdings = json.load(f)
-    
+
     # for h in holdings:
     #     print(yodlee._normalize_holding(h))
 
