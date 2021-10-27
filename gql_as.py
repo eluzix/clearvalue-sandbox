@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
 
     # prod user
-    uid = '8370938b-af29-4a95-aafd-563ea250dd48'
+    uid = '2669b575-bc30-4405-ab9c-1b4ac4fddad6'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -73,11 +73,11 @@ if __name__ == '__main__':
     #                                                   'startDate': '2021-05-15',
     #                                                   'endDate': '2021-06-16'
     #                                                   })
-    # ret = local_queries.securities_account_info(uid, '23a55638-1548-4f48-b98d-fecf994fbdf4', tf={'timeFrame': '30days',
-    #                                                                                              'startDate': '2021-07-01',
-    #                                                                                              'endDate': '2021-07-31'
-    #                                                                                              })
-    # ret = securities_holdings_data(uid, '23a55638-1548-4f48-b98d-fecf994fbdf4', tf={'timeFrame': '30days',
+    ret = local_queries.securities_account_info(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
+                                                                                                 'startDate': '2021-07-01',
+                                                                                                 'endDate': '2021-07-31'
+                                                                                                 })
+    # ret = securities_holdings_data(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
     #                                                                                 'startDate': '2016-04-01',
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
