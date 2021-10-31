@@ -1,8 +1,12 @@
 import datetime
 
+import boto3
 import pytz
 
 import cvutils as utils
+from clearvalue import app_config
+from clearvalue.graphql.data_loaders import InstitutionLoader
+from cvcore.model.cv_types import DataProvider
 
 
 def day_of_interest(dt: datetime.datetime, day_of_interest: int) -> int:
@@ -28,11 +32,16 @@ def w():
 
 
 if __name__ == '__main__':
-    for g, e in zip(utils.grouper([1, 2, 3, 4, 5, 6, 7], 3), utils.grouper(['a', 'b', 'c', 'd', 'e'], 3)):
-        print(g)
-        print(e)
-    # boto3.setup_default_session(profile_name='clearvalue-sls')
-    # app_config.set_stage('prod')
+    boto_session = boto3.session.Session(profile_name='clearvalue-sls')
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
+
+    institution_loader = InstitutionLoader()
+    institution_loader.boto_session = boto_session
+    keys = [f'PINST:{DataProvider.YODLEE.value}:{4287}', f'PINST:{DataProvider.YODLEE.value}:{291}']
+    ret = institution_loader.load_many(keys)
+    print(ret)
+
     #
     # uid = 'd67d6dda-4e91-4f5b-a9a5-d33ca5db606c'
     # account_id = 'e9327161-80e5-47c7-a469-9aba4f8584d2'
