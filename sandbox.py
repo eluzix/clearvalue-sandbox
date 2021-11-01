@@ -7,7 +7,7 @@ import cvutils as utils
 from clearvalue import app_config
 from clearvalue.graphql.data_loaders import InstitutionLoader
 from cvcore.model.cv_types import DataProvider
-from cvcore.store import DBKeys
+from cvcore.store import DBKeys, loaders
 from cvutils.dynamodb import ddb
 
 
@@ -43,25 +43,36 @@ if __name__ == '__main__':
     # keys = [f'PINST:{DataProvider.YODLEE.value}:{4287}', f'PINST:{DataProvider.YODLEE.value}:{291}']
     # ret = institution_loader.load_many(keys)
     # print(ret)
-    email_type = 'weekly-performance'
-    report_date = utils.date_to_str(utils.today())
-
-    keys = []
-    table_name = app_config.resource_name('accounts')
-    all_emails = ddb.query(table_name,
-                           IndexName='GS3-index',
-                           KeyConditionExpression='GS3Hash = :HashKey',
-                           FilterExpression='#status = :status',
-                           ExpressionAttributeValues={
-                               ':HashKey': ddb.serialize_value(f'EMAIL:{email_type.upper()}:{report_date}'),
-                               ':status': ddb.serialize_value('draft')
-                           }, ExpressionAttributeNames={'#status': 'status'})
-
-    for e in all_emails:
-        keys.append(DBKeys.hash_sort(e[DBKeys.HASH_KEY], e[DBKeys.SORT_KEY]))
-
-    print(len(keys))
+    # email_type = 'weekly-performance'
+    # report_date = utils.date_to_str(utils.today())
+    #
+    # keys = []
+    # table_name = app_config.resource_name('accounts')
+    # all_emails = ddb.query(table_name,
+    #                        IndexName='GS3-index',
+    #                        KeyConditionExpression='GS3Hash = :HashKey',
+    #                        FilterExpression='#status = :status',
+    #                        ExpressionAttributeValues={
+    #                            ':HashKey': ddb.serialize_value(f'EMAIL:{email_type.upper()}:{report_date}'),
+    #                            ':status': ddb.serialize_value('draft')
+    #                        }, ExpressionAttributeNames={'#status': 'status'})
+    #
+    # for e in all_emails:
+    #     keys.append(DBKeys.hash_sort(e[DBKeys.HASH_KEY], e[DBKeys.SORT_KEY]))
+    #
+    # print(len(keys))
     # ddb.batch_delete_items(table_name, keys)
+
+    counter = [0, 0]
+    table_name = app_config.resource_name('accounts')
+    for user in loaders.iter_users():
+        uid = user[DBKeys.HASH_KEY]
+        notification_settings = ddb.get_item(table_name, DBKeys.hash_sort(uid, DBKeys.NOTIFICATION_SETTINGS))
+        counter[0] += 1
+        if notification_settings is None or notification_settings.get('weekly_summary', True) is True:
+            counter[1] += 1
+
+    print(f'Out of {counter[0]} total users {counter[1]} has notifications enabled')
 
     #
     # uid = 'd67d6dda-4e91-4f5b-a9a5-d33ca5db606c'
