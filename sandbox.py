@@ -7,6 +7,8 @@ import cvutils as utils
 from clearvalue import app_config
 from clearvalue.graphql.data_loaders import InstitutionLoader
 from cvcore.model.cv_types import DataProvider
+from cvcore.store import DBKeys
+from cvutils.dynamodb import ddb
 
 
 def day_of_interest(dt: datetime.datetime, day_of_interest: int) -> int:
@@ -36,11 +38,30 @@ if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
-    institution_loader = InstitutionLoader()
-    institution_loader.boto_session = boto_session
-    keys = [f'PINST:{DataProvider.YODLEE.value}:{4287}', f'PINST:{DataProvider.YODLEE.value}:{291}']
-    ret = institution_loader.load_many(keys)
-    print(ret)
+    # institution_loader = InstitutionLoader()
+    # institution_loader.boto_session = boto_session
+    # keys = [f'PINST:{DataProvider.YODLEE.value}:{4287}', f'PINST:{DataProvider.YODLEE.value}:{291}']
+    # ret = institution_loader.load_many(keys)
+    # print(ret)
+    email_type = 'weekly-performance'
+    report_date = utils.date_to_str(utils.today())
+
+    keys = []
+    table_name = app_config.resource_name('accounts')
+    all_emails = ddb.query(table_name,
+                           IndexName='GS3-index',
+                           KeyConditionExpression='GS3Hash = :HashKey',
+                           FilterExpression='#status = :status',
+                           ExpressionAttributeValues={
+                               ':HashKey': ddb.serialize_value(f'EMAIL:{email_type.upper()}:{report_date}'),
+                               ':status': ddb.serialize_value('draft')
+                           }, ExpressionAttributeNames={'#status': 'status'})
+
+    for e in all_emails:
+        keys.append(DBKeys.hash_sort(e[DBKeys.HASH_KEY], e[DBKeys.SORT_KEY]))
+
+    print(len(keys))
+    # ddb.batch_delete_items(table_name, keys)
 
     #
     # uid = 'd67d6dda-4e91-4f5b-a9a5-d33ca5db606c'
