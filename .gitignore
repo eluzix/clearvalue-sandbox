@@ -36,6 +36,7 @@ rsa-*
 *.csv
 *.png
 *.gif
+*.gz
 
 spiders/
 notebooks/
