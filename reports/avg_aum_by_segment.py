@@ -5,7 +5,7 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.analytics import segment_for_aum, is_internal_user, is_user_active, get_active_config
+from clearvalue.analytics import segment_for_aum, is_internal_user, is_user_active, get_active_config, ACTIVE_GROUPS
 from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 from cvcore.model.cv_types import AccountTypes
@@ -95,7 +95,7 @@ def all_users():
     print(f'All done in {tp2 - tp1}')
 
 
-def active_users(run_for=None):
+def active_users(run_for=None, active_group=0):
     tp1 = time.time()
     if run_for is None:
         stats_date = utils.today()
@@ -118,7 +118,7 @@ def active_users(run_for=None):
         if daily_stats is None:
             continue
 
-        if not is_user_active(daily_stats, get_active_config(2)):
+        if not is_user_active(daily_stats, get_active_config(active_group)):
             continue
 
         us = user_db_stats(uid, stats_date)
@@ -139,15 +139,15 @@ def active_users(run_for=None):
         bucket_info[1] += us['aum']
         linked_buckets[us['linked_aum_segment']] = bucket_info
 
-    with open('avg_aum_by_segment.json', 'w') as fout:
+    with open(f'avg_aum_by_segment_{active_group}.json', 'w') as fout:
         json.dump({'segments': buckets, 'linked_segments': linked_buckets}, fout)
 
     tp2 = time.time()
     print(f'All done in {tp2 - tp1}')
 
 
-def print_results():
-    with open('avg_aum_by_segment.json', 'r') as fin:
+def print_results(active_group):
+    with open(f'avg_aum_by_segment_{active_group}.json', 'r') as fin:
         js = json.load(fin)
 
     keys = list(js['segments'].keys())
@@ -172,5 +172,7 @@ if __name__ == '__main__':
     app_config.set_stage('prod')
 
     # all_users()
-    active_users('2021-09-14')
-    print_results()
+    for i, group in enumerate(ACTIVE_GROUPS):
+        print(f"Processing data for group {group['desc']}")
+        active_users('2021-11-11', i)
+        print_results(i)
