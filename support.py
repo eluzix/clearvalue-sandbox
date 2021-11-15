@@ -138,35 +138,38 @@ def yodlee_support(uid):
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
         # if account['providerId'] == '9565':
-        if account['id'] in [14302795, 14302794]:
+        # if account['id'] in [14302795, 14302794]:
             # if account['providerName'] == 'E*TRADE':
             # if account['accountName'] == 'Auto Used Fixed':
             #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
             pprint.pprint(account)
+            # if account['dataset'][0].get('nextUpdateScheduled') is None:
+            #     pprint.pprint(account)
+            # print(account['dataset'][0]['updateEligibility'], account['dataset'][0].get('lastUpdated'), account['dataset'][0].get('nextUpdateScheduled'))
     # # #         print(yodlee.normalize_account(account))
     # # # #     if account['name'].startswith('CAITLIN R KLEIN CAPITAL MGMT'):
     # # # #         print(account)
 
-    print('------------ holdings ------------')
-    holdings = data.get('holdings')
-    # # # # total = 0
-    for h in holdings:
-        # if h.get('providerAccountId') == 12793061:
-        if h.get('accountId') in [14302795, 14302794]:
-            pprint.pprint(h)
-    #         ht = h.get('quantity', 0) * h.get('price', {}).get('amount', 0)
-    #         total += ht
-    #         # print(f"{h.get('symbol')} == {ht}")
-    #         print(yodlee._normalize_holding(h))
-    # print(f'** done, total value {total} **')
+    # print('------------ holdings ------------')
+    # holdings = data.get('holdings')
+    # # # # # total = 0
+    # for h in holdings:
+    #     # if h.get('providerAccountId') == 12793061:
+    #     if h.get('accountId') in [14302795, 14302794]:
+    #         pprint.pprint(h)
+    # #         ht = h.get('quantity', 0) * h.get('price', {}).get('amount', 0)
+    # #         total += ht
+    # #         # print(f"{h.get('symbol')} == {ht}")
+    # #         print(yodlee._normalize_holding(h))
+    # # print(f'** done, total value {total} **')
 
-    # print('------------ transactions ------------')
-    # transactions = data.get('transactions')
-    # transactions.sort(key=lambda t: t.get('transactionDate', ''))
+    print('------------ transactions ------------')
+    transactions = data.get('transactions')
+    transactions.sort(key=lambda t: t.get('transactionDate', ''))
     # # total = 0
-    # for t in transactions:
-    #     if t.get('accountId') == 14108440:
-    #         print(t)
+    for t in transactions:
+        if t.get('accountId') == 14108440:
+            print(t)
     # #     pprint.pprint(t['amount']['amount'])
 
 
@@ -189,7 +192,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '9deb9b1c-8375-47a3-8113-9778df1d3ad8'
+    uid = '7a6be97d-263f-43c5-9074-c224aa29fed1'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
