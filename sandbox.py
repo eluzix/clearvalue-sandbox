@@ -34,60 +34,10 @@ def w():
 
 
 if __name__ == '__main__':
-    boto_session = boto3.session.Session(profile_name='clearvalue-sls')
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
+    # boto_session = boto3.session.Session(profile_name='clearvalue-sls')
+    # boto3.setup_default_session(profile_name='clearvalue-sls')
+    # app_config.set_stage('prod')
 
-    # institution_loader = InstitutionLoader()
-    # institution_loader.boto_session = boto_session
-    # keys = [f'PINST:{DataProvider.YODLEE.value}:{4287}', f'PINST:{DataProvider.YODLEE.value}:{291}']
-    # ret = institution_loader.load_many(keys)
+    ddb.collect_query_data = True
+    ret = ddb.get_item(app_config.resource_name('accounts'), DBKeys.info_key('f417d7b5-cb66-4ef1-a36a-9c6806d0af0f'))
     # print(ret)
-    # email_type = 'weekly-performance'
-    # report_date = utils.date_to_str(utils.today())
-    #
-    # keys = []
-    # table_name = app_config.resource_name('accounts')
-    # all_emails = ddb.query(table_name,
-    #                        IndexName='GS3-index',
-    #                        KeyConditionExpression='GS3Hash = :HashKey',
-    #                        FilterExpression='#status = :status',
-    #                        ExpressionAttributeValues={
-    #                            ':HashKey': ddb.serialize_value(f'EMAIL:{email_type.upper()}:{report_date}'),
-    #                            ':status': ddb.serialize_value('draft')
-    #                        }, ExpressionAttributeNames={'#status': 'status'})
-    #
-    # for e in all_emails:
-    #     keys.append(DBKeys.hash_sort(e[DBKeys.HASH_KEY], e[DBKeys.SORT_KEY]))
-    #
-    # print(len(keys))
-    # ddb.batch_delete_items(table_name, keys)
-
-    counter = [0, 0]
-    table_name = app_config.resource_name('accounts')
-    for user in loaders.iter_users():
-        uid = user[DBKeys.HASH_KEY]
-        notification_settings = ddb.get_item(table_name, DBKeys.hash_sort(uid, DBKeys.NOTIFICATION_SETTINGS))
-        counter[0] += 1
-        if notification_settings is None or notification_settings.get('weekly_summary', True) is True:
-            counter[1] += 1
-
-    print(f'Out of {counter[0]} total users {counter[1]} has notifications enabled')
-
-    #
-    # uid = 'd67d6dda-4e91-4f5b-a9a5-d33ca5db606c'
-    # account_id = 'e9327161-80e5-47c7-a469-9aba4f8584d2'
-    #
-    # table = app_config.resource_name('accounts')
-    # sd = datetime.datetime(2021, 7, 31, tzinfo=pytz.utc)
-    # ed = datetime.datetime(2021, 8, 9, tzinfo=pytz.utc)
-    # start_value = 309857.36
-    # end_value = 311723.20191
-    # daily_diff = round((end_value-start_value)/9, 2)
-    # last_value = start_value
-    # while sd <= ed:
-    #     rd_str = utils.date_to_str(sd)
-    #     print(f'For {rd_str} value = {last_value}')
-    #     ddb.update_with_fields(table, DBKeys.hash_sort(account_id, DBKeys.account_time_point(rd_str)), {'value': last_value}, ['value'])
-    #     last_value += daily_diff
-    #     sd = sd + datetime.timedelta(days=1)
