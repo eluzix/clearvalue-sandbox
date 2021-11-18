@@ -163,14 +163,14 @@ def yodlee_support(uid):
     # #         print(yodlee._normalize_holding(h))
     # # print(f'** done, total value {total} **')
 
-    print('------------ transactions ------------')
-    transactions = data.get('transactions')
-    transactions.sort(key=lambda t: t.get('transactionDate', ''))
-    # # total = 0
-    for t in transactions:
-        if t.get('accountId') == 14108440:
-            print(t)
-    # #     pprint.pprint(t['amount']['amount'])
+    # print('------------ transactions ------------')
+    # transactions = data.get('transactions')
+    # transactions.sort(key=lambda t: t.get('transactionDate', ''))
+    # # # total = 0
+    # for t in transactions:
+    #     if t.get('accountId') == 14108440:
+    #         print(t)
+    # # #     pprint.pprint(t['amount']['amount'])
 
 
 # ----------------------------
@@ -192,7 +192,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '7a6be97d-263f-43c5-9074-c224aa29fed1'
+    uid = 'ba01b2c4-7af8-4d12-8a11-f1d782d6f9a7'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
