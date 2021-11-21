@@ -1,13 +1,9 @@
 import datetime
 
-import boto3
 import pytz
 
-import cvutils as utils
 from clearvalue import app_config
-from clearvalue.graphql.data_loaders import InstitutionLoader
-from cvcore.model.cv_types import DataProvider
-from cvcore.store import DBKeys, loaders
+from cvcore.store import DBKeys
 from cvutils.dynamodb import ddb
 
 
