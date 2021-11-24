@@ -4,7 +4,7 @@ import boto3
 
 from clearvalue import app_config
 from utils import local_queries
-from utils.local_queries import securities_holdings_data, cash_type_info
+from utils.local_queries import securities_holdings_data, cash_type_info, pe_type_info, pe_account_info
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
 
     # prod user
-    uid = 'ba01b2c4-7af8-4d12-8a11-f1d782d6f9a7'
+    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -63,16 +63,16 @@ if __name__ == '__main__':
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
 
-    # ret = pe_type_info(uid)
-    # ret = pe_account_info(uid, 'a03826c7-72b8-46c8-93e4-9f04f9f469b0', tf={'timeFrame': 'custom',
+    ret = pe_type_info(uid)
+    # ret = pe_account_info(uid, 'ba940597-9570-4fa6-b629-3ab700f0a5c2', tf={'timeFrame': '30days',
     #                                                                        'startDate': '2016-04-01',
     #                                                                        'endDate': '2021-03-23'
     #                                                                        })
 
-    ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
-                                                      'startDate': '2021-05-15',
-                                                      'endDate': '2021-06-16'
-                                                      })
+    # ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
+    #                                                   'startDate': '2021-05-15',
+    #                                                   'endDate': '2021-06-16'
+    #                                                   })
     # ret = local_queries.securities_account_info(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
     #                                                                                              'startDate': '2021-07-01',
     #                                                                                              'endDate': '2021-07-31'
