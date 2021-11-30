@@ -1,8 +1,8 @@
 import csv
 import time
 
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 
 def dump_batch(batch):

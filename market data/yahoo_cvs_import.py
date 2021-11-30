@@ -1,11 +1,9 @@
 import csv
 import time
 
-import boto3
-
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 
 def load_data(reader, symbol):

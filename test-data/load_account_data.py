@@ -1,13 +1,12 @@
-import datetime
 import time
 
 import boto3
 import yaml
 
+import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib import utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     dev_profile = boto3.session.Session(profile_name='cvprofile')
@@ -68,4 +67,3 @@ if __name__ == '__main__':
         #     batch.append(db_holding)
 
     ddb.batch_write_items(app_config.resource_name('accounts'), batch)
-

@@ -2,12 +2,13 @@ import json
 
 import boto3
 
+import cvutils
 from clearvalue import app_config
-from clearvalue.lib import utils, boto3_client
-from clearvalue.lib.calcs import rerun_account_calcs
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import loaders, DBKeys
-from clearvalue.model.cv_types import AccountTypes, AccountStatus
+from cvcore.calcs import rerun_account_calcs
+from cvcore.store.keys import DBKeys
+from cvcore.store import loaders
+from cvcore.model.cv_types import AccountTypes, AccountStatus
+from cvutils.dynamodb import ddb
 
 
 def vc_fix(uid):
@@ -16,8 +17,8 @@ def vc_fix(uid):
         status = a.get('account_status', AccountStatus.ACTIVE.value)
         if status == AccountStatus.DELETED.value:
             continue
-        run_from = utils.date_from_timestamp(a['created_at'])
-        run_from = utils.date_to_str(run_from)
+        run_from = cvutils.date_from_timestamp(a['created_at'])
+        run_from = cvutils.date_to_str(run_from)
         print('for {} updating {} from {}'.format(uid, a['account_id'], run_from))
         rerun_account_calcs(uid, a['account_id'], run_from)
 
@@ -28,8 +29,8 @@ def all_accounts_fix(uid):
         status = a.get('account_status', AccountStatus.ACTIVE.value)
         if status == AccountStatus.DELETED.value:
             continue
-        run_from = utils.date_from_timestamp(a['created_at'])
-        run_from = utils.date_to_str(run_from)
+        run_from = cvutils.date_from_timestamp(a['created_at'])
+        run_from = cvutils.date_to_str(run_from)
         print('for {} updating {} from {}'.format(uid, a['account_id'], run_from))
         rerun_account_calcs(uid, a['account_id'], run_from)
 
@@ -41,15 +42,15 @@ def account_fix(uid, account_id):
         print('Account {}:{} is deleted'.format(uid, account_id))
         return
 
-    run_from = utils.date_from_timestamp(a['created_at'])
-    run_from = utils.date_to_str(run_from)
+    run_from = cvutils.date_from_timestamp(a['created_at'])
+    run_from = cvutils.date_to_str(run_from)
     print('for {} updating {} from {}'.format(uid, a['account_id'], run_from))
     rerun_account_calcs(uid, a['account_id'], run_from)
 
 
 def detailed_manual_sp_accounts(uid):
     queue_url = app_config['sqs']['account.calcs.url']
-    sqs = boto3_client('sqs')
+    sqs = cvutils.boto3_client('sqs')
 
     accounts = loaders.load_user_accounts(uid, account_type=AccountTypes.SECURITIES_PORTFOLIO)
     for a in accounts:
@@ -64,7 +65,7 @@ def detailed_manual_sp_accounts(uid):
 
 def detailed_crypto_accounts(uid):
     queue_url = app_config['sqs']['account.calcs.url']
-    sqs = boto3_client('sqs')
+    sqs = cvutils.boto3_client('sqs')
 
     accounts = loaders.load_user_accounts(uid, account_type=AccountTypes.CRYPTO)
     for a in accounts:
@@ -90,8 +91,8 @@ if __name__ == '__main__':
 
     # rerun_account_calcs('2023f23a-9ceb-442e-9c66-0488f8d1c781', '6b07e050-7923-421c-80db-5587477cc028', '2019-10-31')
 
-    # for user in cognito_utils.iterate_users():
-    #     uid = cognito_utils.uid_from_user(user)
+    # for user in cognito_cvutils.iterate_users():
+    #     uid = cognito_cvutils.uid_from_user(user)
     #     if uid is not None:
     #         vc_fix(uid)
 

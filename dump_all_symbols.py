@@ -4,8 +4,8 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 
 def old_dump():
@@ -59,21 +59,21 @@ def batch_history():
     #     ensure_events_for_symbols(batch, force_update=True, range='1y')
 
 
-def batch_update():
-    tp1 = time.time()
-    market_table = app_config.resource_name('market')
-    with open('all_symbols.json', 'r') as fin:
-        js = json.load(fin)
-
-    all_symbols = js['symbols']
-    for symbol in all_symbols:
-        print(f'Updating {symbol}')
-        ddb.update_with_fields(market_table, DBKeys.info_key(DBKeys.equity(symbol)),
-                               {DBKeys.GS1_HASH: 'ALL_SECURITIES', DBKeys.GS1_SORT: symbol},
-                               [DBKeys.GS1_HASH, DBKeys.GS1_SORT])
-
-    tp2 = time.time()
-    print(f'All done in {tp2 - tp1}')
+# def batch_update():
+#     tp1 = time.time()
+#     market_table = app_config.resource_name('market')
+#     with open('all_symbols.json', 'r') as fin:
+#         js = json.load(fin)
+#
+#     all_symbols = js['symbols']
+#     for symbol in all_symbols:
+#         print(f'Updating {symbol}')
+#         ddb.update_with_fields(market_table, DBKeys.info_key(DBKeys.equity(symbol)),
+#                                {DBKeys.GS1_HASH: 'ALL_SECURITIES', DBKeys.GS1_SORT: symbol},
+#                                [DBKeys.GS1_HASH, DBKeys.GS1_SORT])
+#
+#     tp2 = time.time()
+#     print(f'All done in {tp2 - tp1}')
 
 
 def dump2():
@@ -85,8 +85,9 @@ def dump2():
                       ExpressionAttributeValues={
                           ':HashKey': ddb.serialize_value('ALL_SECURITIES'),
                       })
-    for item in items:
-        print(item)
+    # for item in items:
+    #     print(item)
+    print(len(items))
 
 
 if __name__ == '__main__':

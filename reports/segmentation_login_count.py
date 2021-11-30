@@ -2,13 +2,12 @@ import datetime
 
 import boto3
 
+import cvutils as utils
 from clearvalue import app_config
-from clearvalue.analytics import get_active_config, query_cursor, is_user_active, is_internal_user
-from clearvalue.analytics.segmentation import config_segment
-from clearvalue.lib import utils
-from clearvalue.lib.dynamodb import ddb
+from clearvalue.analytics import query_cursor, is_user_active, is_internal_user
 from clearvalue.lib.search import elastic
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 
 def load_active_logins(boto_session, for_date: datetime.datetime = None):

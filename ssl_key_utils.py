@@ -3,7 +3,7 @@ import json
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib import crypto_utils
+from cvutils import crypto_utils
 
 base_dir = '/Users/uzix/Dev/Clear Value/secrets/SSL'
 

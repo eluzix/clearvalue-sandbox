@@ -5,8 +5,9 @@ import boto3
 import requests
 
 from clearvalue import app_config
-from clearvalue.lib.store import loaders, DBKeys
-from clearvalue.model.cv_types import AccountTypes
+from cvcore.store.keys import DBKeys
+from cvcore.store import loaders
+from cvcore.model.cv_types import AccountTypes
 from utils.users_report import ValueEncoder
 
 

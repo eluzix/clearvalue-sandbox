@@ -1,8 +1,8 @@
 import time
 
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     tp1 = time.time()

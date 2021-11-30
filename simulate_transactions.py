@@ -1,12 +1,11 @@
 import json
 import random
 
-import boto3
-
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.providers import yodlee
-from clearvalue.lib.store import DBKeys, loaders
+from cvcore.providers import yodlee
+from cvcore.store import loaders
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     # boto3.setup_default_session(profile_name='clearvalue-stage-sls')

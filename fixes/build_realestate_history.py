@@ -4,11 +4,12 @@ import time
 import boto3
 import isodate
 
+import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib import utils, currency_utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
-from clearvalue.model.interest import amortization_table
+from cvcore import currency_utils
+from cvcore.store.keys import DBKeys
+from cvcore.model.interest import amortization_table
+from cvutils.dynamodb import ddb
 
 
 def _account_history(uid, account_id):

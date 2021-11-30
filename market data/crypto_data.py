@@ -9,10 +9,10 @@ import boto3
 import requests
 from bs4 import BeautifulSoup
 
+import cvutils as utils
 from clearvalue import app_config
-from clearvalue.lib import utils
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import DBKeys
+from cvcore.store.keys import DBKeys
+from cvutils.dynamodb import ddb
 
 
 def dump_data():

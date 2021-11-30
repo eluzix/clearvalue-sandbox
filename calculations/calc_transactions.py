@@ -3,9 +3,9 @@ from datetime import datetime
 
 from forex_python.converter import CurrencyRates
 
-from clearvalue.lib.currency_utils import convert_currency
-from clearvalue.model.securities import SecurityHoldings, SecuritiesPortfolio
-from clearvalue.model import InvestmentTransactionType, InvestmentTransaction
+from cvcore.currency_utils import convert_currency
+from cvcore.model.securities import SecurityHoldings, SecuritiesPortfolio
+from cvcore.model import InvestmentTransactionType, InvestmentTransaction
 
 
 def load_poalim_csv():

@@ -3,8 +3,9 @@ import logging
 import boto3
 
 from clearvalue import app_config
-from clearvalue.lib.dynamodb import ddb
-from clearvalue.lib.store import loaders, DBKeys
+from cvcore.store.keys import DBKeys
+from cvcore.store import loaders
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

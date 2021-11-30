@@ -5,8 +5,8 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import iter_active_users, is_user_active
-from clearvalue.lib import TerminalColors
+from clearvalue.analytics import iter_active_users, is_user_active, ACTIVE_GROUPS
+from cvutils import TerminalColors
 
 
 def report():
@@ -59,11 +59,52 @@ def dump_csv(key, file_name):
     print(f'*** {TerminalColors.OK_GREEN}All done for {key}{TerminalColors.END} ***')
 
 
+def active_users_by_campaign():
+    tp1 = time.time()
+    data = {}
+    for user in iter_active_users(load_latest=True, active_only=False):
+        utm_campaign = user.get('utm_campaign', 'no-campaign').lower()
+
+        for group in ACTIVE_GROUPS:
+            if is_user_active(user, group):
+                group_name = group['name']
+                group_data = data.get(group_name, {})
+                campaign_count = group_data.get(utm_campaign, 0)
+                group_data[utm_campaign] = campaign_count + 1
+                data[group_name] = group_data
+
+    with open('active_users_by_campaign.json', 'w') as fout:
+        json.dump(data, fout)
+
+    tp2 = time.time()
+    print(f'*** {TerminalColors.OK_GREEN}All done in {tp2 - tp1}{TerminalColors.END} ***')
+
+
+def active_users_by_campaign_dump():
+    tp1 = time.time()
+    with open('active_users_by_campaign.json', 'r') as fin:
+        data = json.load(fin)
+
+    for group_name in data:
+        with open(f'active_users_by_campaign_{group_name}.csv', 'w') as fout:
+            writer = csv.writer(fout)
+            writer.writerow(['Campaign', 'Users Count'])
+            group_data = [(k, v) for k, v in data.get(group_name, {}).items()]
+            group_data.sort(key=lambda kv: kv[1], reverse=True)
+            writer.writerows([[str(k), str(v)] for k, v in group_data])
+
+    tp2 = time.time()
+    print(f'*** {TerminalColors.OK_GREEN}All done in {tp2 - tp1}{TerminalColors.END} ***')
+
+
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
     # report()
-    dump_csv('all', 'campaign_report_all.csv')
-    dump_csv('active', 'campaign_report_active.csv')
-    dump_csv('sessions', 'campaign_report_sessions.csv')
+    # dump_csv('all', 'campaign_report_all.csv')
+    # dump_csv('active', 'campaign_report_active.csv')
+    # dump_csv('sessions', 'campaign_report_sessions.csv')
+
+    # active_users_by_campaign()
+    active_users_by_campaign_dump()
