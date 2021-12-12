@@ -1,3 +1,4 @@
+import csv
 import json
 from collections import Counter
 
@@ -71,34 +72,46 @@ def terms_report():
     terms = {}
     for uid in users:
         user, _ = users[uid]
-        term = users.get('utm_term', 'NO TERM')
+        term = user.get('utm_term', 'NO TERM')
         term_data = terms.get(term, [])
         aum_segment = user['aum_segment']
         if user.get('total_account_types', 0) == 0:
-            aum_segment = -1
+            aum_segment = 0
 
         term_data.append(aum_segment)
         terms[term] = term_data
 
-    for term in terms:
-        term_data = terms[term]
-        if len(term_data) < 10:
-            continue
+    with open('aum_terms.csv', 'w') as fout:
+        writer = csv.writer(fout)
+        writer.writerow(['Term', 'Total', '$0 Networth', '$0-$500K', '$500K-$1M', '$1M-$5M', '$5M+'])
+        for term in terms:
+            term_data = terms[term]
+            if len(term_data) < 10:
+                continue
 
-        total_values = len(term_data)
-        counter = Counter(term_data)
-        # print(f'AUM for term "{term}"')
-        all_terms = [s for s in counter]
-        all_terms.sort()
-        row = [f'{_aum_label(t)} %{(counter[t] / total_values) * 100:.2f}' for t in all_terms]
-        print(f'AUM for term "{term}": {row}')
-        # for segment in segments:
-        #     print(f'Segment {_aum_label(segment)} is %{(counter[segment] / total_values) * 100:.2f} of term')
+            total_values = len(term_data)
+            counter = Counter(term_data)
+            # print(f'AUM for term "{term}"')
+            all_terms = [s for s in counter]
+            all_terms.sort()
+            values = ['0', '0', '0', '0', '0']
+            for i, t in enumerate(all_terms):
+                # values[i] = f'%{(counter[t] / total_values) * 100:.2f}'
+                values[i] = str(counter[t] / total_values)
+            row = [term, str(total_values)]
+            row.extend(values)
+            writer.writerow(row)
+            print(row)
+            # row = [f'{_aum_label(t)} %{(counter[t] / total_values) * 100:.2f}' for t in all_terms]
+            # values = ','.join(values)
+            # print(f'{term}, {total_values}, {values}')
+            # for segment in segments:
+            #     print(f'Segment {_aum_label(segment)} is %{(counter[segment] / total_values) * 100:.2f} of term')
 
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
-    campaign_report()
-    # terms_report()
+    # campaign_report()
+    terms_report()
