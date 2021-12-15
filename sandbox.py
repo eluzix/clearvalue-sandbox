@@ -76,8 +76,9 @@ if __name__ == '__main__':
 
     boto3.setup_default_session(profile_name='clearvalue-stage-sls')
     app_config.set_stage('staging')
-    timing_test1()
-    timing_test2()
+    # timing_test1()
+    # timing_test2()
+    print(ddb.batch_get_items(app_config.resource_name('accounts'), [DBKeys.user_account('sd', '12')]))
 
     # ddb.collect_query_data = True
     # ret = ddb.get_item(app_config.resource_name('accounts'), DBKeys.info_key('f417d7b5-cb66-4ef1-a36a-9c6806d0af0f'))
