@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     boto3.setup_default_session(profile_name='clearvalue-stage-sls')
     app_config.set_stage('staging')
-    # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
+    uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
     # uid = 'e28e9038-c962-4e46-960e-c2b77a6468f0'
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # uid = '7f58b698-59d7-42de-9c7d-a9e4e8d88573'
 
     # shaiazran@gmail in staging
-    uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
+    # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
 
     # shai@claritus in prod
     # uid = '673e7d2c-4508-4658-9303-0646669d65f6'
@@ -117,9 +117,13 @@ if __name__ == '__main__':
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account'].get('providerAccountId'))
 
     tp1 = time.time()
-    ret = local_queries.all_assets_query(uid, tf={'timeFrame': 'max',
-                                                  'startDate': '2021-05-15',
-                                                  'endDate': '2021-06-16'
+    # ret = local_queries.all_assets_query(uid, tf={'timeFrame': 'max',
+    #                                               'startDate': '2021-05-15',
+    #                                               'endDate': '2021-06-16'
+    #                                               })
+    ret = local_queries.tag_info_query(uid, 'loan', tf={'timeFrame': 'custom',
+                                                  'startDate': '2000-01-01',
+                                                  'endDate': '2000-01-03'
                                                   })
     tp2 = time.time()
     print(f'-------------------------> {tp2-tp1}')
