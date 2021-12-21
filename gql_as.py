@@ -1,4 +1,5 @@
 import pprint
+import time
 
 import boto3
 
@@ -7,15 +8,15 @@ from utils import local_queries
 from utils.local_queries import securities_holdings_data, cash_type_info, pe_type_info, pe_account_info
 
 if __name__ == '__main__':
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
+    # boto3.setup_default_session(profile_name='clearvalue-sls')
+    # app_config.set_stage('prod')
 
-    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
-    # app_config.set_stage('staging')
-    # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
+    boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    app_config.set_stage('staging')
+    uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
+    # uid = 'e28e9038-c962-4e46-960e-c2b77a6468f0'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     # uid = '7f58b698-59d7-42de-9c7d-a9e4e8d88573'
 
     # shaiazran@gmail in staging
-    # uid = '64ae0971-45aa-4e8f-8168-d55ffba09afa'
+    # uid = '3e992797-4ab3-438b-977c-f6eb8b7ffcd5'
 
     # shai@claritus in prod
     # uid = '673e7d2c-4508-4658-9303-0646669d65f6'
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
 
-    ret = pe_type_info(uid)
+    # ret = pe_type_info(uid)
     # ret = pe_account_info(uid, 'ba940597-9570-4fa6-b629-3ab700f0a5c2', tf={'timeFrame': '30days',
     #                                                                        'startDate': '2016-04-01',
     #                                                                        'endDate': '2021-03-23'
@@ -73,7 +74,7 @@ if __name__ == '__main__':
     #                                                   'startDate': '2021-05-15',
     #                                                   'endDate': '2021-06-16'
     #                                                   })
-    # ret = local_queries.securities_account_info(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
+    # ret = local_queries.securities_account_info(uid, '61e0fade-b382-43a4-b6a8-15dc6f56fd96', tf={'timeFrame': '30days',
     #                                                                                              'startDate': '2021-07-01',
     #                                                                                              'endDate': '2021-07-31'
     #                                                                                              })
@@ -115,4 +116,16 @@ if __name__ == '__main__':
     # for ac in ret['loanTypeInfo']['accounts']:
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account'].get('providerAccountId'))
 
+    tp1 = time.time()
+    # ret = local_queries.all_assets_query(uid, tf={'timeFrame': 'max',
+    #                                               'startDate': '2021-05-15',
+    #                                               'endDate': '2021-06-16'
+    #                                               })
+    ret = local_queries.tag_info_query(uid, 'loan', tf={'timeFrame': 'custom',
+                                                  'startDate': '2000-01-01',
+                                                  'endDate': '2000-01-03'
+                                                  })
+    tp2 = time.time()
+    print(f'-------------------------> {tp2-tp1}')
     pprint.pprint(ret)
+    print(f'-------------------------> {tp2-tp1}')
