@@ -7,6 +7,7 @@ import boto3
 from clearvalue import app_config
 from clearvalue.graphql import data_loaders
 from clearvalue.graphql.schema import Context, api_schema
+from cvcore.providers.yodlee import _normalize_account
 from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 from cvtests import DummyRequest
@@ -142,7 +143,11 @@ def yodlee_support(uid):
             # if account['providerName'] == 'E*TRADE':
             # if account['accountName'] == 'Auto Used Fixed':
             #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
+
             pprint.pprint(account)
+            # if account.get('providerId') == '9505':
+            #     pprint.pprint(account)
+            #     print(_normalize_account(account))
             # if account['dataset'][0].get('nextUpdateScheduled') is None:
             #     pprint.pprint(account)
             # print(account['dataset'][0]['updateEligibility'], account['dataset'][0].get('lastUpdated'), account['dataset'][0].get('nextUpdateScheduled'))
@@ -192,7 +197,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = 'e28e9038-c962-4e46-960e-c2b77a6468f0'
+    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'

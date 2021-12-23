@@ -8,15 +8,15 @@ from utils import local_queries
 from utils.local_queries import securities_holdings_data, cash_type_info, pe_type_info, pe_account_info
 
 if __name__ == '__main__':
-    # boto3.setup_default_session(profile_name='clearvalue-sls')
-    # app_config.set_stage('prod')
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
 
-    boto3.setup_default_session(profile_name='clearvalue-stage-sls')
-    app_config.set_stage('staging')
-    uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
+    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    # app_config.set_stage('staging')
+    # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    # uid = 'e28e9038-c962-4e46-960e-c2b77a6468f0'
+    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -70,11 +70,11 @@ if __name__ == '__main__':
     #                                                                        'endDate': '2021-03-23'
     #                                                                        })
 
-    # ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
-    #                                                   'startDate': '2021-05-15',
-    #                                                   'endDate': '2021-06-16'
-    #                                                   })
-    # ret = local_queries.securities_account_info(uid, '61e0fade-b382-43a4-b6a8-15dc6f56fd96', tf={'timeFrame': '30days',
+    ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
+                                                      'startDate': '2021-05-15',
+                                                      'endDate': '2021-06-16'
+                                                      })
+    # ret = local_queries.securities_account_info(uid, 'c8e7c92b-781a-46f0-8f94-a8151d52f888', tf={'timeFrame': '30days',
     #                                                                                              'startDate': '2021-07-01',
     #                                                                                              'endDate': '2021-07-31'
     #                                                                                              })
@@ -121,10 +121,10 @@ if __name__ == '__main__':
     #                                               'startDate': '2021-05-15',
     #                                               'endDate': '2021-06-16'
     #                                               })
-    ret = local_queries.tag_info_query(uid, 'loan', tf={'timeFrame': 'custom',
-                                                  'startDate': '2000-01-01',
-                                                  'endDate': '2000-01-03'
-                                                  })
+    # ret = local_queries.tag_info_query(uid, 'loan', tf={'timeFrame': 'custom',
+    #                                               'startDate': '2000-01-01',
+    #                                               'endDate': '2000-01-03'
+    #                                               })
     tp2 = time.time()
     print(f'-------------------------> {tp2-tp1}')
     pprint.pprint(ret)
