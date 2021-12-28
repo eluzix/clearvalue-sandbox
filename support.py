@@ -197,7 +197,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
+    uid = '5a680930-c15f-4a73-adac-d9299097ae18'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
