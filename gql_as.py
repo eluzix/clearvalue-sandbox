@@ -70,14 +70,14 @@ if __name__ == '__main__':
     #                                                                        'endDate': '2021-03-23'
     #                                                                        })
 
-    ret = local_queries.securities_type_info(uid, tf={'timeFrame': 'max',
-                                                      'startDate': '2021-05-15',
-                                                      'endDate': '2021-06-16'
-                                                      })
-    # ret = local_queries.securities_account_info(uid, '74c8d3b9-0328-4d1f-9a89-c4eca4cb0030', tf={'timeFrame': 'max',
-    #                                                                                              'startDate': '2021-07-01',
-    #                                                                                              'endDate': '2021-07-31'
-    #                                                                                              })
+    # ret = local_queries.securities_type_info(uid, tf={'timeFrame': 'max',
+    #                                                   'startDate': '2021-05-15',
+    #                                                   'endDate': '2021-06-16'
+    #                                                   })
+    ret = local_queries.securities_account_info(uid, '74c8d3b9-0328-4d1f-9a89-c4eca4cb0030', tf={'timeFrame': 'max',
+                                                                                                 'startDate': '2021-07-01',
+                                                                                                 'endDate': '2021-07-31'
+                                                                                                 })
     # ret = securities_holdings_data(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
     #                                                                                 'startDate': '2016-04-01',
     #                                                                                 'endDate': '2021-03-23'
