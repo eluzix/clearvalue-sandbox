@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
+    uid = 'e28e9038-c962-4e46-960e-c2b77a6468f0'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
 
-    # ret = pe_type_info(uid)
+    # ret = local_queries.pe_type_info(uid)
     # ret = pe_account_info(uid, 'ba940597-9570-4fa6-b629-3ab700f0a5c2', tf={'timeFrame': '30days',
     #                                                                        'startDate': '2016-04-01',
     #                                                                        'endDate': '2021-03-23'
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     #                                                   'startDate': '2021-05-15',
     #                                                   'endDate': '2021-06-16'
     #                                                   })
-    ret = local_queries.securities_account_info(uid, '1d8dc5aa-8c64-4c3d-99d4-0624d9fe61da', tf={'timeFrame': '30days',
+    ret = local_queries.securities_account_info(uid, 'eeb21386-0dd0-4973-badb-b2d7dfe41da7', tf={'timeFrame': '90days',
                                                                                                  'startDate': '2021-07-01',
                                                                                                  'endDate': '2021-07-31'
                                                                                                  })
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     #                                    'endDate': '2021-06-16'
     #                                    })
 
-    # ret = vc_type_info(uid)
+    # ret = local_queries.vc_type_info(uid)
     # ret = vc_account_info(uid, '3ca59783-b57e-4995-ac20-115db7f7b4bc', tf={'timeFrame': 'custom',
     #                                                                        'startDate': '2013-01-01',
     #                                                                        'endDate': '2021-06-28'
