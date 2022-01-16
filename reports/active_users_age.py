@@ -5,10 +5,24 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.analytics import is_internal_user, is_user_active, get_active_config, ACTIVE_GROUPS
+from clearvalue.analytics import is_internal_user, is_user_active, get_active_config
 from cvcore.store import loaders
 from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb
+
+
+def _get_stats_data(run_for):
+    keys = []
+    for user in loaders.iter_users():
+        uid = user[DBKeys.HASH_KEY]
+        if is_internal_user(uid):
+            continue
+        if run_for is None:
+            keys.append(DBKeys.hash_sort(uid, 'STATS'))
+        else:
+            keys.append(DBKeys.hash_sort(uid, f'STATS:{run_for}'))
+
+    return ddb.batch_get_items(app_config.resource_name('analytics'), keys)
 
 
 def active_users(run_for=None, active_group=1):
@@ -20,23 +34,31 @@ def active_users(run_for=None, active_group=1):
 
     active_group_config = get_active_config(active_group)
     rows = []
-    for user in loaders.iter_users():
+    data = _get_stats_data(run_for)
+    for user in data:
         uid = user[DBKeys.HASH_KEY]
-        if is_internal_user(uid):
+
+        if not is_user_active(user, active_group_config):
             continue
+        rows.append([uid, str(user['user_age'])])
 
-        if run_for is None:
-            daily_stats = ddb.get_item(app_config.resource_name('analytics'), DBKeys.hash_sort(uid, 'STATS'))
-        else:
-            daily_stats = ddb.get_item(app_config.resource_name('analytics'), DBKeys.hash_sort(uid, f'STATS:{run_for}'))
-
-        if daily_stats is None:
-            continue
-
-        if not is_user_active(daily_stats, active_group_config):
-            continue
-
-        rows.append([uid, str(daily_stats['user_age'])])
+    # for user in loaders.iter_users():
+    #     uid = user[DBKeys.HASH_KEY]
+    #     if is_internal_user(uid):
+    #         continue
+    #
+    #     if run_for is None:
+    #         daily_stats = ddb.get_item(app_config.resource_name('analytics'), DBKeys.hash_sort(uid, 'STATS'))
+    #     else:
+    #         daily_stats = ddb.get_item(app_config.resource_name('analytics'), DBKeys.hash_sort(uid, f'STATS:{run_for}'))
+    #
+    #     if daily_stats is None:
+    #         continue
+    #
+    #     if not is_user_active(daily_stats, active_group_config):
+    #         continue
+    #
+    #     rows.append([uid, str(daily_stats['user_age'])])
 
     with open(f'active_users_age_{stats_date}_{active_group}.csv', 'w') as fout:
         writer = csv.writer(fout)
@@ -75,15 +97,16 @@ def analyze(stats_date, active_group):
         keys.sort()
         for group in keys:
             group_data = data[group]
-            print(f'For group {group} data is {per_format(group_data/total)}')
+            print(f'For group {group} data is {per_format(group_data / total)}')
 
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
-    for i, group in enumerate(ACTIVE_GROUPS):
-        print(f"Processing data for group {group['name']}")
-        active_users(run_for='2021-11-11', active_group=i)
-        print('-------------------------------')
+    active_users(run_for='2022-01-15', active_group=3)
+    # for i, group in enumerate(ACTIVE_GROUPS):
+    #     print(f"Processing data for group {group['name']}")
+    #     active_users(run_for='2022-01-15', active_group=i)
+    #     print('-------------------------------')
     # analyze(stats_date='2021-11-11')
