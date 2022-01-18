@@ -5,7 +5,6 @@ import boto3
 
 from clearvalue import app_config
 from utils import local_queries
-from utils.local_queries import securities_holdings_data, cash_type_info, pe_type_info, pe_account_info
 
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
@@ -16,7 +15,7 @@ if __name__ == '__main__':
     # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = '5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09'
+    uid = 'e28e9038-c962-4e46-960e-c2b77a6468f0'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -39,6 +38,7 @@ if __name__ == '__main__':
     # refaeli in dev
     # uid = '6622e97c-1dcd-47d4-9f13-17907cf4fb81'
 
+    tp1 = time.time()
     # pprint.pprint(asset_type_history(uid, 'loans', base_asset_type='liability'))
     # ret = mortgages_type_data(uid, tf={'timeFrame': '30days',
     #                                    'startDate': '2019-05-01',
@@ -64,20 +64,20 @@ if __name__ == '__main__':
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
 
-    # ret = pe_type_info(uid)
+    # ret = local_queries.pe_type_info(uid)
     # ret = pe_account_info(uid, 'ba940597-9570-4fa6-b629-3ab700f0a5c2', tf={'timeFrame': '30days',
     #                                                                        'startDate': '2016-04-01',
     #                                                                        'endDate': '2021-03-23'
     #                                                                        })
 
-    ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
-                                                      'startDate': '2021-05-15',
-                                                      'endDate': '2021-06-16'
-                                                      })
-    # ret = local_queries.securities_account_info(uid, 'c8e7c92b-781a-46f0-8f94-a8151d52f888', tf={'timeFrame': '30days',
-    #                                                                                              'startDate': '2021-07-01',
-    #                                                                                              'endDate': '2021-07-31'
-    #                                                                                              })
+    # ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
+    #                                                   'startDate': '2021-05-15',
+    #                                                   'endDate': '2021-06-16'
+    #                                                   })
+    ret = local_queries.securities_account_info(uid, 'eeb21386-0dd0-4973-badb-b2d7dfe41da7', tf={'timeFrame': '90days',
+                                                                                                 'startDate': '2021-07-01',
+                                                                                                 'endDate': '2021-07-31'
+                                                                                                 })
     # ret = securities_holdings_data(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
     #                                                                                 'startDate': '2016-04-01',
     #                                                                                 'endDate': '2021-03-23'
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     #                                    'endDate': '2021-06-16'
     #                                    })
 
-    # ret = vc_type_info(uid)
+    # ret = local_queries.vc_type_info(uid)
     # ret = vc_account_info(uid, '3ca59783-b57e-4995-ac20-115db7f7b4bc', tf={'timeFrame': 'custom',
     #                                                                        'startDate': '2013-01-01',
     #                                                                        'endDate': '2021-06-28'
@@ -102,10 +102,10 @@ if __name__ == '__main__':
     #     print(ac)
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account']['accountMask'], '--', ac['account']['linkStatus'])
     # ret = account_info_query(uid, '0c11959d-3aca-44d4-9d5c-98c15791ea32')
-    # ret = account_transactions_query(uid, '0c11959d-3aca-44d4-9d5c-98c15791ea32', tf={'timeFrame': 'custom',
-    #                                                                                   'startDate': '2013-01-01',
-    #                                                                                   'endDate': '2021-06-28'
-    #                                                                                   })
+    # ret = local_queries.account_transactions_query(uid, '8c9e85dc-c455-4619-bd42-177f7dd2afa2', tf={'timeFrame': 'max',
+    #                                                                                                 'startDate': '2021-08-05',
+    #                                                                                                 'endDate': '2021-12-23'
+    #                                                                                                 })
 
     # ret = link_zabo_account(uid, {'id': '039c3777-ceb3-4931-b392-68acc5387fc5', 'token': 'zabosession-UwKT6CMlTEH4jqgb2K68MbX3u5dILbQsTtbG9UDHLkAEPZUnZ6pLObSGm7Asl46a', 'provider': 'celsius'})
 
@@ -116,7 +116,6 @@ if __name__ == '__main__':
     # for ac in ret['loanTypeInfo']['accounts']:
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account'].get('providerAccountId'))
 
-    tp1 = time.time()
     # ret = local_queries.all_assets_query(uid, tf={'timeFrame': 'max',
     #                                               'startDate': '2021-05-15',
     #                                               'endDate': '2021-06-16'
@@ -126,6 +125,6 @@ if __name__ == '__main__':
     #                                               'endDate': '2000-01-03'
     #                                               })
     tp2 = time.time()
-    print(f'-------------------------> {tp2-tp1}')
+    print(f'-------------------------> {tp2 - tp1}')
     pprint.pprint(ret)
-    print(f'-------------------------> {tp2-tp1}')
+    print(f'-------------------------> {tp2 - tp1}')

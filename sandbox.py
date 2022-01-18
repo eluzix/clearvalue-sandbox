@@ -7,6 +7,7 @@ import pytz
 import cvutils
 from clearvalue import app_config
 from cvcore.store import DBKeys, loaders
+from cvutils import elastic
 from cvutils.config import get_app_config
 from cvutils.dynamodb import ddb
 
@@ -92,18 +93,50 @@ def query():
     print(items)
 
 
-if __name__ == '__main__':
-    # boto_session = boto3.session.Session(profile_name='clearvalue-sls')
-    # boto3.setup_default_session(profile_name='clearvalue-sls')
-    # app_config.set_stage('prod')
+def join_utm(boto_session):
+    client = elastic.client(boto_session=boto_session)
+    body = {
+        'query': {
+            'bool': {
+                "must": [
+                    {"match": {"log_name": "client-log"}},
+                    {"match": {"event": "user created"}},
+                    {"match": {"category": "signup"}},
+                ],
+            },
+        },
+        'size': 300
+    }
 
-    boto3.setup_default_session(profile_name='clearvalue-stage-sls')
-    app_config.set_stage('staging')
+    results = client.search(body=body, index='app-logs*')
+    hits = results['hits']
+
+    for hit in hits['hits']:
+        source = hit['_source']
+        history = source.get('utm_history')
+        if history is not None:
+            print(source['uid'], history)
+
+
+if __name__ == '__main__':
+    boto_session = boto3.session.Session(profile_name='clearvalue-sls')
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
+
+    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    # app_config.set_stage('staging')
     # timing_test1()
     # timing_test2()
     # print(ddb.batch_get_items(app_config.resource_name('accounts'), [DBKeys.user_account('sd', '12')]))
-    query()
+    # query()
+
+    # db_account = loaders.load_user_account('5bbc7a83-fa1a-42d3-a908-b5cebb9a7e09', '1d8dc5aa-8c64-4c3d-99d4-0624d9fe61da')
+    # print(db_account['value'])
+    # update_account_holdings_latest_data(db_account)
+    # print(db_account['value'])
 
     # ddb.collect_query_data = True
     # ret = ddb.get_item(app_config.resource_name('accounts'), DBKeys.info_key('f417d7b5-cb66-4ef1-a36a-9c6806d0af0f'))
     # print(ret)
+
+    join_utm(boto_session)

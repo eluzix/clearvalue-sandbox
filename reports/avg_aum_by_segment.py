@@ -261,7 +261,11 @@ if __name__ == '__main__':
     stats_map = None
     # all_users, stats_map = debug_aum(0, '2021-11-11', all_users=all_users, stats_map=stats_map)
 
-    for i, group in enumerate(ACTIVE_GROUPS):
-        print(f"Processing data for group {group['desc']}")
-        all_users, stats_map = active_users('2021-11-11', i, all_users=all_users, stats_map=stats_map)
-        print_results(i)
+    i = 3
+    all_users, stats_map = active_users('2022-01-15', i, all_users=all_users, stats_map=stats_map)
+    print_results(i)
+
+    # for i, group in enumerate(ACTIVE_GROUPS):
+    #     print(f"Processing data for group {group['desc']}")
+    #     all_users, stats_map = active_users('2021-11-11', i, all_users=all_users, stats_map=stats_map)
+    #     print_results(i)

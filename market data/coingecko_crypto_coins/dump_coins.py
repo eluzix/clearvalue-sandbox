@@ -15,7 +15,7 @@ from cvcore.store.keys import DBKeys
 
 
 def dump_all():
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'w') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'w') as f:
         all_coins = coingecko.all_coins()
         coins = {
             c['symbol'].upper(): {
@@ -28,7 +28,7 @@ def dump_all():
 
 
 def enrich_coins():
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         coins = json.load(f)
 
     i = 1
@@ -49,7 +49,7 @@ def enrich_coins():
             if logo is not None:
                 coins[symbol]['icon_url'] = logo
 
-            with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'w') as f:
+            with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'w') as f:
                 json.dump(coins, f)
 
             i += 1
@@ -69,14 +69,14 @@ def enrich_coins():
             except:
                 pass
     print('writing final time...')
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'w') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'w') as f:
         json.dump(coins, f)
 
     print('all done')
 
 
 def dump_missing_history():
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         all_coins = json.load(f)
 
     for symbol in all_coins:
@@ -114,7 +114,7 @@ def dump_missing_history():
 
 
 def dump_symbol_history(symbol, override=False):
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         all_coins = json.load(f)
 
     coin = all_coins[symbol]
@@ -211,7 +211,7 @@ def db_dump_symbol(symbol):
 
 
 def dump_to_elastic(profile=None):
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         all_coins = json.load(f)
 
         batch = []
@@ -233,7 +233,7 @@ def dump_to_elastic(profile=None):
 
 
 def dump_coin_elastic(symbol, profile=None):
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         all_coins = json.load(f)
 
         batch = []
@@ -254,11 +254,11 @@ def dump_coin_elastic(symbol, profile=None):
 
 
 def add_coin(symbol, override=False, all_coins=None):
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         existing_coins = json.load(f)
 
     if not override and symbol in existing_coins.keys():
-        print(f'{symbol} already in crypto-coins-v3.json')
+        print(f'{symbol} already in crypto-coins-v4.json')
         return
 
     if all_coins is None:
@@ -283,15 +283,15 @@ def add_coin(symbol, override=False, all_coins=None):
 
             existing_coins[c['symbol']] = c
 
-            print(f'Adding {c["symbol"]} to crypto-coins-v3.json')
-            with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'w') as f:
+            print(f'Adding {c["symbol"]} to crypto-coins-v4.json')
+            with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'w') as f:
                 json.dump(existing_coins, f)
             break
     print('*** All Done ***')
 
 
 def fix_history():
-    with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
         all_coins = json.load(f)
 
     for symbol in all_coins:
@@ -357,7 +357,7 @@ if __name__ == '__main__':
     # fix_history()
     # db_dump('data-fix/')
 
-    # with open('../../../clearvalue-api/resources/crypto-coins-v3.json', 'r') as f:
+    # with open('../../../clearvalue-api/resources/crypto-coins-v4.json', 'r') as f:
     #     coins = json.load(f)
     # print(len(coins))
 
