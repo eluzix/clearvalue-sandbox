@@ -119,9 +119,9 @@ def join_utm(boto_session):
 
 
 if __name__ == '__main__':
-    boto_session = boto3.session.Session(profile_name='clearvalue-sls')
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
+    # boto_session = boto3.session.Session(profile_name='clearvalue-sls')
+    # boto3.setup_default_session(profile_name='clearvalue-sls')
+    # app_config.set_stage('prod')
 
     # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
     # app_config.set_stage('staging')
@@ -139,4 +139,33 @@ if __name__ == '__main__':
     # ret = ddb.get_item(app_config.resource_name('accounts'), DBKeys.info_key('f417d7b5-cb66-4ef1-a36a-9c6806d0af0f'))
     # print(ret)
 
-    join_utm(boto_session)
+    # join_utm(boto_session)
+    a = [{'HashKey': 'CRY:CV-BTM-BYTOM', 'SortKey': 'INFO', 'symbol': 'BTM', 'provider_id': 'bytom', 'name': 'Bytom',
+          'provider_data': {'id': 'bytom', 'symbol': 'btm', 'name': 'Bytom', 'asset_platform_id': None, 'platforms': {'': '0xcb97e65f07da24d46bcdd078ebebd7c6e6e3d750'}, 'block_time_in_minutes': 0,
+                            'hashing_algorithm': None, 'categories': ['Cosmos Ecosystem', 'Polygon Ecosystem', 'Smart Contract Platform'], 'public_notice': None, 'additional_notices': [],
+                            'description': {
+                                'en': 'Bytom is a blockchain protocol for financial and digital asset applications. Using the Bytom protocol, individuals and enterprises alike can register and exchange not just digital assets (i.e. Bitcoin) but traditional assets as well (i.e. securities, bonds, or even intelligence data). Bytom’s mission is “to bridge the atomic [physical] world and the byte [digital] world, to build a decentralized network where various byte assets and atomic assets could be registered and exchanged.”\r\n\r\nBytom is an interactive protocol of multiple byte assets, to give it the proper title. Heterogeneous byte-assets (indigenous digital currency, digital assets) that operate in different forms on the Bytom Blockchain and atomic assets (warrants, securities, dividends, bonds, intelligence information, forecasting information and other information that exist in the physical world) can be registered, exchanged, gambled and engaged in other more complicated and contract-based interoperations via Bytom.\r\n\r\nWhile Ethereum’s SEC scrutinization as a possible security took the entire crypto market on a downturn in early 2018, Bytom voluntarily submitted to the SEC’s Howey Test and Bytom cryptocurrency was deemed not a security under its DAO watch. This one has potential to make an impact on the cryptocurrency market with low transaction fees, high tech Bytom blockchain technology and an interactive protocol of multiple byte assets that could mark it apart. A Bytom wallet is also on offer and can store plenty more than Bytom coins.'},
+                            'links': {'homepage': ['http://bytom.io/', '', ''],
+                                      'blockchain_site': ['https://etherscan.io/token/0xcb97e65f07da24d46bcdd078ebebd7c6e6e3d750', 'http://btmscan.com/', 'https://btm.tokenview.com/',
+                                                          'https://blockmeta.com/', '', '', '', '', '', ''], 'official_forum_url': ['', '', ''], 'chat_url': ['', '', ''], 'announcement_url': ['', ''],
+                                      'twitter_screen_name': 'Bytom_Official', 'facebook_username': '', 'bitcointalk_thread_identifier': 1975390, 'telegram_channel_identifier': '',
+                                      'subreddit_url': 'https://www.reddit.com/r/BytomBlockchain', 'repos_url': {'github': ['https://github.com/bytom/bytom'], 'bitbucket': []}},
+                            'image': {'thumb': 'https://assets.coingecko.com/coins/images/1087/thumb/2qNyrhUxEmnGCKi.png?1630048151',
+                                      'small': 'https://assets.coingecko.com/coins/images/1087/small/2qNyrhUxEmnGCKi.png?1630048151',
+                                      'large': 'https://assets.coingecko.com/coins/images/1087/large/2qNyrhUxEmnGCKi.png?1630048151'}, 'country_origin': 'CN', 'genesis_date': '2017-10-31',
+                            'contract_address': '0xcb97e65f07da24d46bcdd078ebebd7c6e6e3d750', 'sentiment_votes_up_percentage': 100.0, 'sentiment_votes_down_percentage': 0.0,
+                            'ico_data': {'ico_start_date': '2017-06-20T00:00:00.000Z', 'ico_end_date': '2017-07-20T00:00:00.000Z', 'short_desc': 'Transfer assets from atomic world to byteworld',
+                                         'description': None, 'links': {}, 'softcap_currency': '', 'hardcap_currency': '', 'total_raised_currency': 'USD', 'softcap_amount': None,
+                                         'hardcap_amount': None,
+                                         'total_raised': '2286000.0', 'quote_pre_sale_currency': '', 'base_pre_sale_amount': None, 'quote_pre_sale_amount': None, 'quote_public_sale_currency': 'USD',
+                                         'base_public_sale_amount': 1.0, 'quote_public_sale_amount': 0.05, 'accepting_currencies': '', 'country_origin': 'CN', 'pre_sale_start_date': None,
+                                         'pre_sale_end_date': None, 'whitelist_url': '', 'whitelist_start_date': None, 'whitelist_end_date': None, 'bounty_detail_url': '', 'amount_for_sale': None,
+                                         'kyc_required': True, 'whitelist_available': None, 'pre_sale_available': None, 'pre_sale_ended': False}, 'market_cap_rank': 596, 'coingecko_rank': 127,
+                            'coingecko_score': 43.875, 'developer_score': 69.542, 'community_score': 32.113, 'liquidity_score': 32.393, 'public_interest_score': 0.002,
+                            'public_interest_stats': {'alexa_rank': 863004, 'bing_matches': None}, 'status_updates': [], 'last_updated': '2022-02-01T08:47:38.964Z'},
+          'icon_url': 'https://assets.coingecko.com/coins/images/1087/large/2qNyrhUxEmnGCKi.png?1630048151', 'coin_id': 'cv-btm-bytom', 'lazy_load': True, 'created_at': 1643705616,
+          'GS1Hash': 'CRYPTO_COINS', 'GS1Sort': 'cv-btm-bytom'},
+         ]
+
+    for i in a:
+        print(ddb.type_serialize(i))
