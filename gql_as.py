@@ -7,15 +7,15 @@ from clearvalue import app_config
 from utils import local_queries
 
 if __name__ == '__main__':
-    # boto3.setup_default_session(profile_name='clearvalue-sls')
-    # app_config.set_stage('prod')
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
 
-    boto3.setup_default_session(profile_name='clearvalue-stage-sls')
-    app_config.set_stage('staging')
+    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    # app_config.set_stage('staging')
     # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = 'aefdbe2b-d2c0-4148-98cf-94e344dcf664'
+    uid = '0f18ac31-905a-474c-9ec4-17cb41f085f7'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -82,10 +82,13 @@ if __name__ == '__main__':
     #                                                                                 'startDate': '2016-04-01',
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
-    # ret = home_info(uid)
+    ret = local_queries.home_info(uid, tf={'timeFrame': '30days',
+                                           'startDate': '2016-04-01',
+                                           'endDate': '2021-03-23'
+                                           })
 
-    # ret = crypto_type_data(uid)
-    ret = local_queries.crypto_account_info(uid, '7ec5a023-f559-4205-a84e-234165a71972')
+    # ret = local_queries.crypto_type_data(uid)
+    # ret = local_queries.crypto_account_info(uid, '7ec5a023-f559-4205-a84e-234165a71972')
     # ret = crypto_transactions(uid, 'ee530eb4-4cfe-475e-aded-774b905912f5', tf={'timeFrame': '30days',
     #                                    'startDate': '2021-05-15',
     #                                    'endDate': '2021-06-16'
@@ -97,7 +100,10 @@ if __name__ == '__main__':
     #                                                                        'endDate': '2021-06-28'
     #                                                                        })
 
-    # ret = cash_type_info(uid, asset_type='cash')
+    # ret = local_queries.cash_type_info(uid, asset_type='cash', tf={'timeFrame': '30days',
+    #                                                                'startDate': '2021-05-15',
+    #                                                                'endDate': '2021-06-16'
+    #                                                                })
     # for ac in ret['cashTypeInfo']['accounts']:
     #     print(ac)
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account']['accountMask'], '--', ac['account']['linkStatus'])
@@ -116,7 +122,7 @@ if __name__ == '__main__':
     # for ac in ret['loanTypeInfo']['accounts']:
     #     print(ac['account']['accountId'], '--', ac['account']['name'], '--', ac['account'].get('providerAccountId'))
 
-    # ret = local_queries.all_assets_query(uid, tf={'timeFrame': 'max',
+    # ret = local_queries.all_assets_query(uid, tf={'timeFrame': '30days',
     #                                               'startDate': '2021-05-15',
     #                                               'endDate': '2021-06-16'
     #                                               })
