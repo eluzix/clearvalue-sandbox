@@ -82,8 +82,8 @@ if __name__ == '__main__':
     #                                                                                 'startDate': '2016-04-01',
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
-    ret = local_queries.home_info(uid, tf={'timeFrame': '30days',
-                                           'startDate': '2016-04-01',
+    ret = local_queries.home_info(uid, tf={'timeFrame': 'custom',
+                                           'startDate': '2012-01-01',
                                            'endDate': '2021-03-23'
                                            })
 
