@@ -100,11 +100,30 @@ def analyze(stats_date, active_group):
             print(f'For group {group} data is {per_format(group_data / total)}')
 
 
+def link_status(run_for=None):
+    active_group_config = get_active_config(3)
+    total_users = 0
+    total_linked = 0
+    data = _get_stats_data(run_for)
+    for user in data:
+        uid = user[DBKeys.HASH_KEY]
+
+        if not is_user_active(user, active_group_config):
+            continue
+
+        total_users += 1
+        if user.get('linked_accounts', 0) > 0:
+            total_linked += 1
+
+    print(f'Out of {total_users}, {total_linked} has link')
+
+
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
-    active_users(run_for='2022-01-15', active_group=3)
+    # active_users(run_for='2022-01-15', active_group=3)
+    link_status()
     # for i, group in enumerate(ACTIVE_GROUPS):
     #     print(f"Processing data for group {group['name']}")
     #     active_users(run_for='2022-01-15', active_group=i)
