@@ -1,7 +1,9 @@
+import csv
+
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import is_internal_user, get_active_config, is_user_active
+from clearvalue.analytics import is_internal_user, get_active_config, is_user_active, iter_active_users
 from cvcore.store import loaders, DBKeys
 from cvutils.dynamodb import ddb
 
@@ -38,7 +40,32 @@ def active_by_assets():
     print(stats)
 
 
+def all_users_assets():
+    users = {}
+    meta_keys = []
+    for user in iter_active_users(load_latest=True, active_only=False):
+        uid = user[DBKeys.HASH_KEY]
+        users[uid] = user
+        meta_keys.append(DBKeys.hash_sort(uid, 'META_STATS'))
+    users_meta = ddb.batch_get_items(app_config.resource_name('analytics'), meta_keys)
+    with open('all_users_by_assets.csv', 'w') as fout:
+        writer = csv.writer(fout)
+        writer.writerow(['User', 'Assets Count', 'First Session Assets Count', 'Total Sessions', 'Campaign', 'Keyword'])
+        for user in users_meta:
+            uid = user[DBKeys.HASH_KEY]
+            user_info = users[uid]
+            total_active_accounts = str(user_info.get('total_active_accounts', 0))
+            total_sessions = str(user_info.get('total_sessions', 0))
+            first_session_create_count = str(user.get('first_session_create_count', 0))
+            utm_campaign = user.get('utm_campaign', '')
+            utm_term = user.get('utm_term', '')
+            writer.writerow([uid, total_active_accounts, first_session_create_count, total_sessions, utm_campaign, utm_term])
+
+    print('All Done')
+
+
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
-    active_by_assets()
+    # active_by_assets()
+    all_users_assets()
