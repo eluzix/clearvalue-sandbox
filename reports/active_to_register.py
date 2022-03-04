@@ -8,7 +8,10 @@ from cvutils import elastic
 from cvutils.dynamodb import ddb
 
 
-def generate_stats(start_date, end_date, boto_session):
+def generate_stats(start_date, end_date=None, active_for=None, boto_session=None):
+    if end_date is None:
+        end_date = cvutils.date_to_str(cvutils.now())
+
     client = elastic.client(boto_session=boto_session)
     query = {
         'bool': {
@@ -34,7 +37,13 @@ def generate_stats(start_date, end_date, boto_session):
         # doc_date = datetime.datetime.strptime(source['ts'], '%Y-%m-%dT%H:%M:%S.%f%z')
         uid = source['uid']
         all_ids.add(uid)
-    db_keys = [DBKeys.hash_sort(uid, 'STATS') for uid in all_ids]
+
+    if active_for is None:
+        sort_key = 'STATS'
+    else:
+        sort_key = f'STATS:{active_for}'
+
+    db_keys = [DBKeys.hash_sort(uid, sort_key) for uid in all_ids]
     users = ddb.batch_get_items(app_config.resource_name('analytics'), db_keys)
     results = {}
     for user in users:
@@ -55,7 +64,9 @@ if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
-    start_date = '2021-06-01'
+    start_date = '2021-08-22'
     # end_date = cvutils.date_to_str(cvutils.today())
-    end_date = '2021-07-01'
-    generate_stats(start_date, end_date, boto_session)
+    # end_date = None
+    # end_date = '2022-02-22'
+    end_date = '2021-11-22'
+    generate_stats(start_date, end_date=end_date, active_for='2021-12-22', boto_session=boto_session)
