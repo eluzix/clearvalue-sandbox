@@ -5,8 +5,8 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.graphql import data_loaders
-from clearvalue.graphql.schema import Context, api_schema
+from clearvalue.gql import data_loaders
+from clearvalue.gql.schema import Context, api_schema
 from cvcore.providers.yodlee import _normalize_account
 from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
@@ -211,5 +211,5 @@ if __name__ == '__main__':
     #     'original_account_type': 'cash'
     # }, ['account_type', 'original_account_type']))
 
-    yodlee_support(uid)
+    # yodlee_support(uid)
     # yodlee_transaction_history(uid)
