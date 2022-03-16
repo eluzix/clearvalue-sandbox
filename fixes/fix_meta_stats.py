@@ -6,7 +6,7 @@ import boto3
 
 import cvutils
 from clearvalue import app_config
-from clearvalue.analytics import query_cursor
+from cvanalytics import query_cursor
 from cvcore.store import DBKeys, loaders
 from cvutils import elastic
 from cvutils.dynamodb import ddb

@@ -1,7 +1,7 @@
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import is_internal_user
+from cvanalytics import is_internal_user
 from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 

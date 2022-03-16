@@ -5,7 +5,7 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import iter_active_users, is_user_active, ACTIVE_GROUPS
+from cvanalytics import iter_active_users, is_user_active, ACTIVE_GROUPS
 from cvutils import TerminalColors
 
 

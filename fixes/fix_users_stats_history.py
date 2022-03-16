@@ -3,7 +3,7 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import iter_active_users
+from cvanalytics import iter_active_users
 from cvcore.store import DBKeys
 from cvutils import elastic
 from cvutils.dynamodb import ddb

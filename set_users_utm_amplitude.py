@@ -5,7 +5,7 @@ import requests
 
 import cvutils
 from clearvalue import app_config
-from clearvalue.analytics import is_internal_user
+from cvanalytics import is_internal_user
 from cvutils.dynamodb import ddb
 
 

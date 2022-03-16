@@ -4,7 +4,7 @@ import json
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import query_cursor
+from cvanalytics import query_cursor
 from clearvalue.lib.search import elastic
 
 

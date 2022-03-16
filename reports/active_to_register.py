@@ -2,7 +2,7 @@ import boto3
 
 import cvutils
 from clearvalue import app_config
-from clearvalue.analytics import query_cursor, is_user_active, ACTIVE_GROUPS
+from cvanalytics import query_cursor, is_user_active, ACTIVE_GROUPS
 from cvcore.store import DBKeys
 from cvutils import elastic
 from cvutils.dynamodb import ddb
