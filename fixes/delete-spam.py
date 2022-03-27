@@ -57,7 +57,8 @@ def delete_spam_user(user):
     intercom_users = intercom.search_contact(uid, 'external_id')
     intercom_response = '-'
     if intercom_users['total_count'] > 0:
-        intercom_response = intercom.add_tag_to_contact(app_config['intercom']['deleted.tag'], intercom_users['data'][0]['id'])
+        intercom_response = intercom.add_tag_to_contact(app_config['intercom']['deleted.tag'],
+                                                        intercom_users['data'][0]['id'])
 
     ddb.update_with_fields(accounts_table_name, DBKeys.info_key(uid), {'status': 'deleted'}, ['status'])
 
@@ -77,9 +78,13 @@ def delete_spam_user(user):
     print(f'done deleting {uid}')
 
 
-if __name__ == '__main__':
+if __name__ == '__main__ ':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
-    add_to_spam_users(_load_users())
-
+    # add_to_spam_users(_load_users())
     # dump_users()
+    all_users = _load_users()
+    for user in all_users:
+        delete_spam_user(user)
+
+    print(f'All done...')
