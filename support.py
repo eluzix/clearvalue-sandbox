@@ -131,7 +131,7 @@ def yodlee_support(uid):
         data = f.read()
 
     data = json.loads(data)
-    # # # print(da/ta)
+    # print(data)
     accounts = data.get('accounts')
     # # pprint.pprint(accounts)
     # print('------------ accounts ------------')
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '6586021d-4d5e-4dff-9840-41687b2ae066'
+    uid = 'fbb21375-4402-4653-800b-3d6ccefada93'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
