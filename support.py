@@ -138,7 +138,7 @@ def yodlee_support(uid):
     for account in accounts:
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
-        if account['providerId'] == '31120':
+        # if account['providerId'] == '31120':
         # if account['id'] in [11841930]:
             # if account['providerName'] == 'E*TRADE':
             # if account['accountName'] == 'Auto Used Fixed':
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = 'fbb21375-4402-4653-800b-3d6ccefada93'
+    uid = 'f250e6ca-105f-4053-a8c5-395027eb49fe'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
