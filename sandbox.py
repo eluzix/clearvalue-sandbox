@@ -1,7 +1,20 @@
-from cvutils.cognito_utils import verify_jwt
+import csv
+
+import boto3
+
+from clearvalue import app_config
+from clearvalue.lib.import_processors import process_crypto_transactions
+from cvcore.store import DBKeys
+from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
-    ret = verify_jwt('eyJraWQiOiJ3bHBPN2xYbnJTWENJcUk0dnNPTTVpUElucmV0cEVnUVJYMXMrXC9FSGNycz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIwMjRkOTgzOC0zMDM0LTQ2MjgtODZkYS00MDY2NjU4NzMyMzUiLCJkZXZpY2Vfa2V5IjoidXMtZWFzdC0xX2E0MWE0N2IxLWM3ZDAtNDcxNS05Mzc1LTI2YTkwOTZjYTAyYyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2NDM5MDE5MzcsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX3VsTk9LdWlYNyIsImV4cCI6MTY0MzkwNTUzNywiaWF0IjoxNjQzOTAxOTM3LCJqdGkiOiIzYmQ1NjYzOC0wMmU2LTRkYWMtOTEzOS04NjViNzUyODFkZjciLCJjbGllbnRfaWQiOiI1MW5kZjZwdmVsMWgwZzJwMGlldnJubWxncCIsInVzZXJuYW1lIjoiMDI0ZDk4MzgtMzAzNC00NjI4LTg2ZGEtNDA2NjY1ODczMjM1In0.b0wWp-F9swmT6oDR7JHa2sqQyfBbjj4no_dVr7OY-QJ1BLvnLhNS_woFNVEoGyOPAqKhLGKQHDj3Ty7zIt7cfMdXOmdJFaiSsQsO_cRfQAK0-qYvifo2tDjnnM3tbamSnJcbJ9ryqkk4Q3I7CYRRznZttVbFPcHaA1FToXjB-SXvfMHeMIGS3tWHClK1E0xUAgvkmY8Z4E8VHa_5iitGWezVkg-CPnONx5cCDnC5iuojlm9-exz1tDNhts48uGWRot-FnN-Z3Az11ucqshcPmSFdOqajPMptQ4UHau0IdxcMAnzebZz8NJATxIuPCRW3onYkExIHyIrZBNTmqw3pGg')
-    print(f'Access: {ret}')
-    ret = verify_jwt('eyJraWQiOiJcL3VUV1Q1QlJKSE95cnZUcTd3UXp5dHhaRTZlcW4rXC9RYWUrZ1h4RnV2TE09IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIwMjRkOTgzOC0zMDM0LTQ2MjgtODZkYS00MDY2NjU4NzMyMzUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfdWxOT0t1aVg3IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjpmYWxzZSwiY29nbml0bzp1c2VybmFtZSI6IjAyNGQ5ODM4LTMwMzQtNDYyOC04NmRhLTQwNjY2NTg3MzIzNSIsImF1ZCI6IjUxbmRmNnB2ZWwxaDBnMnAwaWV2cm5tbGdwIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2NDM5MDE5MzcsIm5hbWUiOiJyZWZhZWxpIiwicGhvbmVfbnVtYmVyIjoiKzk3MjU0NzUzNzY3OCIsImV4cCI6MTY0MzkwNTYyOCwiaWF0IjoxNjQzOTAyMDI4LCJlbWFpbCI6InJlZmFlbGlAZ21haWwuY29tIn0.xDuQW9J-ms5GVdZU2kIXldf5WoyrnXV3MGl5r4vToCaZJpric2aaXQuTt2f_QxA9qtcGl1mxa4MzQULu-aIMuOgSUFxHcVkK_hVHnciSsz0n0a0T8e0BVmNRNHJG-NokYwZR5nbe_s9nBhTQezzdIDu19Bs9gz1qcbkrXXa0K0FR1Fp6L1EQtbF-JD9AqA0RLlsbk0_Gc9DrP5-lg8vgA_bfEj3EsAMyxAhL-YeVWsk94jEPRU5Iqy2h1kFU6nYE8WyL-Td255PrbveNX8dLNgmh1El_9K82IxfD6o5naN9nupJyjofYnRU-GEajsxobdVCFnYzFyB-xTm1gZ7uxGg')
-    print(f'ID: {ret}')
+    boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    app_config.set_stage('staging')
+
+    with open('/Users/uzix/Downloads/crypto-transactions.csv', 'r') as fin:
+        reader = csv.reader(fin)
+        reader.__next__()
+        uid = 'befba013-635c-4662-a298-ebe163c3f50c'
+        account_id = '1a0e3e9f-5b74-4387-912b-8fe60b0b83ee'
+        account = ddb.get_item(app_config.resource_name('accounts'), DBKeys.user_account(uid, account_id))
+        process_crypto_transactions(reader, uid, account)
