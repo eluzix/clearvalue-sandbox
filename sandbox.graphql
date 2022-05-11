@@ -1,0 +1,6 @@
+query AllTags($timeFrameInput: TimeFrameInput!) {
+    allTags(timeFrameInput: $timeFrameInput) {
+        tagId
+        name
+    }
+}

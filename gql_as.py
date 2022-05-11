@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = '0f18ac31-905a-474c-9ec4-17cb41f085f7'
+    uid = '4e84de49-e416-4d0e-8919-e9de5eadfc9e'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -70,22 +70,22 @@ if __name__ == '__main__':
     #                                                                        'endDate': '2021-03-23'
     #                                                                        })
 
-    # ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
-    #                                                   'startDate': '2021-05-15',
-    #                                                   'endDate': '2021-06-16'
-    #                                                   })
-    # ret = local_queries.securities_account_info(uid, 'eeb21386-0dd0-4973-badb-b2d7dfe41da7', tf={'timeFrame': '90days',
+    ret = local_queries.securities_type_info(uid, tf={'timeFrame': '30days',
+                                                      'startDate': '2021-05-15',
+                                                      'endDate': '2021-06-16'
+                                                      })
+    # ret = local_queries.securities_account_info(uid, 'e06ff549-67c3-4db8-a97e-587044b23e33', tf={'timeFrame': '90days',
     #                                                                                              'startDate': '2021-07-01',
     #                                                                                              'endDate': '2021-07-31'
     #                                                                                              })
-    # ret = securities_holdings_data(uid, '75dc866e-b391-4382-b0cb-2c98cb0b75f4', tf={'timeFrame': '30days',
+    # ret = local_queries.securities_holdings_data(uid, 'e06ff549-67c3-4db8-a97e-587044b23e33', tf={'timeFrame': '30days',
     #                                                                                 'startDate': '2016-04-01',
     #                                                                                 'endDate': '2021-03-23'
     #                                                                                 })
-    ret = local_queries.home_info(uid, tf={'timeFrame': 'custom',
-                                           'startDate': '2012-01-01',
-                                           'endDate': '2021-03-23'
-                                           })
+    # ret = local_queries.home_info(uid, tf={'timeFrame': '30days',
+    #                                        'startDate': '2012-01-01',
+    #                                        'endDate': '2021-03-23'
+    #                                        })
 
     # ret = local_queries.crypto_type_data(uid)
     # ret = local_queries.crypto_account_info(uid, '7ec5a023-f559-4205-a84e-234165a71972')
