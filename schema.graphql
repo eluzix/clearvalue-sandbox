@@ -1,0 +1,2200 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: RootQuery
+    mutation: RootMutations
+}
+
+"An object with an ID"
+interface Node {
+    "The ID of the object."
+    id: ID!
+}
+
+type Account implements Node {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    "The ID of the object."
+    id: ID!
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    value: Float!
+}
+
+type AccountInfo {
+    account: Account
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type AccountInfoResponse {
+    account: Account
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type AccountWithProperty {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    property: MortgageProperty
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    value: Float!
+}
+
+type AddCashAccount {
+    account: CashAccount
+}
+
+type AddCashTransactions {
+    existingTransactions: [HighLevelTransaction]
+    success: Boolean
+}
+
+type AddCryptoAccount {
+    account: CryptoAccount
+}
+
+type AddCryptoTransactions {
+    success: Boolean
+}
+
+type AddDepositAccount {
+    account: CashAccount
+}
+
+type AddHighLevelAccount {
+    account: Account
+}
+
+type AddHighLevelSecurities {
+    account: SecuritiesAccount
+}
+
+type AddHighLevelTransactions {
+    existingTransactions: [HighLevelTransaction]
+    success: Boolean
+}
+
+type AddLoanAccount {
+    account: Loan
+}
+
+type AddManualPortfolio {
+    accountId: String
+}
+
+type AddMortgageAccount {
+    account: Loan
+}
+
+type AddPersonalBusiness {
+    account: PersonalBusiness
+}
+
+type AddPortfolioTransactions {
+    success: Boolean
+}
+
+type AddPrivateEquity {
+    account: PrivateEquityAccount
+}
+
+type AddRealEstateAccount {
+    account: RealestateAccount
+}
+
+type AddRealEstateLease {
+    lease: PropertyLease
+}
+
+type AddRealEstateTransactions {
+    success: Boolean
+}
+
+type AddReoccurringExpense {
+    success: Boolean
+}
+
+type AddSecuritiesHolding {
+    accountId: String
+    holdingId: String
+}
+
+type AddSecuritiesPortfolio {
+    accountId: String
+}
+
+type AddTag {
+    tag: Tag
+}
+
+type AddVCTransaction {
+    existingTransactions: [HighLevelTransaction]
+    success: Boolean
+}
+
+type AddVentureCapital {
+    account: VentureCapitalAccount
+}
+
+type AddWorkESOPAccount {
+    account: WorkESOPAccount
+}
+
+type Address {
+    city: String
+    country: String
+    county: String
+    description: String
+    line1: String
+    line2: String
+    neighborhood: String
+    state: String
+    zipcode: String
+}
+
+type AllHoldingsAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    address: Address
+    closedAt: DateTime
+    coin: CryptoCoinInfo
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    image: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    property: MortgageProperty
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    value: Float!
+}
+
+type AllHoldingsAccountInfo {
+    account: AllHoldingsAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type AllHoldingsInfo {
+    accounts: [AllHoldingsAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type AmortizationTableResponse {
+    monthlyPayment: Float
+    todayPrincipal: Float
+}
+
+type AssetTypeInfo {
+    accounts: [AccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type BulkAddHighLevelTransactions {
+    success: Boolean
+}
+
+type BusinessAccountInfo {
+    account: PersonalBusiness
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type BusinessInfoResponse {
+    account: PersonalBusiness
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type BusinessTypeInfo {
+    accounts: [BusinessAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type CashAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    duration: String
+    historyStatus: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastMonthData: TimePointData
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    maturityDate: String
+    name: String
+    originalPrincipalValue: Float
+    originalValue: Float
+    principalDate: String
+    principalValue: Float
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    value: Float!
+}
+
+type CashAccountInfo {
+    account: CashAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type CashAccountInfoResponse {
+    account: CashAccount
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type CashTypeInfo {
+    accounts: [CashAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type CloseAccount {
+    success: Boolean!
+}
+
+type CloseRealEstateLease {
+    success: Boolean!
+}
+
+type CoinInfo {
+    coinId: String
+    price: Float
+}
+
+type CompleteJoin {
+    success: Boolean
+}
+
+type ConnectMortgage {
+    account: Loan
+}
+
+type CryptoAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    avgBuyingPrice: Float
+    closedAt: DateTime
+    coinId: String
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    location: String
+    locationType: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    quantity: Float
+    symbol: String
+    tags: [Tag]
+    value: Float!
+}
+
+type CryptoAccountInfo {
+    account: CryptoAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type CryptoAccountInfoResponse {
+    account: CryptoAccount
+    coin: CryptoCoinInfo
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type CryptoCoinInfo {
+    cap: Float
+    change: Float
+    changePct: Float
+    coinId: String
+    description: String
+    high: Float
+    iconUrl: String
+    low: Float
+    name: String
+    sup: Float
+    symbol: String
+    value: Float
+    volume: Float
+}
+
+type CryptoTransaction {
+    coinId: String
+    createdAt: DateTime
+    description: String
+    isImported: Boolean
+    isInitialBalance: Boolean
+    isManual: Boolean
+    originalValue: Float
+    pps: Float
+    quantity: Float
+    symbol: String
+    transactionId: String!
+    transactionSubtype: String
+    transactionType: String!
+    value: Float!
+    valueDate: String!
+}
+
+type CryptoTypeInfo {
+    accounts: [CryptoAccountInfo]
+    assetType: String
+    coins: [CryptoCoinInfo]
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type CurrencyAggregation {
+    count: Int
+    currency: String
+    currencyValue: Float
+    currencyWeight: Float
+    value: Float
+    weight: Float
+}
+
+type DeactivateProfile {
+    success: Boolean
+}
+
+type DeleteAccount {
+    success: Boolean!
+}
+
+type DeleteAccountTag {
+    success: Boolean
+}
+
+type DeleteCashTransaction {
+    success: Boolean
+}
+
+type DeleteCryptoTransaction {
+    success: Boolean
+}
+
+type DeleteHighLevelTransaction {
+    success: Boolean
+}
+
+type DeleteNewlyCreatedProfile {
+    success: Boolean
+}
+
+type DeletePortfolioHolding {
+    success: Boolean
+}
+
+type DeletePortfolioTransactions {
+    success: Boolean
+}
+
+type DeleteRealEstateLease {
+    success: Boolean
+}
+
+type DeleteRealEstateTransaction {
+    success: Boolean
+}
+
+type DeleteReoccurringExpense {
+    success: Boolean
+}
+
+type DeleteSecuritiesHolding {
+    success: Boolean
+}
+
+type DeleteTag {
+    success: Boolean
+}
+
+type DeleteUserFile {
+    success: Boolean
+}
+
+type DeleteVCTransaction {
+    success: Boolean
+}
+
+type DisableAccounts {
+    success: Boolean!
+}
+
+type EditAccount {
+    success: Boolean!
+}
+
+type EditCashTransaction {
+    existingTransactions: [HighLevelTransaction]
+    success: Boolean
+}
+
+type EditCryptoAccount {
+    success: Boolean
+}
+
+type EditCryptoTransaction {
+    success: Boolean
+}
+
+type EditFileNotes {
+    success: Boolean
+}
+
+type EditHighLevelAccount {
+    success: Boolean
+}
+
+type EditHighLevelTransaction {
+    existingTransactions: [HighLevelTransaction]
+    success: Boolean
+}
+
+type EditLoanAccount {
+    account: Loan
+}
+
+type EditManualPortfolio {
+    accountId: String
+}
+
+type EditMortgageAccount {
+    account: Loan
+}
+
+type EditPersonalBusiness {
+    success: Boolean
+}
+
+type EditPersonalBusinessValue {
+    success: Boolean
+}
+
+type EditPortfolioTransaction {
+    success: Boolean
+}
+
+type EditPrivateEquity {
+    success: Boolean
+}
+
+type EditRealEstateAccount {
+    account: RealestateAccount
+}
+
+type EditRealEstateLease {
+    lease: PropertyLease
+}
+
+type EditRealEstateTransaction {
+    success: Boolean
+}
+
+type EditReoccurringExpense {
+    success: Boolean
+}
+
+type EditSecuritiesHolding {
+    holding: SecurityHolding
+}
+
+type EditTag {
+    tag: Tag
+}
+
+type EditVCAccount {
+    success: Boolean
+}
+
+type EditVCTransaction {
+    existingTransactions: [HighLevelTransaction]
+    success: Boolean
+}
+
+type EditWorkESOPAccount {
+    success: Boolean
+}
+
+type EsopAccountInfo {
+    account: WorkESOPAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type EsopInfoResponse {
+    account: WorkESOPAccount
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type EsopTypeInfo {
+    accounts: [EsopAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type ExpireReoccurringExpense {
+    success: Boolean
+}
+
+type FinancialStats {
+    currencies: [CurrencyAggregation]
+    irr: Float
+    moic: Float
+    ret: Float
+    retValue: Float
+    startValue: Float
+    transactionStats: [TransactionStatsObject]
+    value: Float
+    valueChange: Float
+}
+
+type GlobalSignOut {
+    success: Boolean
+}
+
+type GraphData {
+    startValue: Float
+    value: Float
+    valueDate: String
+}
+
+type GraphResponse {
+    data: [GraphData]
+    gnr: TimePointData
+}
+
+type GroupedGraphData {
+    data: [GraphData]
+    period: String
+}
+
+type HighLevelTransaction {
+    createdAt: DateTime
+    description: String
+    isImported: Boolean
+    isManual: Boolean
+    originalValue: Float
+    transactionId: String!
+    transactionSubtype: String
+    transactionType: String!
+    value: Float!
+    valueDate: String!
+}
+
+type HomeAssetsType {
+    assetType: String
+    count: Int
+    gnr: TimePointData
+    graphData: GraphResponse
+    startValue: Float
+    value: Float
+}
+
+type HomeFinancialStats {
+    assetsValue: Float
+    currencies: [CurrencyAggregation]
+    irr: Float
+    liabilitiesValue: Float
+    moic: Float
+    ret: Float
+    retValue: Float
+    startValue: Float
+    transactionStats: [TransactionStatsObject]
+    value: Float
+    valueChange: Float
+}
+
+type HomeInfo implements Node {
+    assetTypes: [HomeInfoAssetsType]
+    financialStats: HomeFinancialStats
+    graphData: GroupedGraphData
+    "The ID of the object."
+    id: ID!
+    liabilityTypes: [HomeInfoAssetsType]
+}
+
+type HomeInfoAssetsType {
+    assetType: String
+    count: Int
+    financialStats: FinancialStats
+    graphData: GraphResponse
+}
+
+type Institution implements Node {
+    icon: String
+    "The ID of the object."
+    id: ID!
+    institutionId: ID
+    logo: String
+    name: String!
+    url: String
+}
+
+type KeyValueObject {
+    key: String
+    value: String
+}
+
+type LinkYodleeAccount {
+    accounts: [Account]
+}
+
+type LinkZaboAccount {
+    accounts: [Account]
+}
+
+type Loan {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    includeInsurance: Boolean
+    includeTax: Boolean
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isConnected: Boolean
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastPayment: Float
+    lastPaymentDate: String
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    loanFrequency: String
+    loanLender: String
+    loanOriginalAmount: Float
+    loanOriginationDate: String
+    loanSubtype: String
+    loanType: String
+    maturityDate: String
+    monthlyPayment: Float
+    name: String
+    originalValue: Float
+    propertyId: String
+    provider: ID
+    providerAccountId: ID
+    rateType: String
+    tags: [Tag]
+    term: String
+    value: Float!
+}
+
+type LoanAccountInfo {
+    account: Loan
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalPayments: Float
+}
+
+type LoanAccountInfoResponse {
+    account: Mortgage
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type LoanTypeInfo {
+    accounts: [LoanAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+    totalPayments: Float
+}
+
+type MonthlyReport {
+    assetTypes: [HomeAssetsType]
+    endDate: String
+    flags: UserFlags
+    gnr: TimePointData
+    graphData: GraphResponse
+    liabilityTypes: [HomeAssetsType]
+    startDate: String
+    tags: [MonthlyReportTag]
+    totalAssetsValue: Float
+    totalLiabilitiesValue: Float
+}
+
+type MonthlyReportTag {
+    financialStats: FinancialStats
+    name: String
+    tagId: ID
+}
+
+type Mortgage {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    includeInsurance: Boolean
+    includeTax: Boolean
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isConnected: Boolean
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastPayment: Float
+    lastPaymentDate: String
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    loanFrequency: String
+    loanLender: String
+    loanOriginalAmount: Float
+    loanOriginationDate: String
+    loanSubtype: String
+    loanType: String
+    maturityDate: String
+    monthlyPayment: Float
+    name: String
+    originalValue: Float
+    property: MortgageProperty
+    propertyId: String
+    provider: ID
+    providerAccountId: ID
+    rateType: String
+    tags: [Tag]
+    term: String
+    value: Float!
+}
+
+type MortgageAccountInfo {
+    account: RealestateAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalPayments: Float
+}
+
+type MortgageProperty {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    address: Address
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    value: Float!
+}
+
+type MortgageTypeInfo {
+    accounts: [MortgageAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+    totalPayments: Float
+}
+
+type NotificationSettings {
+    activityReports: Boolean
+    monthlyReport: Boolean
+    newFeatures: Boolean
+    weeklySummary: Boolean
+}
+
+"This is not an ideal solution as user can bypass this message - need to solve it somehow"
+type PasswordChanged {
+    success: Boolean
+}
+
+type PersonalBusiness {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    businessValue: Float
+    closedAt: DateTime
+    cost: Float
+    createdAt: DateTime
+    currency: String
+    description: String
+    foundedDate: String
+    historyStatus: String
+    industry: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    ownership: Float
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    url: String
+    value: Float!
+}
+
+type PrivateEquityAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    capital: Float
+    closedAt: DateTime
+    commitment: Float
+    createdAt: DateTime
+    currency: String
+    description: String
+    distributed: Float
+    historyStatus: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    returnOfCapital: Float
+    strategy: String
+    tags: [Tag]
+    value: Float!
+}
+
+type PrivateEquityAccountInfo {
+    account: PrivateEquityAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type PrivateEquityInfoResponse {
+    account: PrivateEquityAccount
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type PrivateEquityTypeInfo {
+    accounts: [PrivateEquityAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type PropertyInfo {
+    baths: Float
+    beds: Float
+    sqft: Float
+    sqftLot: Float
+    yearBuilt: String
+}
+
+type PropertyLease {
+    leaseEnd: String
+    leaseId: String
+    leaseStart: String
+    monthlyRent: Float
+    name: String
+    tenant: String
+}
+
+type RealEstateTransaction {
+    createdAt: DateTime
+    description: String
+    expense: ReoccurringExpense
+    isImported: Boolean
+    isManual: Boolean
+    lease: PropertyLease
+    originalValue: Float
+    transactionId: String!
+    transactionSubtype: String
+    transactionType: String!
+    value: Float!
+    valueDate: String!
+}
+
+type RealestateAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    address: Address
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    expenses: String
+    historyStatus: String
+    image: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    leases: [PropertyLease]
+    leasesCount: Int
+    linkStatus: String
+    loan: Loan
+    loanValue: Float
+    loans: [Loan]
+    marketValue: Float
+    monthlyIncome: Float
+    name: String
+    netIncome: Float
+    netIncomeForPeriod: Float
+    occupancy: Float
+    originalValue: Float
+    propertyInfo: PropertyInfo
+    propertyType: String
+    provider: ID
+    providerAccountId: ID
+    purchaseDate: String
+    purchaseValue: Float
+    reoccurringExpenses: [ReoccurringExpense]
+    tags: [Tag]
+    totalExpenses: Float
+    units: Float
+    value: Float!
+    zestimate: Float
+}
+
+type RealestateAccountInfo {
+    account: RealestateAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type RealestateInfoResponse {
+    account: RealestateAccount
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type RealestateTypeInfo {
+    accounts: [RealestateAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    loansValue: Float
+    marketValue: Float
+    netIncome: Float
+    properties: Float
+    purchaseValue: Float
+    tags: [Tag]
+    units: Float
+}
+
+type RefreshYodleeAccount {
+    accounts: [Account]
+}
+
+type ReoccurringExpense {
+    description: String
+    endDate: String
+    expenseId: String
+    interval: String
+    name: String
+    startDate: String
+    value: Float
+}
+
+type ResetPassword {
+    success: Boolean
+}
+
+type RootMutations {
+    addCashAccount(account: CashAccountInput!): AddCashAccount
+    addCashTransactions(transactionsInput: AddHighLevelTransactionInput!): AddCashTransactions
+    addCryptoAccount(account: AddCryptoInput): AddCryptoAccount
+    addCryptoTransactions(transactionInput: AddCryptoTransactionInput!): AddCryptoTransactions
+    addDepositAccount(account: DepositAccountInput!): AddDepositAccount
+    addHighLevelAccount(account: HighLevelAccountInput): AddHighLevelAccount
+    addHighLevelSecurities(account: HighLevelSecuritiesInput): AddHighLevelSecurities
+    addHighLevelTransactions(transactionsInput: AddHighLevelTransactionInput!): AddHighLevelTransactions
+    addLoan(loan: LoanInput!): AddLoanAccount
+    addManualPortfolio(account: ManualPortfolioInput!): AddManualPortfolio
+    addMortgage(mortgage: MortgageInput!): AddMortgageAccount
+    addPersonalBusinessAccount(account: PersonalBusinessInput): AddPersonalBusiness
+    addPortfolioTransactions(transactionInput: AddPortfolioTransactionInput!): AddPortfolioTransactions
+    addPrivateEquityAccount(account: PrivateEquityInput): AddPrivateEquity
+    addRealestate(realestate: RealEstateInput!): AddRealEstateAccount
+    addRealestateLease(lease: LeaseInput!): AddRealEstateLease
+    addRealestateTransactions(transactionInput: AddRealEstateTransactionInput!): AddRealEstateTransactions
+    addReoccurringExpense(expenseInput: AddReoccurringExpenseInput!): AddReoccurringExpense
+    addSecuritiesHolding(input: AddSecuritiesHoldingInput): AddSecuritiesHolding
+    addSecuritiesPortfolio(account: SecuritiesPortfolioInput!): AddSecuritiesPortfolio
+    addTag(tagName: String!): AddTag
+    addVcAccount(account: VCInput): AddVentureCapital
+    addVcTransaction(transactionsInput: AddHighLevelTransactionInput!): AddVCTransaction
+    addWorkEsopAccount(account: WorkESOPInput): AddWorkESOPAccount
+    bulkAddHighLevelTransactions(inputs: BulkAddHighLevelTransactionInput!): BulkAddHighLevelTransactions
+    closeAccount(accountId: String!, closeDate: DateString): CloseAccount
+    closeRealestateLease(closeDate: DateString, leaseId: String!, propertyId: String!): CloseRealEstateLease
+    completeJoin(joinInput: CompleteJoinInput!): CompleteJoin
+    connectMortgage(mortgageId: String!, propertyId: String!): ConnectMortgage
+    deactivateProfile: DeactivateProfile
+    deleteAccount(accountId: String!): DeleteAccount
+    deleteAccountTag(accountId: String!, tagId: String!): DeleteAccountTag
+    deleteCashTransaction(accountId: String!, transactionId: String!): DeleteCashTransaction
+    deleteCryptoTransaction(accountId: String!, transactionId: String!): DeleteCryptoTransaction
+    deleteHighLevelTransaction(accountId: String!, transactionId: String!): DeleteHighLevelTransaction
+    deleteNewlyCreatedProfile: DeleteNewlyCreatedProfile
+    deletePortfolioHolding(accountId: String!, holdingId: String!): DeletePortfolioHolding
+    deletePortfolioTransactions(accountId: String!, symbol: String, transactionId: String!): DeletePortfolioTransactions
+    deleteRealestateLease(leaseId: String!, propertyId: String!): DeleteRealEstateLease
+    deleteRealestateTransaction(accountId: String!, transactionId: String!): DeleteRealEstateTransaction
+    deleteReoccurringExpense(accountId: String!, expenseId: String!): DeleteReoccurringExpense
+    deleteSecuritiesHolding(accountId: String, holdingId: String): DeleteSecuritiesHolding
+    deleteTag(tagId: String!): DeleteTag
+    deleteUserFile(accountId: String, uploadId: String!): DeleteUserFile
+    deleteVcTransaction(accountId: String!, transactionId: String!): DeleteVCTransaction
+    disableAccounts(accountIds: [String]!): DisableAccounts
+    editAccount(accountId: String!, description: String, name: String!): EditAccount
+    editCashTransaction(transactionInput: EditHighLevelTransactionInput!): EditCashTransaction
+    editCryptoAccount(account: EditCryptoInput): EditCryptoAccount
+    editCryptoTransaction(transactionInput: EditCryptoTransactionInput!): EditCryptoTransaction
+    editFileNotes(note: String, uploadId: String!): EditFileNotes
+    editHighLevelAccount(accountInput: EditHighLevelAccountInput!): EditHighLevelAccount
+    editHighLevelTransaction(transactionInput: EditHighLevelTransactionInput!): EditHighLevelTransaction
+    editLoan(accountId: String!, loan: LoanInput!): EditLoanAccount
+    editManualPortfolio(account: ManualPortfolioInput!, accountId: String!): EditManualPortfolio
+    editMortgage(mortgage: MortgageInput!, mortgageId: String!): EditMortgageAccount
+    editPersonalBusinessAccount(account: EditPersonalBusinessInput): EditPersonalBusiness
+    editPersonalBusinessValue(accountId: String, businessValue: Float): EditPersonalBusinessValue
+    editPortfolioTransaction(transactionInput: EditPortfolioTransactionInput!): EditPortfolioTransaction
+    editPrivateEquityAccount(accountInput: EditPrivateEquityAccountInput!): EditPrivateEquity
+    editRealestate(realestate: EditRealEstateInput!): EditRealEstateAccount
+    editRealestateLease(lease: LeaseInput!, leaseId: String!): EditRealEstateLease
+    editRealestateTransaction(transactionInput: EditRealEstateTransactionInput!): EditRealEstateTransaction
+    editReoccurringExpense(expenseInput: EditReoccurringExpenseInput!): EditReoccurringExpense
+    editSecuritiesHolding(input: EditSecuritiesHoldingInput): EditSecuritiesHolding
+    editTag(tagId: String!, tagName: String!): EditTag
+    editVcAccount(accountInput: EditVCAccountInput!): EditVCAccount
+    editVcTransaction(transactionInput: EditHighLevelTransactionInput!): EditVCTransaction
+    editWorkEsopAccount(account: EditWorkESOPInput): EditWorkESOPAccount
+    expireReoccurringExpense(accountId: String!, endDate: String!, expenseId: String!): ExpireReoccurringExpense
+    globalSignOut: GlobalSignOut
+    linkYodleeAccount(linkedInput: LinkYodleeAccountInput!): LinkYodleeAccount
+    linkZaboAccount(linkedInput: LinkZaboAccountInput!): LinkZaboAccount
+    "This is not an ideal solution as user can bypass this message - need to solve it somehow"
+    passwordChanged: PasswordChanged
+    refreshYodleeAccount(providerAccountId: String!): RefreshYodleeAccount
+    resetPassword(code: String!, key: String!, password: String!): ResetPassword
+    saveNotificationSettings(settingsInput: SaveNotificationSettingsInput!): SaveNotificationSettings
+    savePortfolioCash(accountId: String!, cash: Float!): SavePortfolioCash
+    saveSettings(settings: JSONString!): SaveSettings
+    sendErrorToIntercom(errorType: String! = "linking", providerName: String): SendErrorToIntercom
+    sendPasswordRecovery(email: String!): SendPasswordRecovery
+    switchToHighLevelAccount(accountId: String!, transactionsInput: [HighLevelTransactionInput]!): SwitchToHighLevelAccount
+    tagAccounts(accountIds: [String]!, newTagNames: [String], tagIds: [String]!): TagAccounts
+    transactionsImport(importInput: ImportFileInput!): TransactionsImport
+    updateProfile(profile: UpdateProfileInput!): UpdateProfile
+    updateUserImage(deleteImage: Boolean = false, filename: String, token: String): UpdateUserImage
+    uploadExcel(excelInput: UploadExcelInput!): UploadExcel
+    uploadUserFile(fileInput: UploadUserFileInput!): UploadUserFile
+}
+
+type RootQuery {
+    accountGraph(accountId: String!, timeFrameInput: TimeFrameInput!): GraphResponse
+    accountInfo(accountId: String!, timeFrameInput: TimeFrameInput!): AccountInfoResponse
+    accountsByType(accountType: String!): [Account]
+    accountsHistoryStatus(ids: [String]): [Account]
+    accountsMissingEom(month: String, year: String): [Account]
+    allAccounts: [AccountWithProperty]
+    allHoldingsInfo(timeFrameInput: TimeFrameInput!): AllHoldingsInfo
+    allTags(timeFrameInput: TimeFrameInput!): [Tag]
+    amortizationTable(duration: Int!, graceMonths: Int = 1, interest: Float!, originalValue: Float!, originationDate: DateString!): AmortizationTableResponse
+    assetTypeInfo(assetType: String!, timeFrameInput: TimeFrameInput!): AssetTypeInfo
+    businessInfo(accountId: String!, timeFrameInput: TimeFrameInput!): BusinessInfoResponse
+    businessTypeInfo(timeFrameInput: TimeFrameInput!): BusinessTypeInfo
+    cashAccountInfo(accountId: String!, timeFrameInput: TimeFrameInput!): CashAccountInfoResponse
+    cashTypeInfo(assetType: String!, timeFrameInput: TimeFrameInput!): CashTypeInfo
+    coinInfo(coinId: String!, forDate: DateString): CoinInfo
+    cryptoAccountInfo(accountId: String!, timeFrameInput: TimeFrameInput!): CryptoAccountInfoResponse
+    cryptoCoinsValue(symbols: [String]): [CryptoCoinInfo]
+    cryptoTransactions(accountId: String!, timeFrameInput: TimeFrameInput!): [CryptoTransaction]
+    cryptoTypeInfo(timeFrameInput: TimeFrameInput!): CryptoTypeInfo
+    esopInfo(accountId: String!, timeFrameInput: TimeFrameInput!): EsopInfoResponse
+    esopTypeInfo(timeFrameInput: TimeFrameInput!): EsopTypeInfo
+    freeSearch(accountSubtype: String, accountType: String, limit: Int = 250, query: String): SearchResults
+    futureValue(endDate: DateString!, principalDate: DateString!, principalValue: Float!, rate: Float!): Float
+    getLoans(loanIds: [String]!, loanType: String): [Loan]
+    highLevelTransactions(accountId: String!, timeFrameInput: TimeFrameInput!): [HighLevelTransaction]
+    homeInfo(timeFrameInput: TimeFrameInput!): HomeInfo
+    indexGraph(index: String!, timeFrameInput: TimeFrameInput!): [GraphData]
+    loanAccountInfo(accountId: String!, timeFrameInput: TimeFrameInput!): LoanAccountInfoResponse
+    loanTypeInfo(timeFrameInput: TimeFrameInput!): LoanTypeInfo
+    monthlyReport(month: String, year: String): MonthlyReport
+    mortgageTypeInfo(timeFrameInput: TimeFrameInput!): MortgageTypeInfo
+    privateEquityAccountInfo(accountId: String, timeFrameInput: TimeFrameInput!): PrivateEquityInfoResponse
+    privateEquityTypeInfo(timeFrameInput: TimeFrameInput!): PrivateEquityTypeInfo
+    realestateProperties(withoutMortgage: Boolean): [RealestateAccount]
+    realestateProperty(propertyId: ID!): RealestateAccount
+    realestatePropertyInfo(accountId: String!, timeFrameInput: TimeFrameInput!): RealestateInfoResponse
+    realestateReoccurringExpenses(accountId: String!): [ReoccurringExpense]
+    realestateTransactions(accountId: String!, timeFrameInput: TimeFrameInput!): [RealEstateTransaction]
+    realestateTypeInfo(timeFrameInput: TimeFrameInput!): RealestateTypeInfo
+    searchCrypto(query: String!): [CryptoCoinInfo]
+    searchInstitutions(query: String!): [Institution]
+    searchSymbols(query: String!): [SymbolResult]
+    securitiesAccountInfo(accountId: String!, timeFrameInput: TimeFrameInput!): SecuritiesAccountInfoResponse
+    securitiesHoldingsData(accountId: ID!, timeFrameInput: TimeFrameInput!): SecurityHoldingDataResponse
+    securitiesTransactions(accountId: String!, timeFrameInput: TimeFrameInput!): [SecuritiesTransaction]
+    securitiesTypeInfo(timeFrameInput: TimeFrameInput!): SecuritiesTypeInfo
+    symbolInfo(forDate: DateString!, symbol: String!): SymbolInfo
+    tagInfo(tagName: String!, timeFrameInput: TimeFrameInput!): TagInfo
+    testQuery: TestObj
+    uploadToken(fileName: String): UploadTokenResponse
+    userFiles(accountId: String): [UserFile]
+    userFilesStats(accountId: String): UserFilesStatsResponse
+    userNeedVerification(email: String!): Boolean
+    userProperties: UserProperties
+    vcAccountInfo(accountId: String, timeFrameInput: TimeFrameInput!): VCInfoResponse
+    vcTypeInfo(timeFrameInput: TimeFrameInput!): VCTypeInfo
+    yodleeJwt: String
+    zillowInfo(address1: String!, address2: String!): String
+}
+
+type SaveNotificationSettings {
+    success: Boolean
+}
+
+type SavePortfolioCash {
+    accountId: String
+}
+
+type SaveSettings {
+    success: Boolean
+}
+
+type SearchResultItem {
+    account: Account
+    objectId: String
+    objectType: String
+    tag: Tag
+}
+
+type SearchResults {
+    query: String
+    results: [SearchResultItem]
+    totalResults: Int
+}
+
+type SecuritiesAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    cashValue: Float
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    holdings: [SecurityHolding]
+    info: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    riskLevel: Float
+    score: Float
+    tags: [Tag]
+    value: Float!
+}
+
+type SecuritiesAccountInfo {
+    account: SecuritiesAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type SecuritiesAccountInfoResponse {
+    account: SecuritiesAccount
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type SecuritiesTransaction {
+    createdAt: DateTime
+    description: String
+    isImported: Boolean
+    isInitialBalance: Boolean
+    isManual: Boolean
+    note: String
+    originalValue: Float
+    pps: Float
+    quantity: Float
+    ratio: Float
+    symbol: String
+    transactionId: String!
+    transactionSubtype: String
+    transactionType: String!
+    value: Float!
+    valueDate: String!
+}
+
+type SecuritiesTypeInfo {
+    accounts: [SecuritiesAccountInfo]
+    assetType: String
+    beta: Float
+    cash: Float
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    info: String
+    tags: [Tag]
+}
+
+type SecurityHolding {
+    currency: String!
+    currentPrice: Float
+    holdingId: String!
+    holdingType: String
+    isin: String
+    name: String
+    purchasePrice: Float
+    quantity: Float
+    symbol: String
+    value: Float
+}
+
+type SecurityHoldingData {
+    data: TimePointData
+    symbol: String!
+}
+
+type SecurityHoldingDataResponse {
+    holdings: [SecurityHoldingData]
+    totals: TimePointData
+}
+
+type SendErrorToIntercom {
+    success: Boolean
+}
+
+type SendPasswordRecovery {
+    success: Boolean
+}
+
+type SwitchToHighLevelAccount {
+    success: Boolean
+}
+
+type SymbolInfo {
+    name: String
+    price: Float
+    symbol: String
+}
+
+type SymbolResult {
+    name: String
+    price: Float
+    symbol: String
+}
+
+type Tag {
+    accountIds: [String]
+    createdAt: DateTime
+    financialStats: FinancialStats
+    name: String
+    tagId: ID
+}
+
+type TagAccounts {
+    newTags: [Tag]
+    success: Boolean
+    tags: [Tag]
+}
+
+type TagInfo {
+    accounts: [TaggedAccountInfo]
+    assetType: String
+    beta: Float
+    cash: Float
+    coins: [CryptoCoinInfo]
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    info: String
+    loansValue: Float
+    marketValue: Float
+    netIncome: Float
+    properties: Float
+    purchaseValue: Float
+    tagAccountIds: [String]
+    tagId: String
+    tags: [Tag]
+    totalPayments: Float
+    units: Float
+}
+
+type TaggedAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    address: Address
+    capital: Float
+    closedAt: DateTime
+    coin: CryptoCoinInfo
+    commitment: Float
+    createdAt: DateTime
+    currency: String
+    description: String
+    distributed: Float
+    historyStatus: String
+    image: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    property: MortgageProperty
+    provider: ID
+    providerAccountId: ID
+    returnOfCapital: Float
+    symbol: String
+    tags: [Tag]
+    value: Float!
+}
+
+type TaggedAccountInfo {
+    account: TaggedAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalPayments: Float
+}
+
+type TestObj implements Node {
+    createdAt: DateTime!
+    "The ID of the object."
+    id: ID!
+    name: String!
+}
+
+type TimePointData {
+    gain: Float
+    name: String
+    ret: Float
+    retValue: Float
+    startValue: Float
+    value: Float
+}
+
+type TransactionStatsObject {
+    count: Float
+    key: String
+    value: Float
+}
+
+type TransactionsImport {
+    response: TransactionsImportResponse
+}
+
+type TransactionsImportError {
+    isGeneral: Boolean
+    message: String
+}
+
+type TransactionsImportResponse {
+    errors: [TransactionsImportError]
+    importCount: Int
+    importId: String
+    importType: String
+    success: Boolean
+}
+
+type UpdateProfile {
+    success: Boolean
+}
+
+type UpdateUserImage {
+    success: Boolean
+    url: String
+}
+
+type UploadExcel {
+    response: UploadExcelResponse
+}
+
+type UploadExcelResponse {
+    success: Boolean
+}
+
+type UploadTokenResponse {
+    fields: [KeyValueObject]
+    token: String
+    url: String
+}
+
+type UploadUserFile {
+    success: Boolean
+}
+
+type UserFile {
+    accountId: String
+    createdAt: DateTime
+    fileExtension: String
+    fileName: String
+    fileNotes: String
+    fileSize: Float
+    uploadId: String
+    url: String
+}
+
+type UserFilesStatsResponse {
+    totalFiles: Int
+    totalStorage: Int
+}
+
+type UserFlags {
+    joinDate: Int
+    userStatus: String
+}
+
+type UserProperties {
+    flags: UserFlags
+    mfaUpdatedAt: DateTime
+    name: String
+    notificationSettings: NotificationSettings
+    passwordUpdatedAt: DateTime
+    preferredMfa: String
+    settings: String
+    tags: [Tag]
+    userImage: String
+}
+
+type VCAccountInfo {
+    account: VentureCapitalAccount
+    accountId: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+}
+
+type VCInfoResponse {
+    account: VentureCapitalAccount
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    totalDividends: Float
+}
+
+type VCTypeInfo {
+    accounts: [VCAccountInfo]
+    assetType: String
+    financialStats: FinancialStats
+    graphData: GroupedGraphData
+    tags: [Tag]
+}
+
+type VentureCapitalAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    capital: Float
+    closedAt: DateTime
+    commitment: Float
+    createdAt: DateTime
+    currency: String
+    description: String
+    distributed: Float
+    historyStatus: String
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    returnOfCapital: Float
+    tags: [Tag]
+    value: Float!
+}
+
+type WorkESOPAccount {
+    accountId: ID
+    accountMask: String
+    accountSetupAt: DateTime
+    accountStatus: String
+    accountSubtype: String
+    accountType: String
+    closedAt: DateTime
+    createdAt: DateTime
+    currency: String
+    description: String
+    historyStatus: String
+    holdings: Float
+    institution: Institution
+    institutionId: ID
+    interest: Float
+    isHighLevel: Boolean
+    isManual: Boolean
+    lastUpdateAt: DateTime
+    lastValueDate: DateTime
+    linkStatus: String
+    name: String
+    originalValue: Float
+    provider: ID
+    providerAccountId: ID
+    tags: [Tag]
+    value: Float!
+}
+
+scalar DateString
+
+"""
+
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"""
+
+Allows use of a JSON String for input / output from the GraphQL schema.
+
+Use of this type is *not recommended* as you lose the benefits of having a defined, static
+schema (one of the key benefits of GraphQL).
+"""
+scalar JSONString
+
+input AddCryptoInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    avgBuyingPrice: Float!
+    coinId: String!
+    currency: String = "USD"
+    description: String
+    effectiveDate: DateString!
+    institution: InstitutionInput
+    locationType: String
+    name: String
+    quantity: Float!
+    rate: Float
+    reminder: Boolean = false
+    symbol: String
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input AddCryptoTransactionInput {
+    accountId: String
+    transactions: [CryptoTransactionInput]
+}
+
+input AddHighLevelTransactionInput {
+    accountId: String
+    forceOverride: Boolean = false
+    transactions: [HighLevelTransactionInput]
+}
+
+input AddPortfolioTransactionInput {
+    accountId: String
+    forceOverride: Boolean = false
+    transactions: [PortfolioTransactionInput]
+}
+
+input AddRealEstateTransactionInput {
+    accountId: String
+    transactions: [HighLevelTransactionInput]
+}
+
+input AddReoccurringExpenseInput {
+    accountId: String
+    description: String
+    interval: String
+    name: String
+    startDate: String
+    value: Float
+}
+
+input AddSecuritiesHoldingInput {
+    accountId: String!
+    purchasePrice: Float!
+    quantity: Float!
+    symbol: String!
+}
+
+input BulkAddHighLevelTransactionInput {
+    inputs: [AddHighLevelTransactionInput]
+}
+
+input CashAccountInput {
+    accountSubtype: String!
+    accountType: String
+    assetType: String
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input CompleteJoinInput {
+    assets: [String]
+    name: String
+    userPains: [String]
+}
+
+input CryptoTransactionInput {
+    currency: String
+    description: String
+    quantity: Float!
+    transactionId: String
+    transactionType: String!
+    value: Float!
+    valueDate: DateString!
+}
+
+input DepositAccountInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    currency: String = "USD"
+    description: String
+    duration: String
+    institution: InstitutionInput
+    name: String!
+    principalDate: DateString
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input EditCryptoInput {
+    accountId: String!
+    description: String
+    institution: InstitutionInput
+    locationType: String
+}
+
+input EditCryptoTransactionInput {
+    accountId: String
+    transaction: CryptoTransactionInput
+}
+
+input EditHighLevelAccountInput {
+    accountId: String!
+    description: String
+    institution: InstitutionInput
+    name: String!
+    value: Float
+}
+
+input EditHighLevelTransactionInput {
+    accountId: String
+    forceOverride: Boolean = false
+    transaction: HighLevelTransactionInput
+}
+
+input EditPersonalBusinessInput {
+    accountId: String!
+    description: String
+    foundedDate: DateString
+    industry: String
+    institution: InstitutionInput
+    name: String!
+    ownership: Float!
+    url: String
+    value: Float
+}
+
+input EditPortfolioTransactionInput {
+    accountId: String
+    forceOverride: Boolean = false
+    transaction: PortfolioTransactionInput
+}
+
+input EditPrivateEquityAccountInput {
+    accountId: String!
+    commitment: Float!
+    description: String
+    institution: InstitutionInput
+    name: String!
+    strategy: String!
+    value: Float
+}
+
+input EditRealEstateInput {
+    marketValue: Float!
+    neighborhood: String
+    propertyId: String!
+    propertyType: String
+    purchaseDate: DateString!
+    purchaseValue: Float!
+    units: String
+}
+
+input EditRealEstateTransactionInput {
+    accountId: String
+    transaction: HighLevelTransactionInput
+}
+
+input EditReoccurringExpenseInput {
+    accountId: String
+    description: String
+    expenseId: String
+    interval: String
+    name: String
+    startDate: String
+    value: Float
+}
+
+input EditSecuritiesHoldingInput {
+    accountId: String!
+    holdingId: String!
+    purchasePrice: Float!
+    quantity: Float!
+}
+
+input EditVCAccountInput {
+    accountId: String!
+    commitment: Float!
+    description: String
+    institution: InstitutionInput
+    name: String!
+    value: Float
+}
+
+input EditWorkESOPInput {
+    accountId: String!
+    description: String
+    holdings: Float
+    institution: InstitutionInput
+    name: String!
+    value: Float
+}
+
+input HighLevelAccountInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input HighLevelSecuritiesInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input HighLevelTransactionInput {
+    currency: String = "USD"
+    description: String
+    transactionId: String
+    transactionType: String!
+    value: Float!
+    valueDate: DateString!
+}
+
+input ImportFileInput {
+    accountId: String!
+    fileName: String!
+    token: String!
+}
+
+input InstitutionInput {
+    institutionId: String
+    name: String!
+}
+
+input LeaseInput {
+    leaseEnd: DateString!
+    leaseStart: DateString!
+    monthlyRent: Float!
+    name: String!
+    propertyId: String!
+    tenant: String
+}
+
+input LinkYodleeAccountInput {
+    accounts: [LinkedYodleeAccount]
+}
+
+input LinkZaboAccountInput {
+    account: String!
+}
+
+input LinkedYodleeAccount {
+    institutionId: String!
+    providerAccountId: String!
+    requestId: String
+}
+
+input LoanInput {
+    currency: String = "USD"
+    description: String
+    graceMonths: Int = 1
+    institution: InstitutionInput
+    interest: Float!
+    name: String!
+    originalValue: Float!
+    originationDate: DateString!
+    term: Int!
+}
+
+input ManualPortfolioInput {
+    cash: Float
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+}
+
+input MortgageInput {
+    currency: String = "USD"
+    description: String
+    graceMonths: Int = 1
+    includeInsurance: Boolean = false
+    includeTax: Boolean = false
+    institution: InstitutionInput
+    interest: Float!
+    name: String!
+    originalValue: Float!
+    originationDate: DateString!
+    propertyId: String
+    term: Int!
+}
+
+input PersonalBusinessInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    cost: Float
+    currency: String = "USD"
+    description: String
+    foundedDate: DateString!
+    industry: String
+    institution: InstitutionInput
+    name: String!
+    ownership: Float!
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    url: String
+    value: Float = 0.0
+}
+
+input PortfolioTransactionInput {
+    currency: String = "USD"
+    description: String
+    quantity: Float
+    symbol: String
+    transactionId: String
+    transactionType: String!
+    value: Float!
+    valueDate: DateString!
+}
+
+input PrivateEquityInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    commitment: Float!
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+    rate: Float
+    reminder: Boolean = false
+    strategy: String!
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input RealEstateInput {
+    address: JSONString!
+    addressInfo: JSONString
+    currency: String = "USD"
+    description: String!
+    fullAddress: String!
+    images: [String]
+    marketValue: Float!
+    mortgageIds: [String]
+    name: String!
+    neighborhood: String
+    propertyType: String
+    purchaseDate: DateString!
+    purchaseValue: Float!
+    units: String
+    zillowEstimate: Boolean
+    zillowInfo: JSONString
+    zillowValue: Float
+}
+
+input SaveNotificationSettingsInput {
+    activityReports: Boolean
+    monthlyReport: Boolean
+    newFeatures: Boolean
+    weeklySummary: Boolean
+}
+
+input SecuritiesPortfolioInput {
+    cash: Float
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+}
+
+input TimeFrameInput {
+    endDate: DateString
+    startDate: DateString
+    timeFrame: String
+}
+
+input UpdateProfileInput {
+    name: String
+    preferredMfa: String
+}
+
+input UploadExcelInput {
+    existingAssetsAction: String!
+    fileName: String!
+    mismatchAction: String!
+    token: String!
+}
+
+input UploadUserFileInput {
+    accountId: String
+    fileName: String!
+    fileNotes: String
+    token: String!
+}
+
+input VCInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    commitment: Float!
+    currency: String = "USD"
+    description: String
+    institution: InstitutionInput
+    name: String!
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}
+
+input WorkESOPInput {
+    accountSubtype: String
+    accountType: String
+    assetType: String
+    currency: String = "USD"
+    description: String
+    holdings: Float
+    institution: InstitutionInput
+    name: String!
+    rate: Float
+    reminder: Boolean = false
+    transactions: [HighLevelTransactionInput]
+    value: Float = 0.0
+}

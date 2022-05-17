@@ -131,14 +131,14 @@ def yodlee_support(uid):
         data = f.read()
 
     data = json.loads(data)
-    # # # print(da/ta)
+    # print(data)
     accounts = data.get('accounts')
     # # pprint.pprint(accounts)
     # print('------------ accounts ------------')
     for account in accounts:
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
-        if account['providerId'] == '9565':
+        # if account['providerId'] == '31120':
         # if account['id'] in [11841930]:
             # if account['providerName'] == 'E*TRADE':
             # if account['accountName'] == 'Auto Used Fixed':
@@ -156,13 +156,13 @@ def yodlee_support(uid):
     # # # #     if account['name'].startswith('CAITLIN R KLEIN CAPITAL MGMT'):
     # # # #         print(account)
 
-    # print('------------ holdings ------------')
-    # holdings = data.get('holdings')
+    print('------------ holdings ------------')
+    holdings = data.get('holdings')
     # # # # # total = 0
-    # for h in holdings:
-    #     # if h.get('providerAccountId') == 12793061:
-    #     if h.get('accountId') in [14302795, 14302794]:
-    #         pprint.pprint(h)
+    for h in holdings:
+        if h.get('providerAccountId') == 14060205:
+        # if h.get('accountId') in [14302795, 14302794]:
+            pprint.pprint(h)
     # #         ht = h.get('quantity', 0) * h.get('price', {}).get('amount', 0)
     # #         total += ht
     # #         # print(f"{h.get('symbol')} == {ht}")
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '219d11a2-2316-40bb-90a1-8a85346e4e49'
+    uid = '086c2884-5cfd-47d1-adac-7dfe05894e30'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -211,5 +211,5 @@ if __name__ == '__main__':
     #     'original_account_type': 'cash'
     # }, ['account_type', 'original_account_type']))
 
-    # yodlee_support(uid)
+    yodlee_support(uid)
     # yodlee_transaction_history(uid)

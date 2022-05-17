@@ -2,7 +2,7 @@ import csv
 
 import boto3
 
-from clearvalue.analytics import get_internal_users
+from cvanalytics import get_internal_users
 from cvutils.config import get_app_config
 
 if __name__ == '__main__':

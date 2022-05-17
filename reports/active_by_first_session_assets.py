@@ -3,7 +3,7 @@ import csv
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import is_internal_user, get_active_config, is_user_active, iter_active_users
+from cvanalytics import is_internal_user, get_active_config, is_user_active, iter_active_users
 from cvcore.store import loaders, DBKeys
 from cvutils.dynamodb import ddb
 

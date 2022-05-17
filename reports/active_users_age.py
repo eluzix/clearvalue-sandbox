@@ -5,7 +5,7 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.analytics import is_internal_user, is_user_active, get_active_config
+from cvanalytics import is_internal_user, is_user_active, get_active_config
 from cvcore.store import loaders
 from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb

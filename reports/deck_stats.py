@@ -11,7 +11,7 @@ import cvutils as utils
 from clearvalue import app_config
 from clearvalue.lib.search import elastic
 from cvcore.store import loaders
-from clearvalue.analytics import query_cursor
+from cvanalytics import query_cursor
 from cvutils import cognito_utils
 
 _IGNORED_USERS = {'0abbd698-5258-4499-882a-4980dccf11c7', '0cc776bd-3d82-4b21-8c7a-7f278be28206', '0d598d67-dd2f-46f6-8b5b-06e725f00199', '0f02cee3-7ba9-4af1-a127-d82d43d0a4bd',

@@ -6,7 +6,7 @@ import time
 import boto3
 
 from clearvalue import app_config
-from clearvalue.analytics import query_cursor, is_internal_user
+from cvanalytics import query_cursor, is_internal_user
 from clearvalue.lib import utils
 from clearvalue.lib.search import elastic
 

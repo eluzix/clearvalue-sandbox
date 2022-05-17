@@ -6,7 +6,7 @@ import boto3
 
 import cvutils as utils
 from clearvalue import app_config
-from clearvalue.analytics import segment_for_aum, is_internal_user, is_user_active, get_active_config, ACTIVE_GROUPS
+from cvanalytics import segment_for_aum, is_internal_user, is_user_active, get_active_config, ACTIVE_GROUPS
 from cvcore.model.cv_types import AccountTypes
 from cvcore.store import loaders
 from cvcore.store.keys import DBKeys
