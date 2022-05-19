@@ -8,6 +8,7 @@ from cvanalytics import is_internal_user
 from cvcore.store import loaders, DBKeys
 from cvutils import TerminalColors
 
+
 def _load_file(filename):
     users = {}
     with open(filename, 'r') as fin:
@@ -20,12 +21,11 @@ def _load_file(filename):
     return users
 
 
-if __name__ == '__main__':
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
+def beta_dump():
     unsubscribed_users = _load_file('/Users/uzix/Downloads/Claritus_Users_456484_export_2022-05-11_08_20.csv')
     spam_users = _load_file('/Users/uzix/Downloads/Claritus_Users_456493_export_2022-05-11_08_36.csv')
-    enemies = {'4616564c-f30e-4e70-bbfe-3a011b7e3e8e', '661de7d0-a725-4c63-82b6-6e12fbcb09d0', '13f4c524-a7c9-4333-8266-48478affc8a4'}
+    enemies = {'4616564c-f30e-4e70-bbfe-3a011b7e3e8e', '661de7d0-a725-4c63-82b6-6e12fbcb09d0',
+               '13f4c524-a7c9-4333-8266-48478affc8a4'}
 
     with open('/Users/uzix/Downloads/beta_users.csv', 'w') as fout:
         writer = csv.writer(fout)
@@ -63,3 +63,20 @@ if __name__ == '__main__':
             writer.writerow([email, first_name, last_name, join_date, uid, unsubscribed])
 
     print(f'{TerminalColors.OK_GREEN}All done{TerminalColors.END}')
+
+
+def generate_email_only_list():
+    unsubscribed_users = _load_file('/Users/uzix/Downloads/Claritus_Users_461065_export_2022-05-18_17_52.csv')
+    print(unsubscribed_users)
+    with open('/Users/uzix/Downloads/unsubscribed_users.csv', 'w') as fout:
+        writer = csv.writer(fout)
+        writer.writerow(['email'])
+        for uid in unsubscribed_users:
+            writer.writerow([unsubscribed_users[uid]])
+    print(f'{TerminalColors.OK_GREEN}All done{TerminalColors.END}')
+
+
+if __name__ == '__main__':
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
+    generate_email_only_list()
