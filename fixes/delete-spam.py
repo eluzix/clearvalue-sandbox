@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 
@@ -89,7 +90,7 @@ def delete_spam_user(user):
         'created_at': cvutils.timestamp_from_date(delete_request_date),
     }
     ddb.put_item(store_table_name, delete_request)
-    print(f'done deleting {uid}')
+    print(f'done deleting {uid} ({email})')
 
 
 def print_emails():
@@ -108,6 +109,23 @@ def dump_all_deleted_to_spam():
     ddb.batch_write_items(app_config.resource_name('store'), batch)
 
 
+def delete_from_klaviyo():
+    users = {u['email']: u for u in loaders.iter_users()}
+    with open('/Users/uzix/Downloads/spam_users_from_klaviyo.csv', 'r') as fin:
+        reader = csv.reader(fin)
+        reader.__next__()
+        count = 0
+        for row in reader:
+            spam_user = users.get(row[0])
+            if spam_user is None:
+                print(f'Skipping {TerminalColors.WARNING}{row[0]}{TerminalColors.END}')
+                continue
+
+            delete_spam_user(spam_user)
+            count += 1
+
+        print(f'Deleted {TerminalColors.OK_GREEN}{count}{TerminalColors.END} users')
+
 if __name__ == '__main__':
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
@@ -115,10 +133,12 @@ if __name__ == '__main__':
     # print_emails()
     # add_to_spam_users(_load_users())
     # dump_users()
-    # dump_all_deleted_to_spam()
+    dump_all_deleted_to_spam()
     # all_users = _load_users()
     # for user in _load_users():
     #     delete_spam_user(user)
+
+    # delete_from_klaviyo()
 
 
     print(f'All done...')
