@@ -1,5 +1,6 @@
 import datetime
 import json
+from enum import Enum
 
 import boto3
 
@@ -11,7 +12,8 @@ from cvanalytics import iter_active_users, is_user_active, query_cursor
 from cvcore.store import DBKeys, loaders
 from cvutils.dynamodb import ddb
 
-if __name__ == '__main__':
+
+def users():
     boto_session = boto3.session.Session(profile_name='clearvalue-sls')
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
@@ -21,7 +23,6 @@ if __name__ == '__main__':
     #
     # with open('/Users/uzix/Downloads/users.json', 'w') as fout:
     #     json.dump({'stats': stats_users, 'users': all_users}, fout, cls=cvutils.ValueEncoder)
-
 
     with open('/Users/uzix/Downloads/users.json', 'r') as fin:
         js = json.load(fin)
@@ -35,7 +36,6 @@ if __name__ == '__main__':
         if is_user_active(user):
             actives += 1
             active_ids.add(user[DBKeys.HASH_KEY])
-
 
     client = elastic.client(boto_session=boto_session)
     # dt = cvutils.yesterday()
@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     print(f'total actives {TerminalColors.OK_GREEN}{actives}{TerminalColors.END}')
     print(f'total logins {TerminalColors.WARNING}{logins}{TerminalColors.END}')
-    print(login_ids-active_ids)
+    print(login_ids - active_ids)
 
     # table_name = app_config.resource_name('analytics')
     # count = ddb.get_connection().query(TableName=table_name, Select='COUNT',
@@ -102,3 +102,22 @@ if __name__ == '__main__':
     #     account_id = '1a0e3e9f-5b74-4387-912b-8fe60b0b83ee'
     #     account = ddb.get_item(app_config.resource_name('accounts'), DBKeys.user_account(uid, account_id))
     #     process_crypto_transactions(reader, uid, account)
+
+def _enum():
+    class HoldingType(Enum):
+        CASH = 'cash'
+        DERIVATIVE = 'derivative'
+        EQUITY = 'equity'
+
+        @classmethod
+        def _missing_(cls, value):
+            if value == 'et':
+                return cls(HoldingType.EQUITY)
+
+            return super()._missing_(value)
+
+    print(HoldingType('et'))
+
+
+if __name__ == '__main__':
+    _enum()
