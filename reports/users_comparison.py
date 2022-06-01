@@ -6,7 +6,7 @@ import numpy as np
 
 import cvutils
 from clearvalue import app_config
-from clearvalue.analytics import query_cursor, is_internal_user
+from clearvalue.analytics import query_cursor, ignore_user_analytics
 from cvcore.store import DBKeys
 from cvutils import elastic
 from cvutils.dynamodb import ddb
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         uid = source.get('uid')
         if uid is None:
             continue
-        if is_internal_user(uid):
+        if ignore_user_analytics(uid):
             continue
 
         doc_date = datetime.datetime.strptime(source['ts'], '%Y-%m-%dT%H:%M:%S.%f%z')
