@@ -120,4 +120,7 @@ def _enum():
 
 
 if __name__ == '__main__':
-    _enum()
+    # _enum()
+    dt = cvutils.date_from_timestamp(1653987600)
+    dt = dt + datetime.timedelta(days=1)
+    print(cvutils.timestamp_from_date(dt))
