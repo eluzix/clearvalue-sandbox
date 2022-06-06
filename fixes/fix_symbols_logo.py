@@ -7,8 +7,10 @@ from cvutils.config import get_app_config
 from cvutils.dynamodb import ddb
 
 if __name__ == '__main__':
-    boto3.setup_default_session(profile_name='clearvalue-sls')
-    app_config.set_stage('prod')
+    # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
+    # app_config.set_stage('staging')
+    # boto3.setup_default_session(profile_name='clearvalue-sls')
+    # app_config.set_stage('prod')
 
     market_table = app_config.resource_name('market')
     items = ddb.query(market_table,
@@ -30,11 +32,11 @@ if __name__ == '__main__':
 
     print(f'total symbols: {len(all_symbols)}')
     print(all_symbols)
-    # count = 1
-    # for chunk in cvutils.grouper(list(all_symbols), 10):
-    #     symbols = [c for c in chunk if c is not None]
-    #     print(f'Executing run {count}')
-    #     loaders.load_security_info(symbols, force_reload=True)
-    #     count += 1
+    count = 1
+    for chunk in cvutils.grouper(list(all_symbols), 10):
+        symbols = [c for c in chunk if c is not None]
+        print(f'Executing run {count}')
+        loaders.load_security_info(symbols, force_reload=True)
+        count += 1
 
     print(f'All done')
