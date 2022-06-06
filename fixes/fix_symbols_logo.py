@@ -13,7 +13,7 @@ if __name__ == '__main__':
     market_table = app_config.resource_name('market')
     items = ddb.query(market_table,
                       IndexName='GS1-index',
-                      ProjectionExpression='symbol,logo',
+                      ProjectionExpression='SortKey, symbol,logo',
                       KeyConditionExpression='GS1Hash = :HashKey',
                       ExpressionAttributeValues={
                           ':HashKey': ddb.serialize_value('ALL_SECURITIES'),
@@ -23,14 +23,18 @@ if __name__ == '__main__':
     for item in items:
         if 'logo' in item:
             continue
+        if item['SortKey'] == 'INFO':
+            continue
 
         all_symbols.add(item['symbol'])
 
-    count = 1
-    for chunk in cvutils.grouper(list(all_symbols), 10):
-        symbols = [c for c in chunk if c is not None]
-        print(f'Executing run {count}')
-        loaders.load_security_info(symbols, force_reload=True)
-        count += 1
+    print(f'total symbols: {len(all_symbols)}')
+    print(all_symbols)
+    # count = 1
+    # for chunk in cvutils.grouper(list(all_symbols), 10):
+    #     symbols = [c for c in chunk if c is not None]
+    #     print(f'Executing run {count}')
+    #     loaders.load_security_info(symbols, force_reload=True)
+    #     count += 1
 
     print(f'All done')
