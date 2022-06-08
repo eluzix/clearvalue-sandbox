@@ -18,14 +18,14 @@ def dump_json():
             "should": [
                 {"exists": {"field": "total_joins"}},
                 {"exists": {"field": "active_stats_segment_count"}},
-                {"exists": {"field": "active_45days_30age_stats_segment_count"}},
+                {"exists": {"field": "active_90days_30age_stats_segment_count"}},
                 {"exists": {"field": "active_1type_30age_4sessions_stats_segment_count"}},
             ],
             'filter': [{
                 "range": {
                     "report_date": {
                         "gte": '2020-11-01',
-                        "lte": '2021-10-13',
+                        "lte": '2022-05-16',
                         'format': 'yyyy-MM-dd'
                     }
                 }
@@ -39,8 +39,8 @@ def dump_json():
         date_data = data.get(source['report_date'], {})
         if 'active_stats_segment_count' in source:
             date_data['active_stats_segment_count'] = source['active_stats_segment_count']
-        if 'active_45days_30age_stats_segment_count' in source:
-            date_data['active_45days_30age_stats_segment_count'] = source['active_45days_30age_stats_segment_count']
+        if 'active_90days_30age_stats_segment_count' in source:
+            date_data['active_90days_30age_stats_segment_count'] = source['active_90days_30age_stats_segment_count']
         if 'active_1type_30age_4sessions_stats_segment_count' in source:
             date_data['active_1type_30age_4sessions_stats_segment_count'] = source['active_1type_30age_4sessions_stats_segment_count']
         data[source['report_date']] = date_data
@@ -63,13 +63,13 @@ def dump_csv():
 
     with open('active_vs_new.csv', 'w') as fout:
         writer = csv.writer(fout)
-        writer.writerow(['Date', 'Active 30', 'Active 45', 'Intercom', 'Joins'])
+        writer.writerow(['Date', 'Active 30', 'Active 90', 'Intercom', 'Joins'])
         keys = list(js.keys())
         keys.sort()
         for report_date in keys:
             source = js[report_date]
             writer.writerow([report_date, source['active_stats_segment_count'],
-                             source['active_45days_30age_stats_segment_count'], source['active_1type_30age_4sessions_stats_segment_count'],
+                             source['active_90days_30age_stats_segment_count'], source['active_1type_30age_4sessions_stats_segment_count'],
                              source['total_joins']])
 
 

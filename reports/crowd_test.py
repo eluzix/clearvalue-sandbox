@@ -161,14 +161,23 @@ def _all_security_types():
     return ['etf', 'equity', 'mutual fund', 'bond', 'option', 'mutualfund', 'other']
 
 
+_sectors_cache = None
+
+
 def _all_sectors():
-    return ['realestate', 'consumer cyclical',
-            'basic materials', 'consumer defensive',
-            'technology', 'communication services',
-            'financial services', 'utilities',
-            'industrials', 'energy',
-            'healthcare', 'other',
-            'real estate', 'services']
+    global _sectors_cache
+    if _sectors_cache is None:
+        with open('../../clearvalue-api/resources/sectors.json', 'r') as fin:
+            _sectors_cache = [s.lower() for s in json.load(fin)]
+
+    return _sectors_cache
+    # return ['realestate', 'consumer cyclical',
+    #         'basic materials', 'consumer defensive',
+    #         'technology', 'communication services',
+    #         'financial services', 'utilities',
+    #         'industrials', 'energy',
+    #         'healthcare', 'other',
+    #         'real estate', 'services']
 
 
 def _color(val, color):
@@ -226,12 +235,13 @@ def analyze_all_users_holdings():
 
     for sector in all_sectors:
         mean = np.sum(all_sectors[sector])
-        # print(f'For {_color(sector, TerminalColors.OK_CYAN)} '
-        #       f'total: {_color(_total_sectors, TerminalColors.OK_GREEN)} '
-        #       f'mean: {_color(mean, TerminalColors.OK_GREEN)} '
-        #       f'result: {_color(mean / _total_sectors, TerminalColors.OK_GREEN)} '
-        #       f'')
-        print(f'{sector}, {mean}, {mean / _total_sectors}')
+        print(f'For {_color(sector, TerminalColors.OK_CYAN)} '
+              f'total: {_color(_total_sectors, TerminalColors.OK_GREEN)} '
+              f'mean: {_color(mean, TerminalColors.OK_GREEN)} '
+              f'result: {_color(mean / _total_sectors, TerminalColors.OK_GREEN)} '
+              f'')
+        # print(f'{sector}, {mean}, {mean / _total_sectors}')
+    # print(f'>>>>>>> _total_sectors: {_total_sectors}')
 
 
 if __name__ == '__main__':
