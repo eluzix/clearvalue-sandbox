@@ -72,9 +72,12 @@ def handle_user_accounts(uid):
 
                 trans_value = float(quantity_gap * current_value)
                 print(f'[{account_id}] for {symbol} creating {transaction_type} transaction with {quantity_gap} units at {transaction_date} for value {trans_value}')
+                sort_key = f"{DBKeys.account_transaction(transaction_date, int(h['created_at']))}:{symbol}"
                 batch.append({
                     DBKeys.HASH_KEY: account_id,
-                    DBKeys.SORT_KEY: f"{DBKeys.account_transaction(transaction_date, int(h['created_at']))}:{symbol}",
+                    DBKeys.SORT_KEY: sort_key,
+                    DBKeys.GS3_HASH: uid,
+                    DBKeys.GS3_SORT: sort_key,
                     'uid': uid,
                     'transaction_id': utils.generate_id(),
                     'transaction_date': utils.date_to_str(transaction_date),
