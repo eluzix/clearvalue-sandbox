@@ -1,6 +1,9 @@
-query AllTags($timeFrameInput: TimeFrameInput!) {
-    allTags(timeFrameInput: $timeFrameInput) {
-        tagId
-        name
+query RecentNews($symbols: [String]!) {
+    recentSymbolsNews(symbols: $symbols) {
+        symbol
+        title
+        url
+        image
+        newsDatetime
     }
 }
