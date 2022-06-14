@@ -5,6 +5,7 @@ from enum import Enum
 import boto3
 
 import cvutils
+from clearvalue.gql.schema.providers import _load_symbol_news
 from cvanalytics.daily_report import _should_filter_user
 from cvutils import TerminalColors, elastic
 from clearvalue import app_config
@@ -120,7 +121,4 @@ def _enum():
 
 
 if __name__ == '__main__':
-    # _enum()
-    dt = cvutils.date_from_timestamp(1653987600)
-    dt = dt + datetime.timedelta(days=1)
-    print(cvutils.timestamp_from_date(dt))
+    print(_load_symbol_news('ASDFASDFASDF'))
