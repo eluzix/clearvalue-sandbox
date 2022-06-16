@@ -5,13 +5,11 @@ from enum import Enum
 import boto3
 
 import cvutils
-from clearvalue.gql.schema.providers import _load_symbol_news
 from cvanalytics.daily_report import _should_filter_user
 from cvutils import TerminalColors, elastic
 from clearvalue import app_config
-from cvanalytics import iter_active_users, is_user_active, query_cursor
+from cvanalytics import is_user_active, query_cursor
 from cvcore.store import DBKeys, loaders
-from cvutils.dynamodb import ddb
 
 
 def users():
@@ -104,6 +102,7 @@ def users():
     #     account = ddb.get_item(app_config.resource_name('accounts'), DBKeys.user_account(uid, account_id))
     #     process_crypto_transactions(reader, uid, account)
 
+
 def _enum():
     class HoldingType(Enum):
         CASH = 'cash'
@@ -120,5 +119,27 @@ def _enum():
     print(HoldingType('et'))
 
 
+def migrate_transactions():
+    queue_url = app_config['sqs']['user.calcs.url']
+    sqs = cvutils.boto3_client('sqs')
+    # .send_message(QueueUrl=queue_url, MessageBody=json.dumps(msg))
+
+    all_users = []
+    for user in loaders.iter_users():
+        uid = user[DBKeys.HASH_KEY]
+        all_users.append({
+            'Id': f'tr-{uid}',
+            'MessageBody': json.dumps({'uid': uid, 'action': 'migrate-transactions'})
+        })
+
+    for chunk in cvutils.grouper(all_users, 10):
+        chunk = [c for c in chunk if c is not None]
+        sqs.send_message_batch(QueueUrl=queue_url, Entries=chunk)
+
+
 if __name__ == '__main__':
-    print(_load_symbol_news('ASDFASDFASDF'))
+    # print(_load_symbol_news('ASDFASDFASDF'))
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
+
+    migrate_transactions()
