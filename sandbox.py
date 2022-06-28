@@ -5,11 +5,10 @@ from enum import Enum
 import boto3
 
 import cvutils
-from clearvalue.gql.schema.providers import _load_symbol_news
 from cvanalytics.daily_report import _should_filter_user
 from cvutils import TerminalColors, elastic
 from clearvalue import app_config
-from cvanalytics import iter_active_users, is_user_active, query_cursor
+from cvanalytics import is_user_active, query_cursor
 from cvcore.store import DBKeys, loaders
 from cvutils.dynamodb import ddb
 
@@ -104,6 +103,7 @@ def users():
     #     account = ddb.get_item(app_config.resource_name('accounts'), DBKeys.user_account(uid, account_id))
     #     process_crypto_transactions(reader, uid, account)
 
+
 def _enum():
     class HoldingType(Enum):
         CASH = 'cash'
@@ -120,5 +120,51 @@ def _enum():
     print(HoldingType('et'))
 
 
+def migrate_transactions():
+    pass
+    # queue_url = app_config['sqs']['user.calcs.url']
+    # sqs = cvutils.boto3_client('sqs')
+    # # .send_message(QueueUrl=queue_url, MessageBody=json.dumps(msg))
+    #
+    # all_users = []
+    # for user in loaders.iter_users():
+    #     uid = user[DBKeys.HASH_KEY]
+    #     all_users.append({
+    #         'Id': f'tr-{uid}',
+    #         'MessageBody': json.dumps({'uid': uid, 'action': 'migrate-transactions'})
+    #     })
+    #
+    # for chunk in cvutils.grouper(all_users, 10):
+    #     chunk = [c for c in chunk if c is not None]
+    #     sqs.send_message_batch(QueueUrl=queue_url, Entries=chunk)
+
+
+def fix_mortgage():
+    table_name = app_config.resource_name('accounts')
+    account_id = '9624af37-9d9a-4710-9317-0144f484e692'
+    all_tps = ddb.query(app_config.resource_name('accounts'),
+                        KeyConditionExpression='HashKey = :HashKey AND SortKey >= :SortKey',
+                        ExpressionAttributeValues={
+                            ':HashKey': ddb.serialize_value(account_id),
+                            ':SortKey': ddb.serialize_value('AC:TP:2021-03-03')
+                        })
+    batch = []
+    for tp in all_tps:
+        if tp[DBKeys.SORT_KEY].startswith('AC:TP:'):
+            print(f'{TerminalColors.OK_GREEN}{tp["SortKey"]}{TerminalColors.END} == {TerminalColors.WARNING}{tp["value"]}{TerminalColors.END}')
+            tp['old_value'] = tp['value']
+            tp['value'] = 0
+            batch.append(tp)
+
+    if len(batch) > 0:
+        print(f'Updating {len(batch)} items')
+        ddb.batch_write_items(table_name, batch)
+
+
 if __name__ == '__main__':
-    print(_load_symbol_news('ASDFASDFASDF'))
+    # print(_load_symbol_news('ASDFASDFASDF'))
+    boto3.setup_default_session(profile_name='clearvalue-sls')
+    app_config.set_stage('prod')
+
+    # migrate_transactions()
+    fix_mortgage()
