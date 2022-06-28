@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = '2458469a-6b53-4fa0-825a-2e6202f06e7e'
+    uid = '92cbfb62-60a0-44d3-afd0-bfc09d293e4f'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -78,14 +78,14 @@ if __name__ == '__main__':
     #                                                                                              'startDate': '2021-07-01',
     #                                                                                              'endDate': '2021-07-31'
     #                                                                                              })
-    # ret = local_queries.securities_holdings_data(uid, '259972ba-4c5b-4468-85d3-5055a28a688e', tf={'timeFrame': '30days',
-    #                                                                                               'startDate': '2016-04-01',
-    #                                                                                               'endDate': '2021-03-23'
-    #                                                                                               })
-    ret = local_queries.home_info(uid, tf={'timeFrame': '30days',
-                                           'startDate': '2012-01-01',
-                                           'endDate': '2021-03-23'
-                                           })
+    ret = local_queries.securities_holdings_data(uid, 'eb622bb7-e6f5-4222-8cfc-7d74154468b2', tf={'timeFrame': '30days',
+                                                                                                  'startDate': '2016-04-01',
+                                                                                                  'endDate': '2021-03-23'
+                                                                                                  })
+    # ret = local_queries.home_info(uid, tf={'timeFrame': '30days',
+    #                                        'startDate': '2012-01-01',
+    #                                        'endDate': '2021-03-23'
+    #                                        })
 
     # ret = local_queries.crypto_type_data(uid)
     # ret = local_queries.crypto_account_info(uid, '7ec5a023-f559-4205-a84e-234165a71972')
