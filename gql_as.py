@@ -40,9 +40,9 @@ if __name__ == '__main__':
 
     tp1 = time.time()
     # pprint.pprint(asset_type_history(uid, 'loans', base_asset_type='liability'))
-    ret = local_queries.mortgages_type_data(uid, tf={'timeFrame': '30days',
-                                                     'startDate': '2019-05-01',
-                                                     'endDate': '2021-04-04'
+    ret = local_queries.mortgages_type_data(uid, tf={'timeFrame': 'custom',
+                                                     'startDate': '2021-02-01',
+                                                     'endDate': '2022-07-12'
                                                      })
     # ret = loans_type_data(uid, tf={'timeFrame': '30days',
     #                                'startDate': '2019-05-01',
