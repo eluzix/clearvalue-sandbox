@@ -102,7 +102,8 @@ def symbol_event_fix(uid, symbol):
         queue_url = app_config['sqs']['account.calcs.url']
         for account_id in accounts:
             print(f'Calling for {TerminalColors.OK_GREEN}{uid} / {account_id}{TerminalColors.END}')
-            msg = {'uid': uid, 'account_id': account_id, 'action': 'manual-sp-recalc'}
+            # msg = {'uid': uid, 'account_id': account_id, 'action': 'manual-sp-recalc'}
+            msg = {'uid': uid, 'account_id': account_id, 'action': 'manual-sp-quantity-recalc'}
             sqs.send_message(QueueUrl=queue_url, MessageBody=json.dumps(msg))
 
 def recalc_sp_quantity(uid, account_id):
@@ -131,5 +132,5 @@ if __name__ == '__main__':
     #     symbol_event_fix(uid, 'AMZN')
     #     # detailed_crypto_accounts(uid)
     # detailed_crypto_accounts('b062003d-408f-4a60-8795-7f83081be5be')
-    # symbol_event_fix('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'AMZN')
-    recalc_sp_quantity('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'b49148e6-e7da-4183-b014-b5abfbd33e84')
+    symbol_event_fix('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'AMZN')
+    # recalc_sp_quantity('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'b49148e6-e7da-4183-b014-b5abfbd33e84')
