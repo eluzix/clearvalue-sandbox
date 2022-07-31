@@ -164,7 +164,7 @@ def fix_mortgage():
 
 
 def amazon():
-    data = loaders.load_securities_history(['amzn'], load_since='2022-05-01')
+    data = loaders.load_securities_history(['aapl'], load_since='2014-08-01')
     print(data)
 
 

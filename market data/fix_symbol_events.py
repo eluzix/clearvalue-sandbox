@@ -14,7 +14,7 @@ if __name__ == '__main__':
     # app_config.set_stage('staging')
 
     api_token = app_config['iexcloud']['key']
-    base_url = f'{app_config["iexcloud"]["base_url"]}/stock/AMZN/splits/1y'
+    base_url = f'{app_config["iexcloud"]["base_url"]}/stock/AAPL/splits/5y'
     params = {
         'token': api_token,
     }
@@ -56,5 +56,5 @@ if __name__ == '__main__':
 
     if len(batch) > 0:
         print(f'Writing {len(batch)} records')
-        ddb.batch_write_items(app_config.resource_name('market'), batch)
+        # ddb.batch_write_items(app_config.resource_name('market'), batch)
     print('*** All Done ***')

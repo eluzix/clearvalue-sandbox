@@ -132,5 +132,9 @@ if __name__ == '__main__':
     #     symbol_event_fix(uid, 'AMZN')
     #     # detailed_crypto_accounts(uid)
     # detailed_crypto_accounts('b062003d-408f-4a60-8795-7f83081be5be')
-    symbol_event_fix('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'AMZN')
+    for user in loaders.iter_users():
+        uid = user[DBKeys.HASH_KEY]
+        symbol_event_fix(uid, 'AMZN')
+
+    # symbol_event_fix('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'AMZN')
     # recalc_sp_quantity('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'b49148e6-e7da-4183-b014-b5abfbd33e84')
