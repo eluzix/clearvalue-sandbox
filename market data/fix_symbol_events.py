@@ -2,6 +2,7 @@ import boto3
 import requests
 
 from clearvalue import app_config
+from cvcore.providers import iexcloud
 from cvcore.store.keys import DBKeys
 from cvutils.dynamodb import ddb
 
@@ -12,8 +13,8 @@ if __name__ == '__main__':
     # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
     # app_config.set_stage('staging')
 
-    api_token = app_config['providers']['iexcloud']['key']
-    base_url = f'{app_config["providers"]["iexcloud"]["base_url"]}/stock/AMZN/dividends/3m'
+    api_token = app_config['iexcloud']['key']
+    base_url = f'{app_config["iexcloud"]["base_url"]}/stock/AMZN/splits/1y'
     params = {
         'token': api_token,
     }
@@ -43,12 +44,12 @@ if __name__ == '__main__':
         if event_date is None:
             continue
 
-        k = f'dividend, {symbol}, {event_date}'
+        k = f'split, {symbol}, {event_date}'
         if k in keys:
             continue
 
         keys.add(k)
-        event.update(update_func('dividend', symbol, event_date))
+        event.update(update_func('split', symbol, event_date))
         batch.append(event)
 
     print(batch)

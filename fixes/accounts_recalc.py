@@ -5,10 +5,12 @@ import boto3
 import cvutils
 from clearvalue import app_config
 from cvcore.calcs import rerun_account_calcs
+from cvcore.calcs.portfolio import update_sp_quantity_from_transactions
 from cvcore.store.keys import DBKeys
 from cvcore.store import loaders
 from cvcore.model.cv_types import AccountTypes, AccountStatus
 from cvutils.dynamodb import ddb
+from cvutils import TerminalColors
 
 
 def vc_fix(uid):
@@ -78,6 +80,34 @@ def detailed_crypto_accounts(uid):
         sqs.send_message(QueueUrl=queue_url, MessageBody=json.dumps(msg))
 
 
+def symbol_event_fix(uid, symbol):
+    holdings = ddb.query(app_config.resource_name('accounts'),
+                         IndexName='GS1-index',
+                         KeyConditionExpression=f'{DBKeys.GS1_HASH} = :HashKey AND begins_with({DBKeys.GS1_SORT}, :SortKey)',
+                         FilterExpression='symbol = :symbol',
+                         ExpressionAttributeValues={
+                             ':HashKey': ddb.serialize_value(uid),
+                             ':SortKey': ddb.serialize_value(DBKeys.account_holding()),
+                             ':symbol': ddb.serialize_value(symbol),
+                         })
+    accounts = set()
+    ed = cvutils.date_from_str('2022-06-10')
+    for h in holdings:
+        created = h.get('holding_setup_at', h['created_at'])
+        if cvutils.date_from_timestamp(created) <= ed:
+            accounts.add(h['account_id'])
+
+    if len(accounts) > 0:
+        sqs = cvutils.boto3_client('sqs')
+        queue_url = app_config['sqs']['account.calcs.url']
+        for account_id in accounts:
+            print(f'Calling for {TerminalColors.OK_GREEN}{uid} / {account_id}{TerminalColors.END}')
+            msg = {'uid': uid, 'account_id': account_id, 'action': 'manual-sp-recalc'}
+            sqs.send_message(QueueUrl=queue_url, MessageBody=json.dumps(msg))
+
+def recalc_sp_quantity(uid, account_id):
+    update_sp_quantity_from_transactions(uid, account_id)
+
 if __name__ == '__main__':
     # boto3.setup_default_session(profile_name='clearvalue-stage-sls')
     # app_config.set_stage('staging')
@@ -96,7 +126,10 @@ if __name__ == '__main__':
     #     if uid is not None:
     #         vc_fix(uid)
 
-    for user in loaders.iter_users():
-        uid = user[DBKeys.HASH_KEY]
-        detailed_crypto_accounts(uid)
+    # for user in loaders.iter_users():
+    #     uid = user[DBKeys.HASH_KEY]
+    #     symbol_event_fix(uid, 'AMZN')
+    #     # detailed_crypto_accounts(uid)
     # detailed_crypto_accounts('b062003d-408f-4a60-8795-7f83081be5be')
+    # symbol_event_fix('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'AMZN')
+    recalc_sp_quantity('d8afae75-d4ab-4264-a531-cbea8d68e5f7', 'b49148e6-e7da-4183-b014-b5abfbd33e84')
