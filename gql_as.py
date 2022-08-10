@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # uid = '80668c5e-84a9-479f-b969-1c5bd51b5932'
 
     # prod user
-    uid = '92cbfb62-60a0-44d3-afd0-bfc09d293e4f'
+    uid = '825a36ed-0278-43e0-92c1-cee92314da05'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'
@@ -40,9 +40,9 @@ if __name__ == '__main__':
 
     tp1 = time.time()
     # pprint.pprint(asset_type_history(uid, 'loans', base_asset_type='liability'))
-    # ret = local_queries.mortgages_type_data(uid, tf={'timeFrame': '30days',
-    #                                                  'startDate': '2019-05-01',
-    #                                                  'endDate': '2021-04-04'
+    # ret = local_queries.mortgages_type_data(uid, tf={'timeFrame': 'custom',
+    #                                                  'startDate': '2021-02-01',
+    #                                                  'endDate': '2022-07-12'
     #                                                  })
     # ret = loans_type_data(uid, tf={'timeFrame': '30days',
     #                                'startDate': '2019-05-01',
@@ -74,14 +74,14 @@ if __name__ == '__main__':
     #                                                   'startDate': '2021-05-15',
     #                                                   'endDate': '2021-06-16'
     #                                                   })
-    # ret = local_queries.securities_account_info(uid, '259972ba-4c5b-4468-85d3-5055a28a688e', tf={'timeFrame': '30days',
-    #                                                                                              'startDate': '2021-07-01',
-    #                                                                                              'endDate': '2021-07-31'
-    #                                                                                              })
-    ret = local_queries.securities_holdings_data(uid, 'eb622bb7-e6f5-4222-8cfc-7d74154468b2', tf={'timeFrame': '30days',
-                                                                                                  'startDate': '2016-04-01',
-                                                                                                  'endDate': '2021-03-23'
-                                                                                                  })
+    ret = local_queries.securities_account_info(uid, '4c62dd02-87f6-45c9-9b95-e2aedb95078f', tf={'timeFrame': '30days',
+                                                                                                 'startDate': '2021-07-01',
+                                                                                                 'endDate': '2021-07-31'
+                                                                                                 })
+    # ret = local_queries.securities_holdings_data(uid, '259972ba-4c5b-4468-85d3-5055a28a688e', tf={'timeFrame': '30days',
+    #                                                                                               'startDate': '2016-04-01',
+    #                                                                                               'endDate': '2021-03-23'
+    #                                                                                               })
     # ret = local_queries.home_info(uid, tf={'timeFrame': '30days',
     #                                        'startDate': '2012-01-01',
     #                                        'endDate': '2021-03-23'

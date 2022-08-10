@@ -139,7 +139,7 @@ def yodlee_support(uid):
         # if account['CONTAINER'] == 'loan' and account['accountType'] == 'MORTGAGE':
         # if account['CONTAINER'] == 'loan':
         # if account['providerId'] == '31120':
-        # if account['id'] in [11841930]:
+        if account['id'] in [15077678]:
             # if account['providerName'] == 'E*TRADE':
             # if account['accountName'] == 'Auto Used Fixed':
             #     print(f"For account {account['accountName']}@{account['providerName']}, nextUpdateScheduled: {account['dataset'][0].get('nextUpdateScheduled')}, dataset: {account['dataset']}")
@@ -160,7 +160,8 @@ def yodlee_support(uid):
     holdings = data.get('holdings')
     # # # # # total = 0
     for h in holdings:
-        if h.get('providerAccountId') == 14060205:
+        if h.get('providerAccountId') == 13304730:
+        # if h.get('symbol') == 'EAST':
         # if h.get('accountId') in [14302795, 14302794]:
             pprint.pprint(h)
     # #         ht = h.get('quantity', 0) * h.get('price', {}).get('amount', 0)
@@ -198,7 +199,7 @@ if __name__ == '__main__':
     # delete_hash_key('3e38b778-89eb-47ad-918a-865b80ea3bf0')
 
     # production user
-    uid = '086c2884-5cfd-47d1-adac-7dfe05894e30'
+    uid = '4b88b865-29d8-43df-9f4a-304d18af89cf'
 
     # demo account
     # uid = '4aaa981b-004b-4c39-a743-979ee062ddee'

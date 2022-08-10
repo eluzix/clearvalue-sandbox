@@ -1,3 +1,4 @@
+import asyncio
 import datetime
 import json
 from enum import Enum
@@ -151,7 +152,8 @@ def fix_mortgage():
     batch = []
     for tp in all_tps:
         if tp[DBKeys.SORT_KEY].startswith('AC:TP:'):
-            print(f'{TerminalColors.OK_GREEN}{tp["SortKey"]}{TerminalColors.END} == {TerminalColors.WARNING}{tp["value"]}{TerminalColors.END}')
+            print(
+                f'{TerminalColors.OK_GREEN}{tp["SortKey"]}{TerminalColors.END} == {TerminalColors.WARNING}{tp["value"]}{TerminalColors.END}')
             tp['old_value'] = tp['value']
             tp['value'] = 0
             batch.append(tp)
@@ -161,10 +163,18 @@ def fix_mortgage():
         ddb.batch_write_items(table_name, batch)
 
 
+def amazon():
+    data = loaders.load_securities_history(['aapl'], load_since='2014-08-01')
+    print(data)
+
+
 if __name__ == '__main__':
     # print(_load_symbol_news('ASDFASDFASDF'))
     boto3.setup_default_session(profile_name='clearvalue-sls')
     app_config.set_stage('prod')
 
     # migrate_transactions()
-    fix_mortgage()
+    # fix_mortgage()
+    # loop = asyncio.get_running_loop()
+    # loop.run_until_complete(asyncio.create_task(test_async))
+    amazon()
